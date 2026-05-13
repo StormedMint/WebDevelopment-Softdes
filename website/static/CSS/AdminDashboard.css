@@ -1,0 +1,462 @@
+
+
+
+.glass-header {
+    justify-self: center;
+    
+    width: 99%;
+    min-width: 900px;
+    max-width: 1200px;
+    margin-top: 10px;
+    padding: 18px 10px;
+    margin-bottom: 5px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    text-align: center;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.glass-header h1 {
+    color: white;
+    margin: 0;
+    font-size: 40px;
+    letter-spacing: 2px;
+}
+
+body {
+    margin:0;
+    font-size: xx-large;
+    font-family: 'Poppins', sans-serif;
+    background: url("../IMG/second-floor-library.jpg") no-repeat center center fixed;
+    background-size: cover;
+   
+}
+
+
+.nav-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr;    
+    gap: 20px;
+    padding: 15px;
+
+    /* Subtract the header height (approx) to prevent vertical scroll */
+    height: calc(100vh - 150px); 
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+}
+
+
+
+/* GLASS PANEL for MANAGE ACCOUNTS */
+    .glass-panel-acc {
+        
+        height: 300px;
+        width: auto;
+        padding: 20px;
+        margin: 0px;
+        position: relative; /* IMPORTANT */
+        overflow: hidden;   /* hides image edges */
+
+        border-radius: 16px;
+
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.3s ease;
+
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .glass-panel-acc::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image: url("../IMG/HoverImageUserAccManagement.png");
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 0;
+    }
+
+    .glass-panel-acc:hover::before {
+        opacity: 0.7;
+    }
+
+    .glass-panel-acc:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* BUTTON INSIDE PANEL */
+    .glass-panel-acc button {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 40px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+    }
+
+/* GLASS PANEL for CAPACITY TRACKER */
+    .glass-panel-cap {
+        
+        height: 300px;
+        width: auto;
+        padding: 20px;
+        margin: 0px;
+        position: relative; /* IMPORTANT */
+        overflow: hidden;   /* hides image edges */
+
+        border-radius: 16px;
+
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.3s ease;
+
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .glass-panel-cap::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image: url("../IMG/HoverImageUserAccManagement.png");
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 0;
+    }
+
+    .glass-panel-cap:hover::before {
+        opacity: 0.7;
+    }
+
+    .glass-panel-cap:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* BUTTON INSIDE PANEL */
+    .glass-panel-cap button {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 40px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+    }
+
+/* GLASS PANEL for ROOM RESERVATION */
+    .glass-panel-reser {
+        
+        height: 300px;
+        width: auto;
+        padding: 20px;
+        margin: 0px;
+        position: relative; /* IMPORTANT */
+        overflow: hidden;   /* hides image edges */
+
+        border-radius: 16px;
+
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.3s ease;
+
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .glass-panel-reser::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image: url("../IMG/HoverImageUserAccManagement.png");
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 0;
+    }
+
+    .glass-panel-reser:hover::before {
+        opacity: 0.7;
+    }
+
+    .glass-panel-reser:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* BUTTON INSIDE PANEL */
+    .glass-panel-reser button {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 40px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+    }
+
+/* GLASS PANEL for LOST AND FOUND */
+    .glass-panel-LF {
+        
+        height: 300px;
+        width: auto;
+        padding: 20px;
+        margin: 0px;
+        position: relative; /* IMPORTANT */
+        overflow: hidden;   /* hides image edges */
+
+        border-radius: 16px;
+
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.3s ease;
+
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .glass-panel-LF::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background-image: url("../IMG/HoverImageUserAccManagement.png");
+        background-size: cover;
+        background-position: center;
+
+        opacity: 0;
+        transition: 0.3s;
+        z-index: 0;
+    }
+
+    .glass-panel-LF:hover::before {
+        opacity: 0.7;
+    }
+
+    .glass-panel-LF:hover {
+        transform: scale(1.05);
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* BUTTON INSIDE PANEL */
+    .glass-panel-LF button {
+        position: relative;
+        z-index: 1;
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 40px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+    }
+
+/* STATUS BAR */
+.status-bar {
+    position: fixed;
+    bottom: 10px;
+    left: 15px;
+
+    color: white;
+    font-size: 20px;
+
+    background: rgba(0, 0, 0, 0.3);
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    backdrop-filter: blur(6px);
+}
+/* LOG OUT BUTTON */
+.log-out-container{
+    padding: 5px;
+    position: fixed;
+    justify-self: left;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    transition: ease 0.3s;
+}
+
+.log-out-container button{
+        position: relative;
+        
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 40px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+}
+
+.log-out-container:hover{
+    background: rgba(255, 0, 0, 0.509);
+    transform: scale(1.1);
+}
+
+/* =========================
+   MOBILE RESPONSIVE DESIGN
+========================= */
+@media screen and (max-width: 768px) {
+
+    body {
+        margin:0;
+        font-size: medium;
+        padding: 10px;
+        overflow-x: hidden;
+    }
+
+    /* HEADER */
+    .glass-header {
+        width: 100%;
+        min-width: unset;
+        max-width: 100%;
+
+        padding: 14px 10px;
+        margin-top: 60px;
+
+        border-radius: 14px;
+    }
+
+    .glass-header h1 {
+        font-size: 24px;
+        letter-spacing: 1px;
+    }
+
+    /* GRID LAYOUT */
+    .nav-buttons {
+        grid-template-columns: 1fr; /* single column */
+        grid-template-rows: auto;
+
+        gap: 15px;
+
+        height: auto;
+        padding: 10px;
+    }
+
+    /* ALL GLASS PANELS */
+    .glass-panel-acc,
+    .glass-panel-cap,
+    .glass-panel-reser,
+    .glass-panel-LF {
+
+        height: 100px;
+        width: 90%;
+
+        padding: 15px;
+        border-radius: 14px;
+    }
+
+    /* BUTTON TEXT INSIDE PANELS */
+    .glass-panel-acc button,
+    .glass-panel-cap button,
+    .glass-panel-reser button,
+    .glass-panel-LF button {
+
+        font-size: 24px;
+    }
+
+    /* LOGOUT BUTTON */
+    .log-out-container {
+        top: 10px;
+        left: 10px;
+
+        margin: 0;
+        padding: 4px 10px;
+
+        border-radius: 12px;
+    }
+
+    .log-out-container button {
+        font-size: 22px;
+    }
+
+    /* STATUS BAR */
+    .status-bar {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+
+        font-size: 14px;
+
+        text-align: center;
+    }
+}

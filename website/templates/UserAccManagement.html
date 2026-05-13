@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserAccManageement</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/UserAccManagement.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="nav-btn">
+        <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
+        <a href="{{ url_for('admin.AdminAccManagement') }}" class="glass-btn">Admin Accounts</a>
+    </div>
+
+     <!-- HEADER -->
+    <div class="glass-header">
+        <h1>USER ACCOUNT MANAGEMENT</h1>
+    </div>
+
+        <!-- MAIN CONTET -->
+    <div class="main-container">
+
+        <!-- LEFT: FORM -->
+        <div class="glass-form">
+            <h3>Edit User Info</h3>
+
+            <form>
+                <div class="input-group">
+                    <label>ID:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>First Name:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Last Name:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Course & Section:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Account Type:</label>
+                    <input type="text" >
+                </div>
+
+                <div class="button-group">
+                    <button id="edit-button" type="button" class="button-text">Edit User</button>
+                    <button id="delete-button" type="button" class="button-text">Delete User</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT: TABLE PLACEHOLDER -->
+        <div class="glass-placeholder">
+
+           <div class="table-controls">
+                <input type="text" placeholder="Enter ID">
+                <button id="search-id-btn">Search by ID</button>
+
+                <input type="text" placeholder="Enter Name">
+
+                <button id="search-name-btn">Search by Name</button>
+
+                <button id="refresh-btn">Refresh</button>
+                <a href="{{ url_for('admin.DeletedUserManagement') }}">
+                <button id="archive-btn">View Archived Table</button>
+                </a>
+                <button id="export-btn">Export Table</button>
+                <button id="clear-btn">Clear All</button>
+
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Account Type</th>
+                        <th>Course and Section</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2022100036</td>
+                        <td>Dwyane</td>
+                        <td>Salvador</td>
+                        <td>Stddudent</td>
+                        <td>BSCPE 2C</td>
+                    </tr>
+                    <tr>
+                        <td>2022100420</td>
+                        <td>Liquid</td>
+                        <td>Efficascence</td>
+                        <td>Proffesor</td>
+                        <td>BSCPE 2C</td>
+                    </tr>
+                     <tr>
+                        <td>2022100069</td>
+                        <td>Meow</td>
+                        <td>Kitty</td>
+                        <td>Bobcat</td>
+                        <td>BSCPE 2C2</td>
+                    </tr>
+                    
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

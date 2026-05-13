@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserAccManageement</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdminAccManagement.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="nav-btn">
+        <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
+        <a href="{{ url_for('admin.UserAccManagement') }}" class="glass-btn">User Accounts</a>
+    </div>
+
+     <!-- HEADER -->
+    <div class="glass-header">
+        <h1>ADMIN ACCOUNT MANAGEMENT</h1>
+    </div>
+
+        <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- LEFT: FORM -->
+        <div class="glass-form">
+            <h3>Edit User Info</h3>
+
+            <form>
+                <div class="input-group">
+                    <label>Username:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Password:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Account Type:</label>
+                    <input type="text">
+                </div>
+
+                <div class="button-group">
+                    <button id="plus-button" type="button" class="button-text">Add Admin Account</button>
+                    <button id="edit-button" type="button" class="button-text">Edit Account</button>
+                    <button id="delete-button" type="button" class="button-text">Delete Account</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT: TABLE PLACEHOLDER -->
+        <div class="glass-placeholder">
+
+           <div class="table-controls">
+                <input type="text" placeholder="Enter Username">
+                <button id="search-id-btn">Search by Username</button>
+
+                <button id="refresh-btn">Refresh</button>
+                <button id="export-btn">Export Table</button>
+                <button id="export-btn">Export Archived Table</button>
+                <button id="clear-btn">Clear All</button>
+
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Account Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Beast</td>
+                        <td>tagavisayas05</td>
+                        <td>High Admin</td>
+                    </tr>
+                    <tr>
+                        <td>Dariel</td>
+                        <td>tagasluzon01</td>
+                        <td>Low Admin</td>
+                    </tr>
+                     <tr>
+                        <td>Agdeppa</td>
+                        <td>howisitunfair</td>
+                        <td>Low Admin</td>
+                    </tr>
+                     <tr>
+                        <td>Jabez</td>
+                        <td>dinaligosiagdede</td>
+                        <td>Low Admin</td>
+                    </tr>
+                     <tr>
+                        <td>Cyren</td>
+                        <td>yummywatermelon</td>
+                        <td>Low Admin</td>
+                    </tr>
+                    
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

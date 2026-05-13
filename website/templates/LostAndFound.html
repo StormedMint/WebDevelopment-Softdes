@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Management</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/LostAndFound.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="nav-btn">
+        <a href="{{ url_for('admin.AdminDashboard') }}"  class="glass-btn">Return Dashboard</a>
+    </div>
+
+    <div class="export-buttons-topleft">
+        <button class="glass-btn">Export Lost Table</button>
+        <button class="glass-btn">Export Lost Archived Table</button>
+    </div>
+
+     <!-- HEADER -->
+    <div class="glass-header">
+        <h1>Lost & Found</h1>
+    </div>
+
+        <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- LEFT: FORM -->
+        <div class="glass-form">
+            <h3>Add Item</h3>
+
+            <form>
+                <div class="input-group">
+                    <label>Lost Item:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Description:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Place:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Finder's Name:</label>
+                    <input type="text">
+                </div>
+
+                <div class="input-group">
+                    <label>Finder's Phone Number:</label>
+                    <input type="text">
+                </div>
+
+                <div class="radio-container">
+                    Item Status: <br>
+
+                    <input name="item-status" type="radio">
+                    <label>Unreturned</label>
+                    <input name="item-status" type="radio">
+                    <label>Returned</label>
+                    <input name="item-status" type="radio">
+                    <label>OSAD</label>
+
+                </div>
+
+                <div class="button-group">
+                    <button id="plus-button" type="button" class="button-text">Add Item</button>
+                    <button id="edit-button" type="button" class="button-text">Edit Item</button>
+                    <button id="delete-button" type="button" class="button-text">Delete Item</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT: TABLE PLACEHOLDER -->
+        <div class="glass-placeholder">
+
+           <div class="table-controls">
+                <input type="text" placeholder="Enter Item">
+                <button id="search-id-btn">Search by Item</button>
+                <div class="select-wrapper">
+                    <select class="filter-dropdown" name="filter-status">
+                       <option value="Returned">Returned</option>
+                       <option value="Unreturned">Unreturned</option>
+                       <option value="OSAD">OSAD</option>
+                    </select>
+                </div>
+                <button id="filter-status-btn">Filter By Status</button>
+                <input type="datetime-local">
+                <button id="filter-status-btn">Search By Date</button>
+                <button id="refresh-btn">Refresh</button>
+                <button id="clear-btn">Clear All</button>
+
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Description</th>
+                        <th>Date & Time</th>
+                        <th>Place</th>
+                        <th>Finder's Name</th>
+                        <th>Finder's Phone Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Pencil</td>
+                        <td>Green Color - Monggol</td>
+                        <td>05/04/2026 8:28 PM</td>
+                        <td>Reading Area 1st floor</td>
+                        <td>Arvise Soliman</td>
+                        <td>093344462229</td>
+                        <td>Unreturned</td>
+                    </tr>
+                  
+                    
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

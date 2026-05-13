@@ -1,0 +1,676 @@
+/* =========================================================
+CAPACITY TRACKING DASHBOARD
+GLASSMORPHISM VERSION
+========================================================= */
+
+
+/* =========================================================
+BODY
+========================================================= */
+
+body {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: url("../IMG/second-floor-library2.jpg") no-repeat center center fixed;
+    background-size: cover;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 100px;
+}
+
+
+/* =========================================================
+DARK OVERLAY
+========================================================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.35);
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+HEADER
+========================================================= */
+
+.glass-header {
+
+    width: fit-content;
+
+    margin: 10px auto;
+
+    padding: 18px 40px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+
+    text-align: center;
+}
+
+.glass-header h1 {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 46px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+}
+
+.glass-header h5 {
+
+    margin: 0;
+
+    color: white;
+
+    font-size: 20px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    font-style: italic;
+}
+
+
+
+
+
+/* =========================================================
+MAIN LAYOUT
+========================================================= */
+
+.main-layout {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    gap: 55px;
+
+    margin-top: 35px;
+
+    padding: 0 40px 60px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+FLOOR TITLES
+========================================================= */
+
+.floor-title {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 18px;
+}
+
+.floor-section {
+    margin-top: 90px;
+}
+
+
+/* GLASS FLOOR LABEL */
+
+.floor-title h2 {
+
+    padding: 10px 28px;
+
+    margin: 0;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.18);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: white;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+
+/* =========================================================
+ROOM GRID
+========================================================= */
+
+.room-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 240px);
+
+    gap: 10px;
+}
+
+
+/* =========================================================
+CENTER GRID
+========================================================= */
+
+
+.center-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 240px);
+
+    gap: 18px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+CENTER FLOOR
+========================================================= */
+
+
+.center-floor {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    
+}
+
+/* =========================================================
+ROOM CARD
+========================================================= */
+
+.room-card {
+
+    width: 230px;
+
+    height: 130px;
+
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.16);
+
+    border: 1px solid rgba(255,255,255,0.22);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    transition: 0.3s ease;
+
+    cursor: pointer;
+
+    color: white;
+}
+
+/* =========================================================
+ROOM ICON
+========================================================= */
+
+.room-icon {
+
+    font-size: 24px;
+
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 8px;
+
+    line-height: 1;
+}
+
+/* =========================================================
+ROOM TITLE
+========================================================= */
+
+.room-card h3 {
+
+    margin: 2px 0;
+
+    font-size: 18px;
+
+    line-height: 1.3;
+}
+
+/* =========================================================
+CAPACITY TEXT
+========================================================= */
+
+.capacity-text {
+
+    margin-top: 5px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+CAPACITY COLORS
+========================================================= */
+
+.low-capacity {
+
+    background: rgba(60, 255, 60, 0.45);
+}
+
+.moderate-capacity {
+
+    background: rgba(255, 170, 0, 0.45);
+}
+
+.full-capacity {
+
+    background: rgba(255, 0, 0, 0.45);
+}
+
+.selected-room {
+
+    border: 3px solid #2f6fff;
+}
+/* =========================================================
+LOGIN BUTTON
+========================================================= */
+.login-button {
+    position: fixed;
+    bottom: 30px;          /* Positions it at the bottom of the screen */
+    left: 50%;             /* Moves the left edge to the exact center of the screen */
+    transform: translateX(-50%); /* Shifts the button left by half its own width */
+    margin-bottom: 150px;
+    z-index: 999;
+    text-decoration: none;
+    display: inline-block; /* Changes from grid to fit the button width perfectly */
+}
+
+.login-button button {
+    width: 260px;
+    height: 75px;
+    border: none;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    background: rgba(218, 17, 17, 0.22);
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
+}
+
+.login-button button:hover{
+
+    transform: translateY(-3px) scale(1.03);
+
+    background: rgba(255,0,0,0.45);
+}
+/* =========================================================
+LEGEND PANEL
+========================================================= */
+
+.legend-panel {
+
+    width: 260px;
+
+    padding: 18px 24px;
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,0.16);
+
+    border: 1px solid rgba(255,255,255,0.22);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+
+    color: white;
+
+    position: fixed;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 100;
+}
+
+
+/* =========================================================
+LEGEND ITEMS
+========================================================= */
+
+.legend-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 1px 0;
+
+    font-size: 18px;
+}
+
+
+/* =========================================================
+LEGEND COLOR DOTS
+========================================================= */
+
+.legend-color {
+
+    width: 16px;
+
+    height: 16px;
+
+    border-radius: 50%;
+}
+
+.low {
+    background: lime;
+}
+
+.moderate {
+    background: orange;
+}
+
+.full {
+    background: red;
+}
+
+.selected {
+    background: #2f6fff;
+}
+
+
+/* =========================================================
+RESPONSIVE DESIGN
+========================================================= */
+
+@media(max-width: 768px){
+    .main-layout{
+        
+     padding-bottom: 200px; 
+
+    }
+
+    body{
+
+        overflow-y: auto;
+    }
+
+    /* HEADER */
+
+    .glass-header{
+
+        width: 90%;
+
+        padding: 14px 18px;
+
+        margin-top: 70px;
+
+        box-sizing: border-box;
+    }
+
+    .glass-header h1{
+
+        font-size: 24px;
+
+        letter-spacing: 1px;
+    }
+
+    /* TOP BUTTONS */
+
+    .top-left-button,
+    .top-right-button{
+
+        top: 10px;
+    }
+
+    .top-left-button{
+
+        left: 10px;
+    }
+
+    .top-right-button{
+
+        right: 10px;
+    }
+
+    .top-left-button button,
+    .top-right-button button{
+
+        padding: 10px 14px;
+
+        font-size: 14px;
+
+        border-radius: 12px;
+    }
+
+    /* MAIN LAYOUT */
+
+    .main-layout{
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 5px;
+
+        padding: 0 10px 140px;
+    }
+
+        .first-floor{
+            order: 1;
+        }
+
+        .second-floor{
+            order: 2;
+        }
+
+        .third-floor{
+            order: 3;
+        }
+
+    /* FLOOR SECTIONS */
+    
+    .floor-section{
+
+        margin-top: 10px;
+
+        width: 100%;
+    }
+
+    .floor-title h2{
+
+        font-size: 20px;
+
+        padding: 8px 18px;
+    }
+
+    /* ROOM GRIDS */
+
+    .room-grid,
+    .center-grid{
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+
+        width: 100%;
+    }
+
+    /* ROOM CARD */
+    
+   .room-card{
+
+    width: 100%;
+
+    max-width: none;
+
+    height: 110px;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+    }
+
+    .room-card h3{
+
+        font-size: 16px;
+    }
+
+    .capacity-text{
+
+        font-size: 14px;
+    }
+
+    .room-icon{
+
+        font-size: 20px;
+    }
+
+    /* REMOVE HOVER SCALE ON PHONES */
+
+    .room-card:hover{
+
+        transform: none;
+    }
+
+    /* LEGEND PANEL */
+
+    .legend-panel{
+
+        width: 90%;
+
+        max-width: 320px;
+
+        padding: 12px 18px;
+
+        bottom: 10px;
+    }
+
+    .legend-item{
+
+        font-size: 14px;
+    }
+
+    .legend-color{
+
+        width: 12px;
+        height: 12px;
+    }
+
+    .login-button{
+
+    position: fixed;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 120px;
+
+    width: 90%;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 30px;
+    }
+
+    .login-button{
+
+    left: 50%;
+
+    right: auto;
+
+    transform: translateX(-50%);
+
+    bottom: 120px;
+
+    width: 90%;
+
+    display: flex;
+
+    justify-content: center;
+    }
+
+    .login-button button{
+
+        width: 100%;
+
+        max-width: 320px;
+
+        height: 70px;
+
+        font-size: 20px;
+    }
+}

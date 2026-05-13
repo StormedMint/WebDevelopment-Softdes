@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Management</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/ReservedRoomsTracker.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="nav-btn">
+        <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
+    </div>
+
+    <div class="export-buttons-topleft">
+        <button class="glass-btn">Export Lost Table</button>
+        <button class="glass-btn">Export Lost Archived Table</button>
+    </div>
+
+     <!-- HEADER -->
+    <div class="glass-header">
+        <h1>Reserved Rooms Tracker</h1>
+    </div>
+
+        <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- LEFT: FORM -->
+        <div class="glass-form">
+            <h3>Add Item</h3>
+
+            <form>
+                <div class="input-group">
+                    <label>Representative Name</label>
+                    <input type="text">
+                </div>
+
+                <div class="select-arrow1 select-wrapper">
+                    <label>Room</label>
+                    <select class="filter-dropdown" name="filter-status">
+                            
+                            <option value="digital-hub">Digital Hub</option>
+                            <option value="discussion-room2nd">Discussion Room</option>
+                            <option value="special-gad">Special Collection & GAD Corner</option>
+                            <option value="booklatan">Booklatan</option>
+                            <option value="avr">AVR</option>
+                            <option value="graduate-school-sec">Graduate School Section</option>
+                            <option value="discussion-room3rd">3rd Floor Discussion Room</option>
+                            <option value="multimedia-room">Multimedia Room</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Date and Time</label>
+                    <input type="datetime-local">
+                </div>
+
+                <div class="input-group">
+                    <label>Reason for Reservation</label>
+                    <input type="text">
+                </div>
+
+                <div class="button-group">
+                    <button id="plus-button" type="button" class="button-text">Add Reservation</button>
+                    <button id="edit-button" type="button" class="button-text">Refresh</button>
+                    <button id="delete-button" type="button" class="button-text">Delete Reservation</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- RIGHT: TABLE PLACEHOLDER -->
+        <div class="glass-placeholder">
+
+           <div class="table-controls">
+                <input type="text" placeholder="Enter Representative">
+                <button id="search-id-btn">Search Representative</button>
+                <input type="date">
+                <button id="filter-status-btn">Search Date</button>
+                    <div class="select-arrow2 select-wrapper">
+                        <select class="filter-dropdown" name="filter-status">
+                            <option value="all-rooms">All Rooms</option>
+                            <option value="digital-hub">Digital Hub</option>
+                            <option value="discussion-room2nd">Discussion Room</option>
+                            <option value="special-gad">Special Collection & GAD Corner</option>
+                            <option value="booklatan">Booklatan</option>
+                            <option value="avr">AVR</option>
+                            <option value="graduate-school-sec">Graduate School Section</option>
+                            <option value="discussion-room3rd">3rd Floor Discussion Room</option>
+                            <option value="multimedia-room">Multimedia Room</option>
+                        </select>
+                    </div>
+                <button id="filter-status-btn">Filter By Room</button>
+                <button id="refresh-btn">Refresh</button>
+                <button id="clear-btn">Clear All</button>
+
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Date & Time</th>
+                        <th>Representative's Name</th>
+                        <th>Reason For Reserving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Special Collection & GAD Corner</td>
+                        <td>05/05/2026 09:30 PM</td>
+                        <td>Agdeppa</td>
+                        <td>GAD Seminar</td>
+                    </tr>
+                    <tr>
+                        <td>Booklatan</td>
+                        <td>05/02/2026 09:22 PM</td>
+                        <td>Arvie </td>
+                        <td>Coding and Meetings</td>
+                    </tr>
+                    
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

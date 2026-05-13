@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CapacityTrackingAdminSide.css') }}">
+
+    <title>Capacity Tracking</title>
+</head>
+
+<body>
+
+    <!-- =========================================================
+    TOP NAVIGATION BUTTONS
+    ========================================================= -->
+
+    <!-- Return Button -->
+    <div class="top-left-button"> 
+        <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-panel-acc" >
+            <button>Return Dashboard</button>
+        </a>
+    </div>
+
+    <!-- View Logs Button -->
+    <div class="top-right-button">
+         <a href="{{ url_for('admin.LogTableManagement') }}" class="glass-panel-acc" >
+            <button>View Log Table</button>
+        </a>
+    </div>
+
+
+    <!-- =========================================================
+    MAIN HEADER
+    ========================================================= -->
+    <div class="glass-header">
+        <h1>CAPACITY TRACKING</h1>
+    </div>
+
+
+    <!-- =========================================================
+    MAIN CONTENT CONTAINER
+    ========================================================= -->
+    <div class="main-layout">
+
+        <!-- ===================== LEFT FLOOR ===================== -->
+        <div class="floor-section second-floor">
+
+            <div class="floor-title">
+                <h2>2nd Floor</h2>
+            </div>
+
+            <div class="room-grid">
+
+                <!-- ROOM CARD -->
+                <div class="room-card low-capacity">
+
+                    <!-- FUTURE DB INTEGRATION -->
+                    <!-- Example:
+                    data-room-id="101"
+                    -->
+
+                    <div class="room-icon">👤</div>
+
+                    <h3>Reading Area</h3>
+
+                    <!-- Dynamic Capacity -->
+                    <p class="capacity-text">
+                        <span class="current-count">01</span>/<span class="max-count">100</span>
+                    </p>
+
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🌐</div>
+                    <h3>Internet Section</h3>
+                    <p class="capacity-text">0/5</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">💻</div>
+                    <h3>Digital Hub</h3>
+                    <p class="capacity-text">0/10</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🗣</div>
+                    <h3>Discussion Room</h3>
+                    <p class="capacity-text">0/20</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">📚</div>
+                    <h3>Special Collection</h3>
+                    <p class="capacity-text">0/15</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">📖</div>
+                    <h3>Booktan</h3>
+                    <p class="capacity-text">0/10</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================== CENTER FLOOR ===================== -->
+        <div class="center-floor first floor" >
+
+            <div class="floor-title">
+                <h2>1st Floor</h2>
+            </div>
+
+            <div class="center-grid">
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🛋</div>
+                    <h3>Lounge Area</h3>
+                    <p class="capacity-text">0/60</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">👨‍🏫</div>
+                    <h3>Faculty Room</h3>
+                    <p class="capacity-text">0/12</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================== RIGHT FLOOR ===================== -->
+        <div class="floor-section third-floor">
+
+            <div class="floor-title">
+                <h2>3rd Floor</h2>
+            </div>
+
+            <div class="room-grid">
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">👤</div>
+                    <h3>Graduate Reading Area</h3>
+                    <p class="capacity-text">0/45</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">👤</div>
+                    <h3>Undergraduate Reading Area</h3>
+                    <p class="capacity-text">0/20</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🎥</div>
+                    <h3>AVR</h3>
+                    <p class="capacity-text">0/75</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🎓</div>
+                    <h3>Graduate School Section</h3>
+                    <p class="capacity-text">0/4</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🗣</div>
+                    <h3>Discussion Room</h3>
+                    <p class="capacity-text">0/16</p>
+                </div>
+
+                <div class="room-card low-capacity">
+                    <div class="room-icon">🎬</div>
+                    <h3>Multimedia Room</h3>
+                    <p class="capacity-text">0/4</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+    LEGEND PANEL
+    ========================================================= -->
+    <div class="legend-panel">
+
+        <div class="legend-item">
+            <span class="legend-color low"></span>
+            Low Capacity
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color moderate"></span>
+            Moderate Capacity
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color full"></span>
+            Full Capacity
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color selected"></span>
+            Selected
+        </div>
+
+    </div>
+
+</body>
+</html>
