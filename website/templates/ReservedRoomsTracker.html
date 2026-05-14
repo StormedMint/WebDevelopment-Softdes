@@ -34,12 +34,12 @@
             <form>
                 <div class="input-group">
                     <label>Representative Name</label>
-                    <input type="text">
+                    <input type="text" name="representative">
                 </div>
 
                 <div class="select-arrow1 select-wrapper">
                     <label>Room</label>
-                    <select class="filter-dropdown" name="filter-status">
+                    <select class="filter-dropdown" name="filter-status" name="room">
                             
                             <option value="digital-hub">Digital Hub</option>
                             <option value="discussion-room2nd">Discussion Room</option>
@@ -54,12 +54,12 @@
 
                 <div class="input-group">
                     <label>Date and Time</label>
-                    <input type="datetime-local">
+                    <input type="datetime-local" name="datetime">
                 </div>
 
                 <div class="input-group">
                     <label>Reason for Reservation</label>
-                    <input type="text">
+                    <input type="text" name="reason">
                 </div>
 
                 <div class="button-group">
@@ -92,7 +92,9 @@
                         </select>
                     </div>
                 <button id="filter-status-btn">Filter By Room</button>
-                <button id="refresh-btn">Refresh</button>
+                <a href="{{ url_for('admin.ReservedRoomsTracker') }}">
+                    <button type="button">Refresh</button>
+                </a>
                 <button id="clear-btn">Clear All</button>
 
             </div>
@@ -107,22 +109,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Special Collection & GAD Corner</td>
-                        <td>05/05/2026 09:30 PM</td>
-                        <td>Agdeppa</td>
-                        <td>GAD Seminar</td>
+                    {% for r in reservations %}
+                    <tr class="res-row"
+                        data-id="{{ r.id }}"
+                        data-room="{{ r.room }}"
+                        data-datetime="{{ r.datetime }}"
+                        data-rep="{{ r.representative }}"
+                        data-reason="{{ r.reason }}">
+
+                        <td>{{ r.room }}</td>
+                        <td>{{ r.datetime }}</td>
+                        <td>{{ r.rep_name }}</td>
+                        <td>{{ r.reason }}</td>
                     </tr>
-                    <tr>
-                        <td>Booklatan</td>
-                        <td>05/02/2026 09:22 PM</td>
-                        <td>Arvie </td>
-                        <td>Coding and Meetings</td>
-                    </tr>
-                    
-            </tbody>
+                    {% endfor %}
+                </tbody>
         </table>
     </div>
     
+<script src="{{ url_for('static', filename='JAVASCRIPT/ReservedRoomsTracker.js') }}"></script>
+
 </body>
 </html>

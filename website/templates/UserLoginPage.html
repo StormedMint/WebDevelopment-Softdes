@@ -35,13 +35,11 @@
             </form>
 
             {% else %}
-            <form class="login-form" action="{{ url_for('views.CapacityTrackingConfirmSeat') }}">
-                <input type="text" name="user_id" value="{{ user.id }}" readonly class="input-field">
+             <form class="login-form verified-form" action="{{ url_for('views.CapacityTrackingConfirmSeat') }}">
+                    <input type="text" name="user_id" value="{{ user.id }}" readonly class="input-field">
 
-                <button type="submit" class="btn verify-btn">
-                    Login
-                </button>
-            </form>
+                    <button type="submit" class="btn verify-btn">Select Your Room Here</button>
+             </form>
             {% endif %}
 
             <p class="no-account">No Account?</p>

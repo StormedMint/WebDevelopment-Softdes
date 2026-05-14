@@ -26,34 +26,34 @@
         <div class="glass-form">
             <h3>Edit User Info</h3>
 
-            <form>
+            <form method="POST" action="{{ url_for('admin.restore_user') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text">
+                    <input type="text" name="id" required>
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text">
+                    <input type="text" name="fname" required>
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text">
+                    <input type="text" name="lname" required>
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text">
+                    <input type="text" name="course_section" required>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" >
+                    <input type="text" name="account_type" required>
                 </div>
 
                 <div class="button-group">
-                    <button id="restore-button" type="button" class="button-text">Restore User</button>
+                    <button id="restore-button" type="submit" class="button-text">Restore User</button>
                 </div>
             </form>
         </div>
@@ -62,13 +62,21 @@
         <div class="glass-placeholder">
 
            <div class="table-controls">
-                <input type="text" placeholder="Enter ID">
-                <button id="search-id-btn">Search by ID</button>
 
-                <input type="text" placeholder="Enter Name">
+            <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
+                <input type="text" placeholder="Enter ID" name="search_id">
+                <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
+            </form>
 
-                <button id="search-name-btn">Search by Name</button>
+            <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
+                <input type="text" placeholder="Enter First or Last Name" name="search_name">
+                <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
+            </form>
+
+                <a href="{{ url_for('admin.DeletedUserManagement') }}">
                 <button id="refresh-btn">Refresh</button>
+                </a>
+
                 <a href="{{ url_for('admin.UserAccManagement') }}">
                 <button id="user-button">User Accounts</button>
                 </a>
@@ -89,31 +97,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2022100036</td>
-                        <td>Troll AsCc</td>
-                        <td>Acc is TROll</td>
-                        <td>Student</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                   <tr>
-                        <td>2022100036</td>
-                        <td>Troll ACc</td>
-                        <td>Acc is TROll</td>
-                        <td>Student</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                    <tr>
-                        <td>2022100036</td>
-                        <td>Troll ACc</td>
-                        <td>Acc is TROll</td>
-                        <td>Student</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                    
-            </tbody>
+                    {% if archive %}
+                        {% for user in archive %}
+                        <tr class="log-row">
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.fname }}</td>
+                            <td>{{ user.lname }}</td>
+                            <td>{{ user.account_type }}</td>
+                            <td>{{ user.course_section }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No archived users found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
         </table>
     </div>
+    
+<script src="{{ url_for('static', filename='JAVASCRIPT/DeletedUserManagement.js') }}"></script>
     
 </body>
 </html>

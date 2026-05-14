@@ -27,26 +27,26 @@
         <div class="glass-form">
             <h3>Edit User Info</h3>
 
-            <form>
+            <form method="POST" action="{{ url_for('admin.handle_admin_actions') }}">
                 <div class="input-group">
                     <label>Username:</label>
-                    <input type="text">
+                    <input type="text" name="username" required>
                 </div>
 
                 <div class="input-group">
                     <label>Password:</label>
-                    <input type="text">
+                    <input type="text" name="password" required>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text">
+                    <input type="text" name="type_admin">
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" type="button" class="button-text">Add Admin Account</button>
-                    <button id="edit-button" type="button" class="button-text">Edit Account</button>
-                    <button id="delete-button" type="button" class="button-text">Delete Account</button>
+                    <button id="plus-button" type="submit" name="action" value="add" class="button-text">Add Admin Account</button>
+                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit Account</button>
+                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete Account</button>
                 </div>
             </form>
         </div>
@@ -55,10 +55,14 @@
         <div class="glass-placeholder">
 
            <div class="table-controls">
-                <input type="text" placeholder="Enter Username">
-                <button id="search-id-btn">Search by Username</button>
+                <form method="POST" action="{{ url_for('admin.admin_search_username') }}">
+                    <input type="text" name="searchUsername" placeholder="Enter Username" required>
+                    <button id="search-id-btn" type="submit">Search by Username</button>
+                </form>
 
-                <button id="refresh-btn">Refresh</button>
+                <a href="{{ url_for('admin.AdminAccManagement') }}">
+                    <button type="button" id="refresh-btn">Refresh</button>
+                </a>
                 <button id="export-btn">Export Table</button>
                 <button id="export-btn">Export Archived Table</button>
                 <button id="clear-btn">Clear All</button>
@@ -74,35 +78,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Beast</td>
-                        <td>tagavisayas05</td>
-                        <td>High Admin</td>
-                    </tr>
-                    <tr>
-                        <td>Dariel</td>
-                        <td>tagasluzon01</td>
-                        <td>Low Admin</td>
-                    </tr>
-                     <tr>
-                        <td>Agdeppa</td>
-                        <td>howisitunfair</td>
-                        <td>Low Admin</td>
-                    </tr>
-                     <tr>
-                        <td>Jabez</td>
-                        <td>dinaligosiagdede</td>
-                        <td>Low Admin</td>
-                    </tr>
-                     <tr>
-                        <td>Cyren</td>
-                        <td>yummywatermelon</td>
-                        <td>Low Admin</td>
-                    </tr>
-                    
-            </tbody>
+                    {% if admins %}
+                    <!-- #Kapag merong admins -->
+                        {% for admin in admins %}
+                        <!-- #Niloloop niya yung admins -->
+                        <tr class = "admin-row">
+                            <td>{{ admin.username }}</td>
+                            <td>{{ admin.password }}</td>
+                            <td>{{ admin.type_admin }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">No admin accounts found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
         </table>
     </div>
-    
+
+<script src="{{ url_for('static', filename='JAVASCRIPT/AdminAccManagement.js') }}"></script>
+
 </body>
 </html>

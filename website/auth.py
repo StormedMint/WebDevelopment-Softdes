@@ -48,6 +48,7 @@ def UserSignUpPage():
         db = get_db_connection()
         cursor = db.cursor(dictionary=True)
 
+        #Validation for duplication
         cursor.execute("SELECT * FROM user_accounts WHERE id = %s", (user_id,))
         if cursor.fetchone():
             flash("User already exists!")

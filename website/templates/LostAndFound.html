@@ -31,48 +31,50 @@
         <div class="glass-form">
             <h3>Add Item</h3>
 
-            <form>
+            <form method="POST" action="{{ url_for('admin.handle_lost_found') }}">
                 <div class="input-group">
                     <label>Lost Item:</label>
-                    <input type="text">
+                    <input type="text" name="item_name" required>
                 </div>
 
                 <div class="input-group">
                     <label>Description:</label>
-                    <input type="text">
+                    <input type="text" name="description" required>
                 </div>
 
                 <div class="input-group">
                     <label>Place:</label>
-                    <input type="text">
+                    <input type="text" name="place" required>
                 </div>
 
                 <div class="input-group">
                     <label>Finder's Name:</label>
-                    <input type="text">
+                    <input type="text" name="finder_name" required>
                 </div>
 
                 <div class="input-group">
                     <label>Finder's Phone Number:</label>
-                    <input type="text">
+                    <input type="text" name="phone" required>
                 </div>
 
                 <div class="radio-container">
                     Item Status: <br>
 
-                    <input name="item-status" type="radio">
+                    <input type="radio" name="status" value="Unreturned">
                     <label>Unreturned</label>
-                    <input name="item-status" type="radio">
+
+                    <input type="radio" name="status" value="Returned">
                     <label>Returned</label>
-                    <input name="item-status" type="radio">
+
+                    <input type="radio" name="status" value="OSAD">
                     <label>OSAD</label>
 
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" type="button" class="button-text">Add Item</button>
-                    <button id="edit-button" type="button" class="button-text">Edit Item</button>
-                    <button id="delete-button" type="button" class="button-text">Delete Item</button>
+                    <button id="plus-button" type="submit" name="action" value="add" class="button-text">Add Item</button>
+                    <button id="edit-button" type="submit" name="action" value="edit"  class="button-text">Edit Item</button>
+                    <button id="delete-button" type="submit" name="action" value="delete"  class="button-text">Delete Item</button>
                 </div>
             </form>
         </div>
@@ -81,19 +83,35 @@
         <div class="glass-placeholder">
 
            <div class="table-controls">
-                <input type="text" placeholder="Enter Item">
-                <button id="search-id-btn">Search by Item</button>
+                <form method="POST" action="{{ url_for('admin.search_lost_item') }}">
+                    <input type="text" name="search_item" placeholder="Enter Item" required>
+                    <button type="submit">Search by Item</button>
+                </form>
                 <div class="select-wrapper">
-                    <select class="filter-dropdown" name="filter-status">
-                       <option value="Returned">Returned</option>
-                       <option value="Unreturned">Unreturned</option>
-                       <option value="OSAD">OSAD</option>
-                    </select>
+
+                <form method="POST" action="{{ url_for('admin.search_item_status') }}">
+                    
+                    <div class="select-wrapper">
+                        <select class="filter-dropdown" name="status">
+                            <option value="all">Select Status</option>
+                            <option value="Returned">Returned</option>
+                            <option value="Unreturned">Unreturned</option>
+                            <option value="OSAD">OSAD</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="filter-status-btn">Filter By Status</button>
+
+                </form>
+
                 </div>
-                <button id="filter-status-btn">Filter By Status</button>
                 <input type="datetime-local">
                 <button id="filter-status-btn">Search By Date</button>
-                <button id="refresh-btn">Refresh</button>
+                
+                <a href="{{ url_for('admin.LostAndFound') }}">
+                <button id="refresh-btn">Refresh Table</button>
+                </a>
+
                 <button id="clear-btn">Clear All</button>
 
             </div>
@@ -111,20 +129,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Pencil</td>
-                        <td>Green Color - Monggol</td>
-                        <td>05/04/2026 8:28 PM</td>
-                        <td>Reading Area 1st floor</td>
-                        <td>Arvise Soliman</td>
-                        <td>093344462229</td>
-                        <td>Unreturned</td>
-                    </tr>
-                  
-                    
-            </tbody>
+                    {% if items %}
+                        {% for item in items %}
+                        <tr class="item-row">
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.date_time }}</td>
+                            <td>{{ item.place }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.contact_number }}</td>
+                            <td>{{ item.Status }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7">No items found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
         </table>
     </div>
     
+<script src="{{ url_for('static', filename='JAVASCRIPT/LostAndFound.js') }}"></script>
+
 </body>
 </html>

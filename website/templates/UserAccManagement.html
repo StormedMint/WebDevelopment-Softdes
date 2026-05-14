@@ -27,35 +27,35 @@
         <div class="glass-form">
             <h3>Edit User Info</h3>
 
-            <form>
+            <form method="POST" action="{{ url_for('admin.handle_user_actions') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text">
+                    <input type="text" name="id" required>
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text">
+                    <input type="text" name="fname" required>
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text">
+                    <input type="text" name="lname" required>
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text">
+                    <input type="text" name="course_section" required>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" >
+                    <input type="text" name="account_type" required>
                 </div>
 
                 <div class="button-group">
-                    <button id="edit-button" type="button" class="button-text">Edit User</button>
-                    <button id="delete-button" type="button" class="button-text">Delete User</button>
+                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit User</button>
+                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete User</button>
                 </div>
             </form>
         </div>
@@ -64,14 +64,19 @@
         <div class="glass-placeholder">
 
            <div class="table-controls">
-                <input type="text" placeholder="Enter ID">
-                <button id="search-id-btn">Search by ID</button>
+                <form method="POST" action="{{ url_for('admin.search_user') }}">
+                    <input type="text" name="search_id" placeholder="Enter ID">
+                    <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
+                </form>
 
-                <input type="text" placeholder="Enter Name">
+                <form method="POST" action="{{ url_for('admin.search_user') }}">
+                    <input type="text" name="search_name" placeholder="Enter First or Last Name">
+                    <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
+                </form>
 
-                <button id="search-name-btn">Search by Name</button>
-
-                <button id="refresh-btn">Refresh</button>
+                <a href="{{ url_for('admin.UserAccManagement') }}">
+                    <button type="button" id="refresh-btn">Refresh</button>
+                </a>
                 <a href="{{ url_for('admin.DeletedUserManagement') }}">
                 <button id="archive-btn">View Archived Table</button>
                 </a>
@@ -91,32 +96,27 @@
 
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>2022100036</td>
-                        <td>Dwyane</td>
-                        <td>Salvador</td>
-                        <td>Stddudent</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                    <tr>
-                        <td>2022100420</td>
-                        <td>Liquid</td>
-                        <td>Efficascence</td>
-                        <td>Proffesor</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                     <tr>
-                        <td>2022100069</td>
-                        <td>Meow</td>
-                        <td>Kitty</td>
-                        <td>Bobcat</td>
-                        <td>BSCPE 2C2</td>
-                    </tr>
-                    
-            </tbody>
+                <tbody class="user-row">
+                    {% if users %}
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.fname }}</td>
+                            <td>{{ user.lname }}</td>
+                            <td>{{ user.account_type }}</td>
+                            <td>{{ user.course_section }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No users found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
         </table>
     </div>
+    
+<script src="{{ url_for('static', filename='JAVASCRIPT/UserAccManagement.js') }}"></script>
     
 </body>
 </html>
