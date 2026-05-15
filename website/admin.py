@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from .db import get_db_connection
 import re
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 
 admin = Blueprint('admin',__name__)
 
@@ -9,6 +9,24 @@ admin = Blueprint('admin',__name__)
 @admin.route('/AdminDashboard')
 def AdminDashboard():
     return render_template("AdminDashboard.html")
+
+@admin.route('/LibrarianDashboard')
+def LibrarianDashboard():
+    return render_template("LibrarianDashboard.html")
+
+@admin.route('/dashboard') #Smart Routing para mabalik sa corresponding dashboards
+def dashboard():
+
+    #Session is para ma-remember ng app sino yung user between pages.
+    role = session.get('admin_type')
+
+    if role == "High Admin":
+        return redirect(url_for('admin.AdminDashboard'))
+
+    elif role == "Librarian":
+        return redirect(url_for('admin.LibrarianDashboard'))
+
+    return redirect(url_for('auth.AdminLogIn'))
 
 @admin.route('/AdminAccManagement')
 def AdminAccManagement():
@@ -274,7 +292,81 @@ def search_user():
 
 @admin.route('/LogTableManagement')
 def LogTableManagement():
-    return render_template("LogTableManagement.html")
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT id, fname, lname, account_type, course_section, date
+        FROM log_table
+        ORDER BY date DESC
+    """)
+    logs = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return render_template("LogTableManagement.html", logs=logs)
+
+@admin.route('/log_search_user', methods=['POST'])
+def log_search_user():
+
+    action = request.form.get('action')
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    users = []
+
+    # ID search
+    if action == "search_id":
+        search_id = request.form.get('search_id', '').strip()
+
+        # VALIDATION dapat digit sila or make dash sa pang lima (profs)
+        valid_id = (
+            search_id.isdigit() or
+            (len(search_id) == 11 and search_id[4] == "-" and re.fullmatch(r"\d{4}-\d{6}", search_id))
+        )
+
+        if not valid_id:
+            cursor.close()
+            db.close()
+            return redirect(url_for('admin.LogTableManagement'))
+        
+        cursor.execute("""
+            SELECT * FROM log_table
+            WHERE id = %s
+        """, (search_id,))
+
+        users = cursor.fetchall()
+
+    # NAME search 
+    elif action == "search_name":
+
+        search_name = request.form.get('search_name', '').strip()
+
+        # VALIDATION kung may numbers
+        if any(char.isdigit() for char in search_name):
+            cursor.close()
+            db.close()
+            return redirect(url_for('admin.LogTableManagement'))
+
+        cursor.execute("""
+            SELECT * FROM log_table
+            WHERE fname LIKE %s
+               OR lname LIKE %s
+        """, (f"%{search_name}%", f"%{search_name}%"))
+
+        users = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    # pag wala nahanap refresh lang page
+    if not users:
+        return redirect(url_for('admin.LogTableManagement'))
+
+    return render_template("LogTableManagement.html", logs=users)
 
 
 @admin.route('/DeletedUserManagement')

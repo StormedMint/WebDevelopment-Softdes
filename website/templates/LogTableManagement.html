@@ -11,7 +11,7 @@
 <body>
 
     <div class="nav-btn">
-        <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
+        <a href="{{ url_for('admin.dashboard') }}" class="glass-btn">Return Dashboard</a>
         <a href="{{ url_for('admin.CapacityTrackingAdminSide') }}" class="glass-btn"> Return To Capacity Tracking</a>
     </div>
 
@@ -30,32 +30,32 @@
             <form>
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text">
+                    <input type="text" name="id">
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text">
+                    <input type="text" name="fname">
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text">
+                    <input type="text" name="lname">
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text">
+                    <input type="text" name="course_section">
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" >
+                    <input type="text" name="account_type">
                 </div>
 
                 <div class="input-group">
                     <label>Date & Time Logged:</label>
-                    <input type="text" >
+                    <input type="text" name="date">
                 </div>
 
             </form>
@@ -65,14 +65,20 @@
         <div class="glass-placeholder">
 
            <div class="table-controls">
-                <input type="text" placeholder="Enter ID">
-                <button id="search-id-btn">Search by ID</button>
 
-                <input type="text" placeholder="Enter Name">
+            <form method="POST" action="{{ url_for('admin.log_search_user') }}">
+                <input type="text" name="search_id" placeholder="Enter ID">
+                <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
+            </form>
 
-                <button id="search-name-btn">Search by Name</button>
+            <form method="POST" action="{{ url_for('admin.log_search_user') }}">
+                <input type="text" name="search_name" placeholder="Enter First or Last Name">
+                <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
+            </form>
 
-                <button id="refresh-btn">Refresh</button>
+                <a href="{{ url_for('admin.LogTableManagement') }}">
+                    <button id="refresh-btn">Refresh</button>
+                </a>
                 <button id="export-btn">Export Table</button>
                 <button id="clear-btn">Clear All</button>
 
@@ -91,32 +97,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>2022100036</td>
-                        <td>Dwyane</td>
-                        <td>Salvador</td>
-                        <td>Student</td>
-                        <td>BSCPE 2C</td>
-                        <td>05/09/2026 1:38 AM</td>
-                    </tr>
-                    <tr>
-                        <td>2022100420</td>
-                        <td>Liquid</td>
-                        <td>Efficdascence</td>
-                        <td>Proffesor</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                     <tr>
-                        <td>2022100069</td>
-                        <td>Meow</td>
-                        <td>Kitty</td>
-                        <td>Bobcat</td>
-                        <td>BSCPE 2C</td>
-                    </tr>
-                    
-            </tbody>
+                    {% if logs %}
+                        {% for log in logs %}
+                        <tr class="log-row">
+                            <td>{{ log.id }}</td>
+                            <td>{{ log.fname }}</td>
+                            <td>{{ log.lname }}</td>
+                            <td>{{ log.account_type }}</td>
+                            <td>{{ log.course_section }}</td>
+                            <td>{{ log.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No logs found</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
         </table>
     </div>
     
+<script src="{{ url_for('static', filename='JAVASCRIPT/LogTableManagement.js') }}"></script>
+
 </body>
 </html>

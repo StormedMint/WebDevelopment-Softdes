@@ -42,89 +42,25 @@ body {
 
 
 .nav-buttons {
+    margin-top: 95px;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: 1fr 1fr;    
-    gap: 20px;
-    padding: 15px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
 
-    /* Subtract the header height (approx) to prevent vertical scroll */
-    height: calc(100vh - 150px); 
+    gap: 35px 20px;
+
+    padding: 15px;
+    height: calc(100vh - 150px);
     width: 100%;
-    box-sizing: border-box; /* Ensures padding doesn't add to the width */
+    box-sizing: border-box;
 }
 
-
-
-/* GLASS PANEL for MANAGE ACCOUNTS */
-    .glass-panel-acc {
-        
-        height: 400px;
-        padding: 20px;
-        margin: 0px;
-        position: relative; /* IMPORTANT */
-        overflow: hidden;   /* hides image edges */
-
-        border-radius: 16px;
-
-        background: rgba(255, 255, 255, 0.15);
-        border: 1px solid rgba(255, 255, 255, 0.25);
-
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        transition: 0.3s ease;
-
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .glass-panel-acc::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-
-        background-image: url("../IMG/HoverImageUserAccManagement.png");
-        background-size: cover;
-        background-position: center;
-
-        opacity: 0;
-        transition: 0.3s;
-        z-index: 0;
-    }
-
-    .glass-panel-acc:hover::before {
-        opacity: 0.7;
-    }
-
-    .glass-panel-acc:hover {
-        transform: scale(1.05);
-        background: rgba(255, 255, 255, 0.25);
-    }
-
-    /* BUTTON INSIDE PANEL */
-    .glass-panel-acc button {
-        position: relative;
-        z-index: 1;
-        background: transparent;
-        border: none;
-
-        color: white;
-        font-size: 40px;
-        font-weight: lighter;
-
-        cursor: pointer;
-        width: 100%;
-    }
 
 /* GLASS PANEL for CAPACITY TRACKER */
     .glass-panel-cap {
        
-        height: 400px;
+        min-height: 400px;
+        height:700px;
         width: auto;
         padding: 20px;
         margin: 0px;
@@ -189,8 +125,9 @@ body {
 
 /* GLASS PANEL for ROOM RESERVATION */
     .glass-panel-reser {
-        
-        height: 400px;
+
+        min-height: 400px;
+        height:700px;
         width: auto;
         padding: 20px;
         margin: 0px;
@@ -254,9 +191,11 @@ body {
     }
 
 /* GLASS PANEL for LOST AND FOUND */
-    .glass-panel-LF {
-        
-        height: 400px;
+.glass-panel-LF {
+    
+        min-height: 400px;
+        height:700px;
+        width: auto;
         padding: 20px;
         margin: 0px;
         position: relative; /* IMPORTANT */
@@ -278,8 +217,8 @@ body {
 
         text-decoration: none;
         color: inherit;
-    }
-
+}
+    
     .glass-panel-LF::before {
         content: "";
         position: absolute;

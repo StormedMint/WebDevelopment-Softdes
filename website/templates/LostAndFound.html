@@ -8,30 +8,35 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/LostAndFound.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <div class="nav-btn">
-        <a href="{{ url_for('admin.AdminDashboard') }}"  class="glass-btn">Return Dashboard</a>
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <a href="{{ url_for('admin.dashboard') }}" class="glass-btn">
+            Return Dashboard
+        </a>
+
+        <div class="export-buttons">
+            <button class="glass-btn">Export Lost Table</button>
+            <button class="glass-btn">Export Lost Archived Table</button>
+        </div>
     </div>
 
-    <div class="export-buttons-topleft">
-        <button class="glass-btn">Export Lost Table</button>
-        <button class="glass-btn">Export Lost Archived Table</button>
-    </div>
-
-     <!-- HEADER -->
-    <div class="glass-header">
+    <!-- HEADER -->
+    <header class="glass-header">
         <h1>Lost & Found</h1>
-    </div>
+    </header>
 
-        <!-- MAIN CONTENT -->
-    <div class="main-container">
+    <!-- MAIN CONTENT -->
+    <main class="main-container">
 
-        <!-- LEFT: FORM -->
-        <div class="glass-form">
+        <!-- LEFT FORM PANEL -->
+        <section class="glass-form">
             <h3>Add Item</h3>
 
             <form method="POST" action="{{ url_for('admin.handle_lost_found') }}">
+
                 <div class="input-group">
                     <label>Lost Item:</label>
                     <input type="text" name="item_name" required>
@@ -58,99 +63,110 @@
                 </div>
 
                 <div class="radio-container">
-                    Item Status: <br>
+                    <p>Item Status:</p>
 
-                    <input type="radio" name="status" value="Unreturned">
-                    <label>Unreturned</label>
+                    <label>
+                        <input type="radio" name="status" value="Unreturned" checked>
+                        Unreturned
+                    </label>
 
-                    <input type="radio" name="status" value="Returned">
-                    <label>Returned</label>
+                    <label>
+                        <input type="radio" name="status" value="Returned">
+                        Returned
+                    </label>
 
-                    <input type="radio" name="status" value="OSAD">
-                    <label>OSAD</label>
-
+                    <label>
+                        <input type="radio" name="status" value="OSAD">
+                        OSAD
+                    </label>
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" type="submit" name="action" value="add" class="button-text">Add Item</button>
-                    <button id="edit-button" type="submit" name="action" value="edit"  class="button-text">Edit Item</button>
-                    <button id="delete-button" type="submit" name="action" value="delete"  class="button-text">Delete Item</button>
+                    <button id="plus-button" type="submit" name="action" value="add">Add Item</button>
+                    <button id="edit-button" type="submit" name="action" value="edit">Edit Item</button>
+                    <button id="delete-button" type="submit" name="action" value="delete">Delete Item</button>
                 </div>
+
             </form>
-        </div>
+        </section>
 
-        <!-- RIGHT: TABLE PLACEHOLDER -->
-        <div class="glass-placeholder">
+        <!-- RIGHT TABLE PANEL -->
+        <section class="glass-placeholder">
 
-           <div class="table-controls">
-                <form method="POST" action="{{ url_for('admin.search_lost_item') }}">
+            <!-- TABLE CONTROLS -->
+            <div class="table-controls">
+
+                <form class="control-form" method="POST" action="{{ url_for('admin.search_lost_item') }}">
                     <input type="text" name="search_item" placeholder="Enter Item" required>
                     <button type="submit">Search by Item</button>
                 </form>
-                <div class="select-wrapper">
 
-                <form method="POST" action="{{ url_for('admin.search_item_status') }}">
-                    
-                    <div class="select-wrapper">
-                        <select class="filter-dropdown" name="status">
-                            <option value="all">Select Status</option>
-                            <option value="Returned">Returned</option>
-                            <option value="Unreturned">Unreturned</option>
-                            <option value="OSAD">OSAD</option>
-                        </select>
-                    </div>
+                <form class="control-form" method="POST" action="{{ url_for('admin.search_item_status') }}">
+                    <select class="filter-dropdown" name="status">
+                        <option value="all">Select Status</option>
+                        <option value="Returned">Returned</option>
+                        <option value="Unreturned">Unreturned</option>
+                        <option value="OSAD">OSAD</option>
+                    </select>
 
-                    <button type="submit" id="filter-status-btn">Filter By Status</button>
-
+                    <button type="submit" id="filter-status-btn">Filter Status</button>
                 </form>
 
-                </div>
-                <input type="datetime-local">
-                <button id="filter-status-btn">Search By Date</button>
-                
-                <a href="{{ url_for('admin.LostAndFound') }}">
-                <button id="refresh-btn">Refresh Table</button>
+                <form class="control-form" method="POST">
+                    <input type="datetime-local" name="date_time">
+                    <button type="submit">Search Date</button>
+                </form>
+
+                <a href="{{ url_for('admin.LostAndFound') }}" class="control-link">
+                    <button type="button" id="refresh-btn">Refresh</button>
                 </a>
 
-                <button id="clear-btn">Clear All</button>
+                <button type="button" id="clear-btn">Clear</button>
 
             </div>
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Description</th>
-                        <th>Date & Time</th>
-                        <th>Place</th>
-                        <th>Finder's Name</th>
-                        <th>Finder's Phone Number</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if items %}
-                        {% for item in items %}
-                        <tr class="item-row">
-                            <td>{{ item.item_name }}</td>
-                            <td>{{ item.description }}</td>
-                            <td>{{ item.date_time }}</td>
-                            <td>{{ item.place }}</td>
-                            <td>{{ item.name }}</td>
-                            <td>{{ item.contact_number }}</td>
-                            <td>{{ item.Status }}</td>
-                        </tr>
-                        {% endfor %}
-                    {% else %}
+            <!-- TABLE WRAPPER -->
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
                         <tr>
-                            <td colspan="7">No items found</td>
+                            <th>Item Name</th>
+                            <th>Description</th>
+                            <th>Date & Time</th>
+                            <th>Place</th>
+                            <th>Finder's Name</th>
+                            <th>Finder's Phone Number</th>
+                            <th>Status</th>
                         </tr>
-                    {% endif %}
-                </tbody>
-        </table>
-    </div>
-    
-<script src="{{ url_for('static', filename='JAVASCRIPT/LostAndFound.js') }}"></script>
+                    </thead>
+
+                    <tbody>
+                        {% if items %}
+                            {% for item in items %}
+                                <tr class="item-row">
+                                    <td>{{ item.item_name }}</td>
+                                    <td>{{ item.description }}</td>
+                                    <td>{{ item.date_time }}</td>
+                                    <td>{{ item.place }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.contact_number }}</td>
+                                    <td>{{ item.Status }}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="7" class="empty-message">No items found</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='JAVASCRIPT/LostAndFound.js') }}"></script>
 
 </body>
 </html>

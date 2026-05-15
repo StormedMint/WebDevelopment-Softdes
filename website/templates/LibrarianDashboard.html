@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdminDashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/LibrarianDashboard.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
@@ -20,11 +20,6 @@
 <body>
     
         <div class="nav-buttons">
-            <div> 
-                <a href="{{ url_for('admin.UserAccManagement') }}" class="glass-panel-acc" >
-                    <button>Manage Accounts</button>
-                </a>
-            </div>
 
             <div >
                 <a href="{{ url_for('admin.CapacityTrackingAdminSide') }}" class="glass-panel-cap">
@@ -49,7 +44,7 @@
 
     <div class="status-bar"> 
      
-        Logged in as: High Admin
+        Logged in as: Librarian/Low Admin
      
     </div>
 </body>

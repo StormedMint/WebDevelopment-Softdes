@@ -45,27 +45,30 @@ body::before {
 
 /* Layout */
 .container {
-    display: flex;
-    height: 100vh;
+    display: grid;
+    grid-template-columns: 40% 60%; /* change this to resize panels */
+    min-height: 100vh;
     padding: 50px;
-    gap: 10px;
+    gap: 25px;
 }
 
-/* Panels */
+/* LEFT PANEL */
 .left-panel {
-    margin: 20px;
-    flex: 1;
+    width: 100%;
+    margin: 0;
+
     border-radius: 15px;
-    padding: 15px;
-    
-    background: rgba(255, 255, 255, 0.15); /* transparency */
-    backdrop-filter: blur(7px); /* glass effect */
+    padding: 30px;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(7px);
     -webkit-backdrop-filter: blur(7px);
 
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 
-    position: relative; 
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -187,20 +190,25 @@ body::before {
     height: auto; 
 }
 
-/* RIGHT SIDE */
+/* RIGHT PANEL */
 .right-panel {
+    width: 100%;
+
     display: grid;
-    grid-template-rows: auto auto; /* stack vertically */
-    justify-items: center; /* center horizontally */
-    align-content: start; /* stick to top */
-    gap: 20px; /* controls spacing */
+    grid-template-rows: auto auto;
+    justify-items: center;
+    align-content: start;
+
+    gap: 20px;
     padding-top: 40px;
 }
 
 /* Card */
 .user-picture{
     position: relative;
-    height: 500px;
+    min-height: 600px;
+    height: auto;
+    max-height: 800px;
     width:85%;
     background: rgba(255,255,255,0.2);
     backdrop-filter: blur(15px);
@@ -209,15 +217,21 @@ body::before {
 }
 
 .profile-pic {
-    height: 450px;
+    min-height: auto;
+    max-height: 750px;
     width: 85%;
     object-fit: cover;
 }
 
 .user-card {
-    margin-top: 0%;
+    margin-top: 0;
     position: relative;
-    width:700px;
+
+    width: 85%;
+    max-width: 1000px;
+    height: 200px;
+    max-height: 100%;
+
     background: rgba(255,255,255,0.2);
     backdrop-filter: blur(15px);
     border-radius: 12px;
@@ -225,14 +239,14 @@ body::before {
     color: white;
 }
 
-.user-card h3 {
+.user-card h2 {
     margin-bottom: 15px;
     font-weight: 600;
 }
 
 .user-card p {
     margin: 8px 0;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 /* =========================================================
@@ -247,28 +261,20 @@ MOBILE RESPONSIVE DESIGN
 
     /* MAIN LAYOUT */
 
-    .container {
-
+     .container {
+        display: flex;
         flex-direction: column;
-
-        height: auto;
-
+        min-height: auto;
         padding: 15px;
-
         gap: 15px;
     }
 
     /* LEFT PANEL */
 
     .left-panel {
-
         width: 100%;
-
         margin: 0;
-
         padding: 25px 15px;
-
-        border-radius: 16px;
     }
 
     /* TITLES */

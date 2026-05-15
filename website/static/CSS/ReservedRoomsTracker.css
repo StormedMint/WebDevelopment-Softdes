@@ -59,7 +59,7 @@ body {
 .glass-header {
     width: 80%;
     max-width: 900px;
-    margin: 10px auto 20px auto;
+    margin: 70px auto 20px auto;
     padding: 15px;
 
     border-radius: 18px;
@@ -76,13 +76,16 @@ body {
     justify-content: space-between;
     width: 95%;
     margin: 0 auto;
-    
 }
 
 /* FORM PANEL */
 .glass-form {
-    width: 350px;
+    
+    min-width: 350px;
+    width: 500px;
     padding: 25px;
+    min-height:640px;
+    height: 750px;
     border-radius: 16px;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(30px);
@@ -91,20 +94,25 @@ body {
 
 /* RIGHT PANEL (SCROLLABLE TABLE AREA) */
 .glass-placeholder {
-    width: 1300px;
-    height: 600px;
+    width: 100%;
+    min-width: 1300px;
+    max-width: 1600px;
 
-    overflow-y: auto;
-    overflow-x: hidden;
+    min-height: 640px;
+    height: 750px;
+
+    overflow: hidden; /* important: stops whole panel from scrolling */
 
     padding: 20px;
-  
 
     border-radius: 16px;
     background: rgba(255,255,255,0.10);
     backdrop-filter: blur(30px);
 
     color: white;
+
+    display: flex;
+    flex-direction: column;
 }
 
 /* TITLE */
@@ -305,27 +313,45 @@ h3 {
 }
 
 /* TABLE */
+/* TABLE */
 .data-table {
     width: 100%;
     border-collapse: collapse;
     color: white;
 }
 
-.data-table th,
-.data-table td {
-    padding: 10px;
-    text-align: left;
-}
-
+/* Keep table head fixed */
 .data-table thead {
-    position: sticky;
-    top: 0;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
     background: rgba(0,0,0,0.4);
     backdrop-filter: blur(30px);
 }
 
-.data-table tr {
+/* Only table body scrolls */
+.data-table tbody {
+    display: block;
+
+    max-height: 650px; /* adjust this height */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Make body rows align with header */
+.data-table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
     border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    text-align: left;
 }
 
 .data-table tbody tr:hover {
@@ -338,7 +364,7 @@ h3 {
 }
 
 .glass-placeholder::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.068);
     border-radius: 10px;
 }
 

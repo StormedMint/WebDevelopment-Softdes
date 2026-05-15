@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from .db import get_db_connection
 import base64
 import re
@@ -98,7 +98,27 @@ def UserLoginPage():
             if user_data.get("picture"):
                 user_data["picture"] = base64.b64encode(user_data["picture"]).decode("utf-8")
 
-    # ✅ THIS MUST ALWAYS RUN
+            # INSERTION SA LOG TABLE
+            connection = get_db_connection()
+            cursor = connection.cursor()
+
+            cursor.execute("""
+                INSERT INTO log_table
+                (id, fname, lname, account_type, course_section, date)
+                VALUES (%s, %s, %s, %s, %s, NOW())
+            """, (
+                user_data["id"],
+                user_data["fname"],
+                user_data["lname"],
+                user_data["account_type"],
+                user_data["course_section"]
+            ))
+
+            connection.commit()
+            cursor.close()
+            connection.close()
+
+    # THIS MUST ALWAYS RUN
     return render_template(
         "UserLoginPage.html",
         user=user_data,
@@ -108,7 +128,6 @@ def UserLoginPage():
 @auth.route('/AdminLogIn', methods=['POST', 'GET'])
 def AdminLogIn():
     admin_data = None
-    logged_in = False
 
     if request.method == 'POST':
 
@@ -131,35 +150,43 @@ def AdminLogIn():
             flash("Admin does not exist!")
             cursor.close()
             db.close()
-            return render_template("AdminLogIn.html", admin=None, logged_in=False)
+            return render_template("AdminLogIn.html", admin=None)
 
         # 4. Check password
         if admin_data["password"] != password:
             flash("Incorrect password!")
             cursor.close()
             db.close()
-            return render_template("AdminLogIn.html", admin=None, logged_in=False)
+            return render_template("AdminLogIn.html", admin=None)
 
         # 5. Check admin type
         if admin_data["type_admin"] not in ["High Admin", "Librarian"]:
             flash("Unauthorized admin type!")
             cursor.close()
             db.close()
-            return render_template("AdminLogIn.html", admin=None, logged_in=False)
+            return render_template("AdminLogIn.html", admin=None)
 
         # 6. SUCCESS
-        logged_in = True
+
+        admin_type = admin_data["type_admin"]
+
+        session['admin_type'] = admin_type #Para ma-store yung admin_type and ma-pass siya
 
         cursor.close()
         db.close()
 
-        return render_template(
-            "AdminDashboard.html",
-            admin=admin_data,
-            logged_in=logged_in
-        )
+        # REDIRECT BASED SA TYPE_ADMIN SA DB
+        if admin_type == "High Admin":
+            return redirect(url_for('admin.AdminDashboard'))
 
-    return render_template("AdminLogIn.html", admin=None, logged_in=False)
+        elif admin_type == "Librarian":
+            return redirect(url_for('admin.LibrarianDashboard'))
+
+        else:
+            flash("Invalid admin role!")
+            return redirect(url_for('auth.AdminLogIn'))
+
+    return render_template("AdminLogIn.html", admin=None)
 
 @auth.route('/UserDashboard', methods=['POST'])
 def UserDashboard():
