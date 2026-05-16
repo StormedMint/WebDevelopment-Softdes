@@ -37,6 +37,9 @@ body {
     font-family: 'Poppins', sans-serif;
     background: url("../IMG/second-floor-library.jpg") no-repeat center center fixed;
     background-size: cover;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
    
 }
 
@@ -379,6 +382,7 @@ body {
         margin:0;
         font-size: medium;
         padding: 10px;
+        overflow-y: visible;
         overflow-x: hidden;
     }
 

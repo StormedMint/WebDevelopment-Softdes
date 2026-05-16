@@ -113,7 +113,7 @@
                 </form>
 
                 <form class="control-form" method="POST">
-                    <input type="datetime-local" name="date_time">
+                    <input type="date" name="date_time">
                     <button type="submit">Search Date</button>
                 </form>
 
@@ -132,10 +132,11 @@
                         <tr>
                             <th>Item Name</th>
                             <th>Description</th>
-                            <th>Date & Time</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th>Place</th>
                             <th>Finder's Name</th>
-                            <th>Finder's Phone Number</th>
+                            <th>Finder's Phone No.</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -146,7 +147,8 @@
                                 <tr class="item-row">
                                     <td>{{ item.item_name }}</td>
                                     <td>{{ item.description }}</td>
-                                    <td>{{ item.date_time }}</td>
+                                    <td>{{ item.date }}</td>
+                                    <td>{{ item.time }}</td>
                                     <td>{{ item.place }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.contact_number }}</td>

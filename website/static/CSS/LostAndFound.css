@@ -106,7 +106,7 @@ button:hover {
 .glass-form {
     
     min-width: 350px;
-    width: 650px;
+    width: 500px;
     padding: 25px;
     min-height:640px;
     height: 800px;
@@ -209,7 +209,7 @@ input::placeholder {
 .glass-placeholder {
     width: 100%;
     min-width: 1300px;
-    max-width: 1600px;
+    max-width: 1700px;
 
     min-height: 640px;
     height: 800px;
@@ -275,7 +275,6 @@ input::placeholder {
     border-radius: 14px;
 }
 
-/* TABLE */
 /* TABLE */
 .data-table {
     width: 100%;
