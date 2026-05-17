@@ -32,27 +32,27 @@
             <form method="POST" action="{{ url_for('admin.handle_user_actions') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text" name="id" required>
+                    <input type="text" name="id" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text" name="fname" required>
+                    <input type="text" name="fname" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text" name="lname" required>
+                    <input type="text" name="lname" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text" name="course_section" required>
+                    <input type="text" name="course_section" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" name="account_type" required>
+                    <input type="text" name="account_type" required readonly>
                 </div>
 
                 <div class="button-group">

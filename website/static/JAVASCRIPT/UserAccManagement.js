@@ -1,22 +1,33 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const idInput = document.querySelector("input[name='id']");
+    const fnameInput = document.querySelector("input[name='fname']");
+    const lnameInput = document.querySelector("input[name='lname']");
+    const accountTypeInput = document.querySelector("input[name='account_type']");
+    const courseSectionInput = document.querySelector("input[name='course_section']");
+
     document.querySelectorAll(".user-row tr").forEach(row => {
 
         row.addEventListener("click", () => {
 
             const cells = row.querySelectorAll("td");
 
-            const id = cells[0].innerText.trim();
-            const fname = cells[1].innerText.trim();
-            const lname = cells[2].innerText.trim();
-            const account_type = cells[3].innerText.trim();
-            const course_section = cells[4].innerText.trim();
+            // Prevent error when clicking the "No users found" row
+            if (cells.length < 5) {
+                return;
+            }
 
-            document.querySelector("input[name='id']").value = id;
-            document.querySelector("input[name='fname']").value = fname;
-            document.querySelector("input[name='lname']").value = lname;
-            document.querySelector("input[name='account_type']").value = account_type;
-            document.querySelector("input[name='course_section']").value = course_section;
+            idInput.value = cells[0].innerText.trim();
+            fnameInput.value = cells[1].innerText.trim();
+            lnameInput.value = cells[2].innerText.trim();
+            accountTypeInput.value = cells[3].innerText.trim();
+            courseSectionInput.value = cells[4].innerText.trim();
+
+            // Keep ID and Account Type readonly
+            idInput.removeAttribute("readonly")
+            fnameInput.removeAttribute("readonly");
+            lnameInput.removeAttribute("readonly");
+            courseSectionInput.removeAttribute("readonly");
 
         });
 

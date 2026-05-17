@@ -12,44 +12,39 @@
     <!-- External CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CapacityTrackingAdminSide.css') }}">
 
-    <title>Capacity Tracking</title>
+    <title>Capacity Tracking Admin</title>
 </head>
 
 <body>
 
-    <!-- =========================================================
-    TOP NAVIGATION BUTTONS
-    ========================================================= -->
+    <!-- ===================== TOP NAVIGATION BUTTONS ===================== -->
 
-    <!-- Return Button -->
     <div class="top-left-button">
-        <a href="{{ url_for('admin.dashboard') }}" class="glass-panel-acc">
-            <button>Return Dashboard</button>
+        <a href="{{ url_for('admin.dashboard') }}">
+            <button type="button">Return Dashboard</button>
         </a>
     </div>
 
-    <!-- View Logs Button -->
     <div class="top-right-button">
-        <a href="{{ url_for('admin.LogTableManagement') }}" class="glass-panel-acc">
-            <button>View Log Table</button>
+        <a href="{{ url_for('admin.LogTableManagement') }}">
+            <button type="button">View Log Table</button>
         </a>
     </div>
 
 
-    <!-- =========================================================
-    MAIN HEADER
-    ========================================================= -->
+    <!-- ===================== HEADER ===================== -->
+
     <div class="glass-header">
         <h1>CAPACITY TRACKING</h1>
+        <h5>Click a room to add or deduct capacity</h5>
     </div>
 
 
-    <!-- =========================================================
-    MAIN CONTENT CONTAINER
-    ========================================================= -->
+    <!-- ===================== MAIN CONTENT ===================== -->
+
     <div class="main-layout">
 
-        <!-- ===================== LEFT FLOOR ===================== -->
+        <!-- ===================== 2ND FLOOR ===================== -->
         <div class="floor-section second-floor">
 
             <div class="floor-title">
@@ -58,14 +53,9 @@
 
             <div class="room-grid">
 
-                <!-- ROOM CARD -->
                 <div class="room-card low-capacity" data-area="Reading Area">
-
                     <div class="room-icon">👤</div>
-
                     <h3>Reading Area</h3>
-
-                    <!-- Dynamic Capacity -->
                     <p class="capacity-text">
                         <span class="current-count">
                             {% for room in rooms %}
@@ -196,11 +186,10 @@
                 </div>
 
             </div>
-
         </div>
 
 
-        <!-- ===================== CENTER FLOOR ===================== -->
+        <!-- ===================== 1ST FLOOR ===================== -->
         <div class="center-floor first-floor">
 
             <div class="floor-title">
@@ -254,11 +243,10 @@
                 </div>
 
             </div>
-
         </div>
 
 
-        <!-- ===================== RIGHT FLOOR ===================== -->
+        <!-- ===================== 3RD FLOOR ===================== -->
         <div class="floor-section third-floor">
 
             <div class="floor-title">
@@ -400,35 +388,13 @@
                 </div>
 
             </div>
-
         </div>
 
     </div>
 
 
-    <!-- =========================================================
-    LEGEND PANEL
-    ========================================================= -->
-    <div class="legend-panel">
+    <!-- ===================== CAPACITY EDIT POPUP ===================== -->
 
-        <div class="legend-item">
-            <span class="legend-color low"></span>
-            Low Capacity
-        </div>
-
-        <div class="legend-item">
-            <span class="legend-color moderate"></span>
-            Moderate Capacity
-        </div>
-
-        <div class="legend-item">
-            <span class="legend-color full"></span>
-            Full Capacity
-        </div>
-
-    </div>
-
-        <!-- CAPACITY EDIT POPUP -->
     <div class="popup-overlay" id="capacityPopup">
         <div class="popup-box">
 
@@ -445,19 +411,11 @@
             </p>
 
             <form method="POST" action="{{ url_for('admin.update_capacity') }}" id="capacityForm">
-                     <input type="hidden" name="area" id="selectedRoomInput">
-                     <input type="hidden" name="current" id="selectedCurrentInput">
-                     <input type="hidden" name="capacity" id="selectedCapacityInput">
+                <input type="hidden" name="area" id="selectedRoomInput">
+                <input type="hidden" name="current" id="selectedCurrentInput">
+                <input type="hidden" name="capacity" id="selectedCapacityInput">
 
-                <input 
-                    type="text"
-                    name="amount"
-                    id="capacityAmount"
-                    placeholder="Enter number"
-                    inputmode="numeric"
-                    pattern="[0-9]+"
-                    required
-                >
+                <input type="text" name="amount" id="capacityAmount" placeholder="Enter number" inputmode="numeric">
 
                 <p id="capacityError" class="capacity-error"></p>
 
@@ -479,7 +437,29 @@
         </div>
     </div>
 
-        <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingAdminSide.js') }}"></script>
+
+    <!-- ===================== LEGEND PANEL ===================== -->
+
+    <div class="legend-panel">
+
+        <div class="legend-item">
+            <span class="legend-color low"></span>
+            Low Capacity
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color moderate"></span>
+            Moderate Capacity
+        </div>
+
+        <div class="legend-item">
+            <span class="legend-color full"></span>
+            Full Capacity
+        </div>
+
+
+    </div>
+    <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingAdminSide.js') }}"></script>
 
 </body>
 

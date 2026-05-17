@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -30,12 +31,12 @@
             <h3 class="subtitle">Create Account</h3>
 
             <!-- SIGNUP FORM -->
-            <form class="signup-form" method="POST" action="{{ url_for ('auth.UserSignUpPage') }}">
+            <form class="signup-form" method="POST" action="{{ url_for('auth.UserSignUpPage') }}">
 
                 <div class="input-group">
                     <label for="LRN">ID:</label>
-                    <input type="text" id="LRN" name="id" class="input-field" pattern="[0-9-]*" 
-                    inputmode="numeric"oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required>
+                    <input type="text" id="LRN" name="id" class="input-field" pattern="[0-9-]*" inputmode="numeric"
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required>
                     <!--Only accepts numbers and dash-->
                 </div>
 
@@ -57,15 +58,15 @@
                 <input type="hidden" name="picture" id="picture">
 
                 <!-- BUTTONS -->
-                        <div class="form-buttons">
+                <div class="form-buttons">
 
-                            <a href="{{ url_for('auth.UserLoginPage') }}" class="btn cancel-btn">
-                                Cancel
-                            </a>
+                    <a href="{{ url_for('auth.UserLoginPage') }}" class="btn cancel-btn">
+                        Cancel
+                    </a>
 
-                            <input type="submit" value="Register" class="btn submit-btn">
+                    <input type="submit" value="Register" class="btn submit-btn">
 
-                    </div>
+                </div>
 
             </form>
 
@@ -89,7 +90,7 @@
                             Capture Photo
                         </button>
 
-                        <button id="retake-btn" class="btn retake-btn" style="display:none";>
+                        <button id="retake-btn" class="btn retake-btn" style="display:none" ;>
                             Retake
                         </button>
                     </div>
@@ -99,16 +100,24 @@
             </div>
 
         </div>
-            </div>
+    </div>
 
-         
 
-        </div>
+
+    </div>
 
     </div>
 
     <script src="{{ url_for('static', filename='JAVASCRIPT/UserSignupPage.js') }}"></script>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        alert("{{ messages[0] }}");
+    </script>
+    {% endif %}
+    {% endwith %}
+
 </body>
+
 </html>
-w

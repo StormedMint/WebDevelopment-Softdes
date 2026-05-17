@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
 
     <div class="go-back-container">
         <a href="{{ url_for('auth.UserLoginPage') }}">
-                    <button> Go Back To User Login Page </button>
+            <button> Go Back To User Login Page </button>
         </a>
     </div>
 
@@ -32,13 +33,14 @@
 
             <div class="input-group">
                 <label>Username:</label>
-                <input type="text" name = username class="input-field" placeholder="Enter username" required>
+                <input type="text" name="username" class="input-field" placeholder="Enter username" required>
             </div>
 
             <div class="input-group">
                 <label>Password:</label>
-                <input type="password" name = password id="password" class="input-field" placeholder="Enter password" required>
-                
+                <input type="password" name="password" id="password" class="input-field" placeholder="Enter password"
+                    required>
+
                 <button type="button" class="toggle-btn" onclick="togglePassword()">Show Password</button>
                 <script src="{{ url_for('static', filename='JAVASCRIPT/AdminLogin.js') }}"></script>
             </div>
@@ -48,7 +50,14 @@
         </form>
     </div>
 
-    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <script>
+        alert("{{ messages[0] }}");
+    </script>
+    {% endif %}
+    {% endwith %}
 
 </body>
+
 </html>
