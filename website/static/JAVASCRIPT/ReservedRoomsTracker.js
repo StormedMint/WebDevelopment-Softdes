@@ -1,47 +1,58 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    const roomSelect = document.querySelector("select[name='room']");
+    const dateInput = document.querySelector("input[name='date']");
+    const timeInput = document.getElementById("timeInput");
+    const repInput = document.querySelector("input[name='representative']");
+    const reasonInput = document.querySelector("input[name='reason']");
+
+    const addButton = document.getElementById("plus-button");
+
     document.querySelectorAll(".res-row").forEach(row => {
         row.addEventListener("click", () => {
 
             const cells = row.querySelectorAll("td");
 
-            // ROOM (dropdown)
-            const roomSelect = document.querySelector("select[name='room']");
+            // Fill Room
             if (roomSelect) {
                 roomSelect.value = cells[0].innerText.trim();
+
+                // make select act like readonly
+                roomSelect.style.pointerEvents = "none";
+                roomSelect.style.opacity = "0.7";
+                roomSelect.tabIndex = -1;
             }
 
-            // DATE
-            const rawDate = cells[1].innerText.trim();
-            const dateInput = document.querySelector("input[name='date']");
-
+            // Fill Date
             if (dateInput) {
-                const d = new Date(rawDate);
-                if (!isNaN(d)) {
-                    dateInput.value = d.toISOString().split("T")[0];
-                } else {
-                    dateInput.value = rawDate; // fallback if already correct format
-                }
+                dateInput.value = cells[1].innerText.trim();
+                dateInput.readOnly = true;
             }
 
-            // TIME (custom input)
-            const timeInput = document.getElementById("timeInput");
+            // Fill Time
             if (timeInput) {
                 timeInput.value = cells[2].innerText.trim();
+                timeInput.readOnly = true;
             }
 
-            // REPRESENTATIVE
-            const repInput = document.querySelector("input[name='representative']");
+            // Fill Representative
             if (repInput) {
                 repInput.value = cells[3].innerText.trim();
+                repInput.readOnly = true;
             }
 
-            // REASON
-            const reasonInput = document.querySelector("input[name='reason']");
+            // Fill Reason
             if (reasonInput) {
                 reasonInput.value = cells[4].innerText.trim();
+                reasonInput.readOnly = true;
             }
 
+            // Optional: prevent adding duplicate reservation after selecting row
+            if (addButton) {
+                addButton.disabled = true;
+                addButton.style.opacity = "0.5";
+                addButton.style.cursor = "not-allowed";
+            }
 
             // store ID for delete/edit
             window.selectedReservationId = row.dataset.id;
@@ -51,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+
 // Kunin sa html yung elements
 const dropdown = document.getElementById("timeDropdown");
 const input = document.getElementById("timeInput");
@@ -59,16 +71,17 @@ const input = document.getElementById("timeInput");
 for (let h = 0; h < 24; h++) {
     // loop for minutes
     for (let m of ["00", "30"]) {
-        //formatting sa hour 2 digits
+        // formatting sa hour 2 digits
         let hour = String(h).padStart(2, '0');
-        //formatting sa minutes + hour
+
+        // formatting sa minutes + hour
         let time = `${hour}:${m}`;
 
         // magiging clickable siya
         let div = document.createElement("div");
         div.textContent = time;
 
-        //kapag kinlick yung time, maiinput siya sa div
+        // kapag kinlick yung time, maiinput siya sa div
         div.onclick = () => {
             input.value = time;
             dropdown.style.display = "none";
@@ -79,6 +92,11 @@ for (let h = 0; h < 24; h++) {
 }
 
 input.onclick = () => {
+    // Do not show dropdown after selecting a table row
+    if (input.readOnly && input.value !== "") {
+        return;
+    }
+
     dropdown.style.display = "block";
 };
 

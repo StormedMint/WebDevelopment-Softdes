@@ -68,8 +68,12 @@
                 <a href="{{ url_for('admin.AdminAccManagement') }}">
                     <button type="button" id="refresh-btn">Refresh</button>
                 </a>
-                <button id="export-btn">Export Table</button>
-                <button id="export-btn">Export Archived Table</button>
+                <a href="{{ url_for('admin.export_table', table_name='admin_accounts') }}">
+                    <button id="export-btn" type="button">Export Table</button>
+                </a>
+                <a href="{{ url_for('admin.export_table', table_name='deleted_admin_accounts') }}">
+                    <button id="export-btn" type="button">Export Archived Table</button>
+                </a>
                 <form method="POST" action="{{ url_for('admin.clear_all_admin') }}">
                     <button id="clear-btn" type="submit" name="action" value="clear_all_admin">Clear All</button>
                 </form>

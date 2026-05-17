@@ -31,27 +31,27 @@
             <form method="POST" action="{{ url_for('admin.restore_user') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text" name="id" required>
+                    <input type="text" name="id" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text" name="fname" required>
+                    <input type="text" name="fname" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text" name="lname" required>
+                    <input type="text" name="lname" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text" name="course_section" required>
+                    <input type="text" name="course_section" required readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" name="account_type" required>
+                    <input type="text" name="account_type" required readonly>
                 </div>
 
                 <div class="button-group">
@@ -66,12 +66,12 @@
             <div class="table-controls">
 
                 <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                    <input type="text" placeholder="Enter ID" name="search_id">
+                    <input type="text" placeholder="Enter ID" name="search_id" >
                     <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
                 </form>
 
                 <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                    <input type="text" placeholder="Enter First or Last Name" name="search_name">
+                    <input type="text" placeholder="Enter First or Last Name" name="search_name" >
                     <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
                 </form>
 
@@ -82,7 +82,9 @@
                 <a href="{{ url_for('admin.UserAccManagement') }}">
                     <button id="user-button">User Accounts</button>
                 </a>
-                <button id="export-btn">Export Archived Table</button>
+                <a href="{{ url_for('admin.export_table', table_name='deleted_user_accounts') }}">
+                    <button id="export-btn" type="button">Export Archived Table</button>
+                </a>
                 <form method="POST" action="{{ url_for('admin.clear_all_deleted_user') }}">
                     <button id="clear-btn" type="submit" name="action" value="clear_all_deleted_user">Clear All</button>
                 </form>

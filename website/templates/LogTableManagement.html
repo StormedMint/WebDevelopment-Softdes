@@ -32,32 +32,32 @@
             <form>
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text" name="id">
+                    <input type="text" name="id" readonly>
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text" name="fname">
+                    <input type="text" name="fname" readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text" name="lname">
+                    <input type="text" name="lname" readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text" name="course_section">
+                    <input type="text" name="course_section" readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Account Type:</label>
-                    <input type="text" name="account_type">
+                    <input type="text" name="account_type" readonly>
                 </div>
 
                 <div class="input-group">
                     <label>Date & Time Logged:</label>
-                    <input type="text" name="date">
+                    <input type="text" name="date" readonly>
                 </div>
 
             </form>
@@ -81,7 +81,9 @@
                 <a href="{{ url_for('admin.LogTableManagement') }}">
                     <button id="refresh-btn">Refresh</button>
                 </a>
-                <button id="export-btn">Export Table</button>
+                <a href="{{ url_for('admin.export_table', table_name='log_table') }}">
+                    <button id="export-btn" type="button">Export Table</button>
+                </a>
                 <form method="POST" action="{{ url_for('admin.clear_all_log_table') }}">
                     <button id="clear-btn" type="submit" name="action" value="clear_all_log_table">Clear All</button>
                 </form>

@@ -1,7 +1,11 @@
-body {
+/* =========================================================
+BODY
+========================================================= */
 
+body {
     margin: 0;
     padding: 0;
+    margin-bottom: 100px;
 
     font-family: 'Poppins', sans-serif;
 
@@ -10,7 +14,6 @@ body {
 
     overflow-x: hidden;
     overflow-y: hidden;
-    margin-bottom: 100px;
 }
 
 
@@ -19,7 +22,6 @@ DARK OVERLAY
 ========================================================= */
 
 body::before {
-
     content: "";
 
     position: fixed;
@@ -30,9 +32,68 @@ body::before {
     width: 100%;
     height: 100%;
 
-    background: rgba(0,0,0,0.35);
+    background: rgba(0, 0, 0, 0.35);
 
     z-index: -1;
+}
+
+
+/* =========================================================
+TOP BUTTONS
+========================================================= */
+
+.top-left-button,
+.top-right-button {
+    position: fixed;
+
+    top: 15px;
+
+    z-index: 10;
+}
+
+.top-left-button {
+    left: 15px;
+}
+
+.top-right-button {
+    right: 15px;
+}
+
+.top-left-button a,
+.top-right-button a {
+    text-decoration: none;
+}
+
+.top-left-button button,
+.top-right-button button {
+    padding: 14px 22px;
+
+    border-radius: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    background: rgba(255, 255, 255, 0.15);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: white;
+
+    font-size: larger;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.top-left-button button:hover,
+.top-right-button button:hover {
+    transform: scale(1.05);
+
+    background: rgba(255, 255, 255, 0.25);
 }
 
 
@@ -41,7 +102,6 @@ HEADER
 ========================================================= */
 
 .glass-header {
-
     width: fit-content;
 
     margin: 50px auto;
@@ -50,20 +110,19 @@ HEADER
 
     border-radius: 24px;
 
-    background: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.15);
 
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
 
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
 
-    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 
     text-align: center;
 }
 
 .glass-header h1 {
-
     margin: 0;
 
     color: white;
@@ -76,7 +135,6 @@ HEADER
 }
 
 .glass-header h5 {
-
     margin: 0;
 
     color: white;
@@ -91,15 +149,11 @@ HEADER
 }
 
 
-
-
-
 /* =========================================================
 MAIN LAYOUT
 ========================================================= */
 
 .main-layout {
-
     display: flex;
 
     justify-content: center;
@@ -117,74 +171,12 @@ MAIN LAYOUT
     box-sizing: border-box;
 }
 
-/* =========================================================
-TOP BUTTONS
-========================================================= */
-
-.top-left-button,
-.top-right-button {
-
-    position: fixed;
-
-    top: 15px;
-
-    z-index: 10;
-}
-
-.top-left-button {
-    left: 15px;
-}
-
-.top-right-button {
-    right: 15px;
-}
-
-/* =========================================================
-GLASS BUTTONS
-========================================================= */
-
-.top-left-button button,
-.top-right-button button {
-
-    padding: 14px 22px;
-
-    border-radius: 16px;
-
-    border: 1px solid rgba(255,255,255,0.2);
-
-    background: rgba(255,255,255,0.15);
-
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    color: white;
-
-    font-size: larger;
-
-    cursor: pointer;
-
-    transition: 0.3s ease;
-
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-}
-
-
-/* BUTTON HOVER */
-
-.top-left-button button:hover,
-.top-right-button button:hover {
-
-    transform: scale(1.05);
-
-    background: rgba(255,255,255,0.25);
-}
 
 /* =========================================================
 FLOOR TITLES
 ========================================================= */
 
 .floor-title {
-
     display: flex;
 
     justify-content: center;
@@ -196,20 +188,16 @@ FLOOR TITLES
     margin-top: 90px;
 }
 
-
-/* GLASS FLOOR LABEL */
-
 .floor-title h2 {
-
     padding: 10px 28px;
 
     margin: 0;
 
     border-radius: 16px;
 
-    background: rgba(255,255,255,0.18);
+    background: rgba(255, 255, 255, 0.18);
 
-    border: 1px solid rgba(255,255,255,0.25);
+    border: 1px solid rgba(255, 255, 255, 0.25);
 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -220,7 +208,7 @@ FLOOR TITLES
 
     font-weight: 700;
 
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -229,7 +217,6 @@ ROOM GRID
 ========================================================= */
 
 .room-grid {
-
     display: grid;
 
     grid-template-columns: repeat(2, 240px);
@@ -237,14 +224,7 @@ ROOM GRID
     gap: 10px;
 }
 
-
-/* =========================================================
-CENTER GRID
-========================================================= */
-
-
 .center-grid {
-
     display: grid;
 
     grid-template-columns: repeat(2, 240px);
@@ -254,14 +234,7 @@ CENTER GRID
     margin-top: 20px;
 }
 
-
-/* =========================================================
-CENTER FLOOR
-========================================================= */
-
-
 .center-floor {
-
     display: flex;
 
     flex-direction: column;
@@ -269,30 +242,27 @@ CENTER FLOOR
     align-items: center;
 
     justify-content: flex-start;
-
-    
 }
+
 
 /* =========================================================
 ROOM CARD
 ========================================================= */
 
 .room-card {
-
     width: 230px;
-
     height: 130px;
 
     border-radius: 20px;
 
-    background: rgba(255,255,255,0.16);
+    background: rgba(255, 255, 255, 0.16);
 
-    border: 1px solid rgba(255,255,255,0.22);
+    border: 1px solid rgba(255, 255, 255, 0.22);
 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 
     display: flex;
 
@@ -311,16 +281,14 @@ ROOM CARD
     color: white;
 }
 
-/* =========================================================
-ROOM ICON
-========================================================= */
+.room-card:hover {
+    transform: translateY(-3px) scale(1.03);
+}
 
 .room-icon {
-
     font-size: 24px;
 
     width: 32px;
-
     height: 32px;
 
     display: flex;
@@ -334,30 +302,15 @@ ROOM ICON
     line-height: 1;
 }
 
-/* =========================================================
-ROOM TITLE and Hover
-========================================================= */
-
 .room-card h3 {
-
     margin: 2px 0;
 
     font-size: 18px;
 
     line-height: 1.3;
 }
-.room-card:hover{
-    transform:translateY(-3px) scale(1.03);
-
-  
-}       
-
-/* =========================================================
-CAPACITY TEXT
-========================================================= */
 
 .capacity-text {
-
     margin-top: 5px;
 
     font-size: 16px;
@@ -371,118 +324,185 @@ CAPACITY COLORS
 ========================================================= */
 
 .low-capacity {
-
     background: rgba(60, 255, 60, 0.45);
 }
 
 .moderate-capacity {
-
     background: rgba(255, 251, 0, 0.45);
 }
 
 .full-capacity {
-
     background: rgba(255, 0, 0, 0.45);
 }
 
 .selected-room {
+    background: rgba(47, 111, 255, 0.65) !important;
 
     border: 3px solid #2f6fff;
-}
-/* =========================================================
-cancel BUTTON
-========================================================= */
-.cancel-button {
-    position: fixed;
-    bottom: 30px;          /* Positions it at the bottom of the screen */
-    left: 45%;             /* Moves the left edge to the exact center of the screen */
-    transform: translateX(-50%); /* Shifts the button left by half its own width */
-    margin-bottom: 170px;
-    z-index: 999;
-    text-decoration: none;
-    display: inline-block; /* Changes from grid to fit the button width perfectly */
+
+    box-shadow: 0 0 25px rgba(47, 111, 255, 0.8);
 }
 
-.cancel-button button {
-    width: 210px;
-    height: 100px;
-    border: none;
-    border-radius: 16px;
-    font-size: 35px;
-    font-weight: 700;
+
+/* =========================================================
+POPUP OVERLAY
+========================================================= */
+
+.popup-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999;
+}
+
+.popup-box {
+    width: 380px;
+
+    padding: 28px;
+
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+
     color: white;
+
+    text-align: center;
+}
+
+.popup-box h2 {
+    margin-top: 0;
+
+    font-size: 30px;
+}
+
+.popup-box p {
+    font-size: 18px;
+}
+
+.popup-capacity {
+    font-size: 18px;
+
+    margin-top: 8px;
+
+    margin-bottom: 10px;
+}
+
+.popup-box input {
+    width: 100%;
+    height: 50px;
+
+    margin: 18px 0;
+
+    border: none;
+
+    border-radius: 14px;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.capacity-error {
+    display: none;
+
+    margin: 0 0 14px 0;
+
+    color: #ffb3b3;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.popup-buttons {
+    display: flex;
+
+    gap: 14px;
+
+    justify-content: center;
+}
+
+.popup-buttons button,
+.close-btn {
+    width: 130px;
+    height: 50px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
     cursor: pointer;
-    background: rgba(218, 17, 17, 0.22);
-    backdrop-filter: blur(8px);
+
     transition: 0.3s ease;
 }
 
-.cancel-button a {
-    color: inherit;
-    text-decoration: none;
+.add-btn {
+    background: rgba(60, 255, 60, 0.45);
 }
 
-.cancel-button button:hover{
-
-    transform: translateY(-3px) scale(1.03);
-
-    background: rgba(255,0,0,0.45);
+.deduct-btn {
+    background: rgba(255, 0, 0, 0.45);
 }
 
-/* =========================================================
-Confirm BUTTON
-========================================================= */
-.confirm-button {
-    position: fixed;
-    bottom: 30px;          /* Positions it at the bottom of the screen */
-    left: 55%;             /* Moves the left edge to the exact center of the screen */
-    transform: translateX(-50%); /* Shifts the button left by half its own width */
-    margin-bottom: 170px;
-    z-index: 999;
-    text-decoration: none;
-    display: inline-block; /* Changes from grid to fit the button width perfectly */
+.close-btn {
+    margin-top: 16px;
+
+    background: rgba(255, 255, 255, 0.22);
 }
 
-.confirm-button button {
-    width: 210px;
-    height: 100px;
-    border: none;
-    border-radius: 16px;
-    font-size: 35px;
-    font-weight: 700;
-    color: white;
-    cursor: pointer;
-    background: rgba(205, 218, 17, 0.22);
-    backdrop-filter: blur(8px);
-    transition: 0.3s ease;
+.popup-buttons button:hover,
+.close-btn:hover {
+    transform: translateY(-2px) scale(1.03);
 }
 
-.confirm-button button:hover{
-
-    transform: translateY(-3px) scale(1.03);
-
-    background: rgba(255, 230, 2, 0.815);
-}
 
 /* =========================================================
 LEGEND PANEL
 ========================================================= */
 
 .legend-panel {
-
     width: 260px;
 
     padding: 18px 24px;
 
     border-radius: 22px;
 
-    background: rgba(255,255,255,0.16);
+    background: rgba(255, 255, 255, 0.16);
 
-    border: 1px solid rgba(255,255,255,0.22);
+    border: 1px solid rgba(255, 255, 255, 0.22);
 
     backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 
     color: white;
 
@@ -497,13 +517,7 @@ LEGEND PANEL
     z-index: 100;
 }
 
-
-/* =========================================================
-LEGEND ITEMS
-========================================================= */
-
 .legend-item {
-
     display: flex;
 
     align-items: center;
@@ -515,15 +529,8 @@ LEGEND ITEMS
     font-size: 18px;
 }
 
-
-/* =========================================================
-LEGEND COLOR DOTS
-========================================================= */
-
 .legend-color {
-
     width: 16px;
-
     height: 16px;
 
     border-radius: 50%;
@@ -545,138 +552,18 @@ LEGEND COLOR DOTS
     background: #2f6fff;
 }
 
-/* =========================================================
-CAPACITY EDIT POPUP
-========================================================= */
-
-.popup-overlay {
-    display: none;
-
-    position: fixed;
-    inset: 0;
-
-    background: rgba(0, 0, 0, 0.55);
-
-    justify-content: center;
-    align-items: center;
-
-    z-index: 9999;
-}
-
-.popup-box {
-    width: 380px;
-
-    padding: 28px;
-
-    border-radius: 24px;
-
-    background: rgba(255, 255, 255, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.28);
-
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-
-    color: white;
-    text-align: center;
-}
-
-.popup-box h2 {
-    margin-top: 0;
-    font-size: 30px;
-}
-
-.popup-box p {
-    font-size: 18px;
-}
-
-.popup-box input {
-    width: 100%;
-    height: 50px;
-
-    margin: 18px 0;
-
-    border: none;
-    border-radius: 14px;
-
-    text-align: center;
-    font-size: 22px;
-    font-weight: 700;
-
-    outline: none;
-}
-
-.popup-buttons {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-}
-
-.popup-buttons button,
-.close-btn {
-    width: 130px;
-    height: 50px;
-
-    border: none;
-    border-radius: 14px;
-
-    color: white;
-    font-size: 18px;
-    font-weight: 700;
-
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.add-btn {
-    background: rgba(60, 255, 60, 0.45);
-}
-
-.deduct-btn {
-    background: rgba(255, 0, 0, 0.45);
-}
-
-.close-btn {
-    margin-top: 16px;
-    background: rgba(255, 255, 255, 0.22);
-}
-
-.popup-buttons button:hover,
-.close-btn:hover {
-    transform: translateY(-2px) scale(1.03);
-}
-
-.capacity-error {
-    display: none;
-    margin: 0 0 14px 0;
-
-    color: #ffb3b3;
-    font-size: 15px;
-    font-weight: 700;
-}
-
 
 /* =========================================================
 RESPONSIVE DESIGN
 ========================================================= */
 
-@media(max-width: 768px){
-    .main-layout{
-        
-     padding-bottom: 200px; 
+@media(max-width: 768px) {
 
-    }
-
-    body{
-
+    body {
         overflow-y: auto;
     }
 
-    /* HEADER */
-
-    .glass-header{
-
+    .glass-header {
         width: 90%;
 
         padding: 14px 18px;
@@ -686,34 +573,33 @@ RESPONSIVE DESIGN
         box-sizing: border-box;
     }
 
-    .glass-header h1{
-
+    .glass-header h1 {
         font-size: 24px;
 
         letter-spacing: 1px;
     }
 
-    /* TOP BUTTONS */
+    .glass-header h5 {
+        font-size: 14px;
+
+        letter-spacing: 1px;
+    }
 
     .top-left-button,
-    .top-right-button{
-
+    .top-right-button {
         top: 10px;
     }
 
-    .top-left-button{
-
+    .top-left-button {
         left: 10px;
     }
 
-    .top-right-button{
-
+    .top-right-button {
         right: 10px;
     }
 
     .top-left-button button,
-    .top-right-button button{
-
+    .top-right-button button {
         padding: 10px 14px;
 
         font-size: 14px;
@@ -721,10 +607,7 @@ RESPONSIVE DESIGN
         border-radius: 12px;
     }
 
-    /* MAIN LAYOUT */
-
-    .main-layout{
-
+    .main-layout {
         flex-direction: column;
 
         align-items: center;
@@ -734,39 +617,32 @@ RESPONSIVE DESIGN
         padding: 0 10px 140px;
     }
 
-        .first-floor{
-            order: 1;
-        }
+    .first-floor {
+        order: 1;
+    }
 
-        .second-floor{
-            order: 2;
-        }
+    .second-floor {
+        order: 2;
+    }
 
-        .third-floor{
-            order: 3;
-        }
+    .third-floor {
+        order: 3;
+    }
 
-    /* FLOOR SECTIONS */
-    
-    .floor-section{
-
+    .floor-section {
         margin-top: 10px;
 
         width: 100%;
     }
 
-    .floor-title h2{
-
+    .floor-title h2 {
         font-size: 20px;
 
         padding: 8px 18px;
     }
 
-    /* ROOM GRIDS */
-
     .room-grid,
-    .center-grid{
-
+    .center-grid {
         grid-template-columns: repeat(2, 1fr);
 
         gap: 12px;
@@ -774,47 +650,43 @@ RESPONSIVE DESIGN
         width: 100%;
     }
 
-    /* ROOM CARD */
-    
-   .room-card{
+    .room-card {
+        width: 100%;
 
-    width: 100%;
+        max-width: none;
 
-    max-width: none;
+        height: 110px;
 
-    height: 110px;
+        border-radius: 16px;
 
-    border-radius: 16px;
-
-    box-sizing: border-box;
+        box-sizing: border-box;
     }
 
-    .room-card h3{
-
+    .room-card h3 {
         font-size: 16px;
     }
 
-    .capacity-text{
-
+    .capacity-text {
         font-size: 14px;
     }
 
-    .room-icon{
-
+    .room-icon {
         font-size: 20px;
     }
 
-    /* REMOVE HOVER SCALE ON PHONES */
-
-    .room-card:hover{
-
+    .room-card:hover {
         transform: none;
     }
 
-    /* LEGEND PANEL */
+    .popup-box {
+        width: 90%;
 
-    .legend-panel{
+        max-width: 360px;
 
+        box-sizing: border-box;
+    }
+
+    .legend-panel {
         width: 90%;
 
         max-width: 320px;
@@ -822,63 +694,17 @@ RESPONSIVE DESIGN
         padding: 12px 18px;
 
         bottom: 10px;
+
+        box-sizing: border-box;
     }
 
-    .legend-item{
-
+    .legend-item {
         font-size: 14px;
     }
 
-    .legend-color{
-
+    .legend-color {
         width: 12px;
+
         height: 12px;
-    }
-
-    .login-button{
-
-    position: fixed;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    bottom: 120px;
-
-    width: 90%;
-
-    display: flex;
-
-    justify-content: center;
-
-    margin-bottom: 30px;
-    }
-
-    .login-button{
-
-    left: 50%;
-
-    right: auto;
-
-    transform: translateX(-50%);
-
-    bottom: 120px;
-
-    width: 90%;
-
-    display: flex;
-
-    justify-content: center;
-    }
-
-    .login-button button{
-
-        width: 100%;
-
-        max-width: 320px;
-
-        height: 70px;
-
-        font-size: 20px;
     }
 }

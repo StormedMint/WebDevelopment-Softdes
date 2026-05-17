@@ -3,6 +3,8 @@ from .db import get_db_connection
 import re
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from datetime import datetime
+from pathlib import Path
+import pandas as pd
 
 admin = Blueprint('admin',__name__)
 
@@ -1116,3 +1118,31 @@ def update_capacity():
     conn.close()
 
     return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+#Exporting UserAccManagement into excel
+@admin.route('/export/<table_name>')
+def export_table(table_name):
+
+    db = get_db_connection()
+
+    # Read table
+    df = pd.read_sql(f"SELECT * FROM {table_name}", db)
+
+    db.close()
+
+    # Desktop path
+    desktop_path = Path.home() / "Desktop"
+
+    # Create Desktop if missing
+    desktop_path.mkdir(parents=True, exist_ok=True)
+
+    # Filename
+    current_date = datetime.now().strftime("%Y-%m-%d")
+    file_path = desktop_path / f"{table_name}_{current_date}.xlsx"
+
+    # Export
+    df.to_excel(file_path, index=False)
+
+    flash(f"Exported successfully to Desktop:\n{file_path}")
+
+    return redirect(request.referrer or url_for('admin.UserAccManagement'))

@@ -19,8 +19,12 @@
         </a>
 
         <div class="export-buttons">
-            <button class="glass-btn">Export Lost Table</button>
-            <button class="glass-btn">Export Lost Archived Table</button>
+            <a href="{{ url_for('admin.export_table', table_name='lost_and_found') }}">
+                <button class="glass-btn" type="button">Export Table</button>
+            </a>
+            <a href="{{ url_for('admin.export_table', table_name='deleted_lost_and_found') }}">
+                <button class="glass-btn" type="button">Export Archived Table</button>
+            </a>
         </div>
     </div>
 
@@ -40,7 +44,7 @@
 
                 <div class="input-group">
                     <label>Lost Item:</label>
-                    <input type="text" name="item_name" required>
+                    <input type="text" name="item_name" required maxlength="11">
                 </div>
 
                 <div class="input-group">

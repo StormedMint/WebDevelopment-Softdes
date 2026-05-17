@@ -30,7 +30,7 @@
             <h3 class="subtitle">Create Account</h3>
 
             <!-- SIGNUP FORM -->
-            <form class="signup-form" method="POST" action="{{ url_for ('auth.UserSignUpPage') }}">
+            <form class="signup-form" method="POST" action="{{ url_for('auth.UserSignUpPage') }}">
 
                 <div class="input-group">
                     <label for="LRN">ID:</label>
@@ -109,6 +109,13 @@
 
     <script src="{{ url_for('static', filename='JAVASCRIPT/UserSignupPage.js') }}"></script>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+    {% endif %}
+    {% endwith %}
+
 </body>
 </html>
-w

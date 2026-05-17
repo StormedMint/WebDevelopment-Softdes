@@ -17,8 +17,12 @@
     </div>
 
     <div class="export-buttons-topleft">
-        <button class="glass-btn">Export Lost Table</button>
-        <button class="glass-btn">Export Lost Archived Table</button>
+        <a href="{{ url_for('admin.export_table', table_name='room_reservation') }}">
+            <button class="glass-btn" type="button">Export Table</button>
+        </a>
+        <a href="{{ url_for('admin.export_table', table_name='deleted_room_reservation') }}">
+            <button class="glass-btn" type="button">Export Archived Table</button>
+        </a>
     </div>
 
     <!-- HEADER -->
@@ -42,24 +46,24 @@
                 <div class="select-arrow1 select-wrapper">
                     <label>Room</label>
                     <select class="filter-dropdown" name="room" required>
-                            <option value="all-rooms">All Rooms</option>
-                            <option value="Booklatan">Booklatan</option>
-                            <option value="Digital Hub">Digital Hub</option>
-                            <option value="Discussion Room 1">Discussion Room 1</option>
-                            <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
-                            <option value="Graduate School Section">Graduate School Section</option>
-                            <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
-                            <option value="Discussion Room 3">Discussion Room 3</option>
-                            <option value="Multimedia Room">Multimedia Room</option>
+                        <option value="all-rooms">All Rooms</option>
+                        <option value="Booklatan">Booklatan</option>
+                        <option value="Digital Hub">Digital Hub</option>
+                        <option value="Discussion Room 1">Discussion Room 1</option>
+                        <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
+                        <option value="Graduate School Section">Graduate School Section</option>
+                        <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
+                        <option value="Discussion Room 3">Discussion Room 3</option>
+                        <option value="Multimedia Room">Multimedia Room</option>
                     </select>
                 </div>
                 <br>
                 <div class="input-group">
                     <label>Date</label>
                     <input type="date" name="date" required>
-                    
+
                 </div>
-                    
+
                 <div class="input-group" id="custom-time">
                     <label>Time</label>
                     <input type="text" name="time" id="timeInput" readonly placeholder="Select Time" required>
@@ -72,14 +76,16 @@
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" name="action" value="add" type="submit" class="button-text">Add Reservation</button>
-                    <button id="delete-button" name="action" value="delete" type="submit" class="button-text">Delete Reservation</button>
+                    <button id="plus-button" name="action" value="add" type="submit" class="button-text">Add
+                        Reservation</button>
+                    <button id="delete-button" name="action" value="delete" type="submit" class="button-text">Delete
+                        Reservation</button>
                 </div>
             </form>
 
-                <a href="{{ url_for('admin.ReservedRoomsTracker') }}" class="refresh-button">
-                    <button type="button" class="button-text">Refresh</button>
-                </a>
+            <a href="{{ url_for('admin.ReservedRoomsTracker') }}" class="refresh-button">
+                <button type="button" class="button-text">Refresh</button>
+            </a>
         </div>
 
         <!-- RIGHT: TABLE PLACEHOLDER -->
@@ -148,7 +154,7 @@
             </table>
         </div>
 
-<script src="{{ url_for('static', filename='JAVASCRIPT/ReservedRoomsTracker.js') }}"></script>
+        <script src="{{ url_for('static', filename='JAVASCRIPT/ReservedRoomsTracker.js') }}"></script>
 
 </body>
 
