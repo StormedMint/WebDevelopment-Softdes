@@ -105,3 +105,15 @@ document.addEventListener("click", (e) => {
         dropdown.style.display = "none";
     }
 });
+
+document.querySelectorAll("form").forEach(form => {
+    form.addEventListener("submit", function (e) {
+
+        const select = this.querySelector("select");
+
+        if (select && select.value === "all-rooms") {
+            e.preventDefault();
+            alert("Please select a valid room option.");
+        }
+    });
+});
