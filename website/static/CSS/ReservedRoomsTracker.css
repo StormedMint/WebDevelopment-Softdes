@@ -473,3 +473,28 @@ h3 {
         transform: none;
     }
 }
+
+#custom-time {
+    position: relative;
+}
+
+.time-dropdown {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+    z-index: 100;
+}
+
+.time-dropdown div {
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.time-dropdown div:hover {
+    background: #eee;
+}
