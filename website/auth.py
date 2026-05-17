@@ -19,8 +19,12 @@ def UserSignUpPage():
         course = request.form.get('course_section')
         image_data = request.form.get('picture')
 
-        if not all([user_id, fname, lname, course, image_data]):
+        if not user_id or not fname or not lname or not course:
             flash("Please fill in all fields!")
+            return redirect(url_for('auth.UserSignUpPage'))
+
+        if not image_data:
+            flash("Please capture a photo before registering!")
             return redirect(url_for('auth.UserSignUpPage'))
 
         user_id = user_id.strip()
