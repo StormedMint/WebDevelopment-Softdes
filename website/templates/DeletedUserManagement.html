@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,18 +9,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/DeletedUserManagement.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="nav-btn">
         <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
     </div>
 
-     <!-- HEADER -->
+    <!-- HEADER -->
     <div class="glass-header">
         <h1>DELETED USERS ACCOUNTS</h1>
     </div>
 
-        <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
     <div class="main-container">
 
         <!-- LEFT: FORM -->
@@ -61,43 +63,46 @@
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
-           <div class="table-controls">
+            <div class="table-controls">
 
-            <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                <input type="text" placeholder="Enter ID" name="search_id">
-                <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
-            </form>
+                <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
+                    <input type="text" placeholder="Enter ID" name="search_id">
+                    <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
+                </form>
 
-            <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                <input type="text" placeholder="Enter First or Last Name" name="search_name">
-                <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
-            </form>
+                <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
+                    <input type="text" placeholder="Enter First or Last Name" name="search_name">
+                    <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
+                </form>
 
                 <a href="{{ url_for('admin.DeletedUserManagement') }}">
-                <button id="refresh-btn">Refresh</button>
+                    <button id="refresh-btn">Refresh</button>
                 </a>
 
                 <a href="{{ url_for('admin.UserAccManagement') }}">
-                <button id="user-button">User Accounts</button>
+                    <button id="user-button">User Accounts</button>
                 </a>
                 <button id="export-btn">Export Archived Table</button>
-                <button id="clear-btn">Clear All</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_deleted_user') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_deleted_user">Clear All</button>
+                </form>
 
             </div>
 
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Account Type</th>
-                        <th>Course and Section</th>
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Account Type</th>
+                            <th>Course and Section</th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if archive %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if archive %}
                         {% for user in archive %}
                         <tr class="log-row">
                             <td>{{ user.id }}</td>
@@ -107,16 +112,18 @@
                             <td>{{ user.course_section }}</td>
                         </tr>
                         {% endfor %}
-                    {% else %}
+                        {% else %}
                         <tr>
                             <td colspan="6">No archived users found</td>
                         </tr>
-                    {% endif %}
-                </tbody>
-        </table>
-    </div>
-    
-<script src="{{ url_for('static', filename='JAVASCRIPT/DeletedUserManagement.js') }}"></script>
-    
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="{{ url_for('static', filename='JAVASCRIPT/DeletedUserManagement.js') }}"></script>
+
 </body>
+
 </html>

@@ -24,6 +24,43 @@ body::before {
     z-index: -1;
 }
 
+/*Go back Button */
+.go-back-container{
+    padding: 15px;
+    position: fixed;
+    top: 75%;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    transition: ease 0.3s;
+}
+
+.go-back-container button{
+        position: relative;
+        
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 30px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+}
+
+.go-back-container:hover{
+    background: rgba(255, 0, 0, 0.509);
+    transform: scale(1.1);
+}
+
 /* LOGOS */
 .logo-container {
     margin: 20px;

@@ -1,318 +1,555 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+body {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Poppins', sans-serif;
+
+    background: url("../IMG/second-floor-library2.jpg") no-repeat center center fixed;
+    background-size: cover;
+
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 100px;
 }
 
-body{
-    font-family:'Poppins',sans-serif;
 
-    background-image: url("../IMG/second-floor-library2.jpg");
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-attachment:fixed;
+/* =========================================================
+DARK OVERLAY
+========================================================= */
 
-    min-height:100dvh;
+body::before {
 
-    overflow-x:hidden;
+    content: "";
 
-    position:relative;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.35);
+
+    z-index: -1;
 }
 
-body::before{
-    content:"";
 
-    position:fixed;
+/* =========================================================
+HEADER
+========================================================= */
 
-    top:0;
-    left:0;
+.glass-header {
 
-    width:100%;
-    height:100%;
+    width: fit-content;
 
-    background:rgba(0,0,0,0.35);
+    margin: 10px auto;
 
-    z-index:-1;
+    padding: 18px 40px;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+
+    text-align: center;
 }
 
-.glass-header{
-    width:fit-content;
+.glass-header h1 {
 
-    margin:20px auto;
+    margin: 0;
 
-    padding:18px 40px;
+    color: white;
 
-    border-radius:24px;
+    font-size: 46px;
 
-    background:rgba(255,255,255,0.15);
+    letter-spacing: 3px;
 
-    border:1px solid rgba(255,255,255,0.25);
-
-    backdrop-filter:blur(14px);
-
-    box-shadow:0 8px 32px rgba(0,0,0,0.25);
-
-    text-align:center;
+    font-weight: 700;
 }
 
-.glass-header h1{
-    color:white;
+.glass-header h5 {
 
-    font-size:42px;
+    margin: 0;
 
-    letter-spacing:2px;
+    color: white;
+
+    font-size: 20px;
+
+    letter-spacing: 3px;
+
+    font-weight: 700;
+
+    font-style: italic;
 }
 
-.glass-header h5{
-    color:white;
 
-    font-size:18px;
 
-    margin-top:5px;
 
-    font-style:italic;
+
+/* =========================================================
+MAIN LAYOUT
+========================================================= */
+
+.main-layout {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    gap: 55px;
+
+    margin-top: 35px;
+
+    padding: 0 40px 60px;
+
+    width: 100%;
+
+    box-sizing: border-box;
 }
 
-.main-layout{
-    display:flex;
 
-    flex-wrap:wrap;
+/* =========================================================
+FLOOR TITLES
+========================================================= */
 
-    justify-content:center;
+.floor-title {
 
-    align-items:flex-start;
+    display: flex;
 
-    gap:40px;
+    justify-content: center;
 
-    padding:20px;
+    margin-bottom: 18px;
 }
 
-.floor-section{
-    width:100%;
-
-    max-width:520px;
+.floor-section {
+    margin-top: 90px;
 }
 
-.floor-title{
-    display:flex;
 
-    justify-content:center;
+/* GLASS FLOOR LABEL */
 
-    margin-bottom:18px;
+.floor-title h2 {
+
+    padding: 10px 28px;
+
+    margin: 0;
+
+    border-radius: 16px;
+
+    background: rgba(255,255,255,0.18);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    color: white;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-.floor-title h2{
-    padding:10px 28px;
 
-    border-radius:16px;
+/* =========================================================
+ROOM GRID
+========================================================= */
 
-    background:rgba(255,255,255,0.18);
+.room-grid {
 
-    border:1px solid rgba(255,255,255,0.25);
+    display: grid;
 
-    backdrop-filter:blur(12px);
+    grid-template-columns: repeat(2, 240px);
 
-    color:white;
-
-    font-size:28px;
-
-    font-weight:700;
+    gap: 10px;
 }
 
-.room-grid,
-.center-grid{
-    display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+/* =========================================================
+CENTER GRID
+========================================================= */
 
-    gap:16px;
 
-    width:100%;
+.center-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 240px);
+
+    gap: 18px;
+
+    margin-top: 20px;
 }
 
-.center-floor{
-    display:flex;
 
-    flex-direction:column;
+/* =========================================================
+CENTER FLOOR
+========================================================= */
 
-    align-items:center;
+
+.center-floor {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    
 }
 
-.room-card{
-    min-height:130px;
+/* =========================================================
+ROOM CARD
+========================================================= */
 
-    border-radius:20px;
+.room-card {
 
-    background:rgba(255,255,255,0.16);
+    width: 230px;
 
-    border:1px solid rgba(255,255,255,0.22);
+    height: 130px;
 
-    backdrop-filter:blur(12px);
+    border-radius: 20px;
 
-    box-shadow:0 8px 24px rgba(0,0,0,0.2);
+    background: rgba(255,255,255,0.16);
 
-    display:flex;
+    border: 1px solid rgba(255,255,255,0.22);
 
-    flex-direction:column;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 
-    justify-content:center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 
-    align-items:center;
+    display: flex;
 
-    text-align:center;
+    flex-direction: column;
 
-    transition:0.3s ease;
+    justify-content: center;
 
-    cursor:pointer;
+    align-items: center;
 
-    color:white;
+    text-align: center;
 
-    padding:10px;
+    transition: 0.3s ease;
+
+    cursor: pointer;
+
+    color: white;
 }
 
+/* =========================================================
+ROOM ICON
+========================================================= */
+
+.room-icon {
+
+    font-size: 24px;
+
+    width: 32px;
+
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 8px;
+
+    line-height: 1;
+}
+
+/* =========================================================
+ROOM TITLE and Hover
+========================================================= */
+
+.room-card h3 {
+
+    margin: 2px 0;
+
+    font-size: 18px;
+
+    line-height: 1.3;
+}
 .room-card:hover{
     transform:translateY(-3px) scale(1.03);
 
     background:rgba(255,255,255,0.24);
+}       
+
+/* =========================================================
+CAPACITY TEXT
+========================================================= */
+
+.capacity-text {
+
+    margin-top: 5px;
+
+    font-size: 16px;
+
+    font-weight: 700;
 }
 
-.room-icon{
-    font-size:24px;
 
-    margin-bottom:8px;
+/* =========================================================
+CAPACITY COLORS
+========================================================= */
+
+.low-capacity {
+
+    background: rgba(60, 255, 60, 0.45);
 }
 
-.room-card h3{
-    font-size:18px;
+.moderate-capacity {
 
-    line-height:1.3;
+    background: rgba(255, 170, 0, 0.45);
 }
 
-.capacity-text{
-    margin-top:5px;
+.full-capacity {
 
-    font-size:15px;
-
-    font-weight:700;
+    background: rgba(255, 0, 0, 0.45);
 }
 
-.low-capacity{
-    background:rgba(60,255,60,0.45);
+.selected-room {
+
+    border: 3px solid #2f6fff;
+}
+/* =========================================================
+cancel BUTTON
+========================================================= */
+.cancel-button {
+    position: fixed;
+    bottom: 30px;          /* Positions it at the bottom of the screen */
+    left: 45%;             /* Moves the left edge to the exact center of the screen */
+    transform: translateX(-50%); /* Shifts the button left by half its own width */
+    margin-bottom: 170px;
+    z-index: 999;
+    text-decoration: none;
+    display: inline-block; /* Changes from grid to fit the button width perfectly */
 }
 
-.moderate-capacity{
-    background:rgba(255,170,0,0.45);
+.cancel-button button {
+    width: 210px;
+    height: 100px;
+    border: none;
+    border-radius: 16px;
+    font-size: 35px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    background: rgba(218, 17, 17, 0.22);
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
 }
 
-.full-capacity{
-    background:rgba(255,0,0,0.45);
+.cancel-button a {
+    color: inherit;
+    text-decoration: none;
 }
 
-.selected-room{
-    border:3px solid #2f6fff;
+.cancel-button button:hover{
+
+    transform: translateY(-3px) scale(1.03);
+
+    background: rgba(255,0,0,0.45);
 }
 
-.confirm-button{
-   
-    width:100%;
-
-    display:flex;
-    justify-content:center;
-
-    margin:30px 0;
-
+/* =========================================================
+Confirm BUTTON
+========================================================= */
+.confirm-button {
+    position: fixed;
+    bottom: 30px;          /* Positions it at the bottom of the screen */
+    left: 55%;             /* Moves the left edge to the exact center of the screen */
+    transform: translateX(-50%); /* Shifts the button left by half its own width */
+    margin-bottom: 170px;
+    z-index: 999;
+    text-decoration: none;
+    display: inline-block; /* Changes from grid to fit the button width perfectly */
 }
 
-.confirm-button button{
-    width:200px;
-
-    height:75px;
-
-    border:none;
-
-    border-radius:16px;
-
-    font-size:24px;
-
-    font-weight:700;
-
-    color:white;
-
-    background:rgba(218,218,17,0.2);
-
-    backdrop-filter:blur(8px);
-
-    cursor:pointer;
-
-    transition:0.3s ease;
+.confirm-button button {
+    width: 210px;
+    height: 100px;
+    border: none;
+    border-radius: 16px;
+    font-size: 35px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    background: rgba(205, 218, 17, 0.22);
+    backdrop-filter: blur(8px);
+    transition: 0.3s ease;
 }
 
 .confirm-button button:hover{
-    transform:translateY(-3px) scale(1.03);
 
-    filter:brightness(120%);
+    transform: translateY(-3px) scale(1.03);
+
+    background: rgba(255, 230, 2, 0.815);
 }
 
-.legend-panel{
-    width:260px;
+/* =========================================================
+LEGEND PANEL
+========================================================= */
 
-    padding:18px 24px;
+.legend-panel {
 
-    border-radius:22px;
+    width: 260px;
 
-    background:rgba(255,255,255,0.16);
+    padding: 18px 24px;
 
-    border:1px solid rgba(255,255,255,0.22);
+    border-radius: 22px;
 
-    backdrop-filter:blur(12px);
+    background: rgba(255,255,255,0.16);
 
-    box-shadow:0 8px 24px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.22);
 
-    color:white;
+    backdrop-filter: blur(12px);
 
-    margin:20px auto 40px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
 
-    position:static;
+    color: white;
 
-    transform:none;
+    position: fixed;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 100;
 }
 
-.legend-item{
-    display:flex;
 
-    align-items:center;
+/* =========================================================
+LEGEND ITEMS
+========================================================= */
 
-    gap:10px;
+.legend-item {
 
-    margin:6px 0;
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 1px 0;
+
+    font-size: 18px;
 }
 
-.legend-color{
-    width:14px;
 
-    height:14px;
+/* =========================================================
+LEGEND COLOR DOTS
+========================================================= */
 
-    border-radius:50%;
+.legend-color {
+
+    width: 16px;
+
+    height: 16px;
+
+    border-radius: 50%;
 }
 
-.low{
-    background:lime;
+.low {
+    background: lime;
 }
 
-.moderate{
-    background:orange;
+.moderate {
+    background: orange;
 }
 
-.full{
-    background:red;
+.full {
+    background: red;
 }
 
-.selected{
-    background:#2f6fff;
+.selected {
+    background: #2f6fff;
 }
 
-@media(max-width:768px){
+
+/* =========================================================
+RESPONSIVE DESIGN
+========================================================= */
+
+@media(max-width: 768px){
+    .main-layout{
+        
+     padding-bottom: 200px; 
+
+    }
+
+    body{
+
+        overflow-y: auto;
+    }
+
+    /* HEADER */
+
+    .glass-header{
+
+        width: 90%;
+
+        padding: 14px 18px;
+
+        margin-top: 70px;
+
+        box-sizing: border-box;
+    }
+
+    .glass-header h1{
+
+        font-size: 24px;
+
+        letter-spacing: 1px;
+    }
+
+    /* TOP BUTTONS */
+
+    .top-left-button,
+    .top-right-button{
+
+        top: 10px;
+    }
+
+    .top-left-button{
+
+        left: 10px;
+    }
+
+    .top-right-button{
+
+        right: 10px;
+    }
+
+    .top-left-button button,
+    .top-right-button button{
+
+        padding: 10px 14px;
+
+        font-size: 14px;
+
+        border-radius: 12px;
+    }
+
+    /* MAIN LAYOUT */
 
     .main-layout{
 
@@ -337,63 +574,139 @@ body::before{
             order: 3;
         }
 
-    .glass-header{
-        width:90%;
+    /* FLOOR SECTIONS */
+    
+    .floor-section{
 
-        padding:14px 18px;
-    }
+        margin-top: 10px;
 
-    .glass-header h1{
-        font-size:24px;
-    }
-
-    .glass-header h5{
-        font-size:14px;
-    }
-
-    .main-layout{
-        gap:25px;
-
-        padding:20px 10px 180px;
+        width: 100%;
     }
 
     .floor-title h2{
-        font-size:20px;
 
-        padding:8px 18px;
+        font-size: 20px;
+
+        padding: 8px 18px;
     }
 
-    .room-card{
-        min-height:110px;
+    /* ROOM GRIDS */
+
+    .room-grid,
+    .center-grid{
+
+        grid-template-columns: repeat(2, 1fr);
+
+        gap: 12px;
+
+        width: 100%;
+    }
+
+    /* ROOM CARD */
+    
+   .room-card{
+
+    width: 100%;
+
+    max-width: none;
+
+    height: 110px;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
     }
 
     .room-card h3{
-        font-size:15px;
+
+        font-size: 16px;
     }
 
     .capacity-text{
-        font-size:13px;
+
+        font-size: 14px;
     }
+
+    .room-icon{
+
+        font-size: 20px;
+    }
+
+    /* REMOVE HOVER SCALE ON PHONES */
 
     .room-card:hover{
-        transform:none;
+
+        transform: none;
     }
+
+    /* LEGEND PANEL */
 
     .legend-panel{
-        width:90%;
 
-        max-width:320px;
+        width: 90%;
+
+        max-width: 320px;
+
+        padding: 12px 18px;
+
+        bottom: 10px;
     }
 
-    .confirm-button{
-        margin:0;
+    .legend-item{
+
+        font-size: 14px;
     }
 
-    .confirm-button button{
-        width:100%;
+    .legend-color{
 
-        max-width:320px;
+        width: 12px;
+        height: 12px;
+    }
 
-        font-size:20px;
+    .login-button{
+
+    position: fixed;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    bottom: 120px;
+
+    width: 90%;
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 30px;
+    }
+
+    .login-button{
+
+    left: 50%;
+
+    right: auto;
+
+    transform: translateX(-50%);
+
+    bottom: 120px;
+
+    width: 90%;
+
+    display: flex;
+
+    justify-content: center;
+    }
+
+    .login-button button{
+
+        width: 100%;
+
+        max-width: 320px;
+
+        height: 70px;
+
+        font-size: 20px;
     }
 }

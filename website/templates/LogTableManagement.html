@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/LogTableManagement.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="nav-btn">
@@ -15,12 +17,12 @@
         <a href="{{ url_for('admin.CapacityTrackingAdminSide') }}" class="glass-btn"> Return To Capacity Tracking</a>
     </div>
 
-     <!-- HEADER -->
+    <!-- HEADER -->
     <div class="glass-header">
         <h1>Log Table</h1>
     </div>
 
-        <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
     <div class="main-container">
 
         <!-- LEFT: FORM -->
@@ -64,23 +66,25 @@
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
-           <div class="table-controls">
+            <div class="table-controls">
 
-            <form method="POST" action="{{ url_for('admin.log_search_user') }}">
-                <input type="text" name="search_id" placeholder="Enter ID">
-                <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
-            </form>
+                <form method="POST" action="{{ url_for('admin.log_search_user') }}">
+                    <input type="text" name="search_id" placeholder="Enter ID">
+                    <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
+                </form>
 
-            <form method="POST" action="{{ url_for('admin.log_search_user') }}">
-                <input type="text" name="search_name" placeholder="Enter First or Last Name">
-                <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
-            </form>
+                <form method="POST" action="{{ url_for('admin.log_search_user') }}">
+                    <input type="text" name="search_name" placeholder="Enter First or Last Name">
+                    <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
+                </form>
 
                 <a href="{{ url_for('admin.LogTableManagement') }}">
                     <button id="refresh-btn">Refresh</button>
                 </a>
                 <button id="export-btn">Export Table</button>
-                <button id="clear-btn">Clear All</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_log_table') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_log_table">Clear All</button>
+                </form>
 
             </div>
 
@@ -98,26 +102,27 @@
                 </thead>
                 <tbody>
                     {% if logs %}
-                        {% for log in logs %}
-                        <tr class="log-row">
-                            <td>{{ log.id }}</td>
-                            <td>{{ log.fname }}</td>
-                            <td>{{ log.lname }}</td>
-                            <td>{{ log.account_type }}</td>
-                            <td>{{ log.course_section }}</td>
-                            <td>{{ log.date }}</td>
-                        </tr>
-                        {% endfor %}
+                    {% for log in logs %}
+                    <tr class="log-row">
+                        <td>{{ log.id }}</td>
+                        <td>{{ log.fname }}</td>
+                        <td>{{ log.lname }}</td>
+                        <td>{{ log.account_type }}</td>
+                        <td>{{ log.course_section }}</td>
+                        <td>{{ log.date }}</td>
+                    </tr>
+                    {% endfor %}
                     {% else %}
-                        <tr>
-                            <td colspan="6">No logs found</td>
-                        </tr>
+                    <tr>
+                        <td colspan="6">No logs found</td>
+                    </tr>
                     {% endif %}
                 </tbody>
-        </table>
-    </div>
-    
-<script src="{{ url_for('static', filename='JAVASCRIPT/LogTableManagement.js') }}"></script>
+            </table>
+        </div>
+
+        <script src="{{ url_for('static', filename='JAVASCRIPT/LogTableManagement.js') }}"></script>
 
 </body>
+
 </html>

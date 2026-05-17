@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdminAccManagement.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="nav-btn">
@@ -15,12 +17,12 @@
         <a href="{{ url_for('admin.UserAccManagement') }}" class="glass-btn">User Accounts</a>
     </div>
 
-     <!-- HEADER -->
+    <!-- HEADER -->
     <div class="glass-header">
         <h1>ADMIN ACCOUNT MANAGEMENT</h1>
     </div>
 
-        <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
     <div class="main-container">
 
         <!-- LEFT: FORM -->
@@ -44,9 +46,12 @@
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" type="submit" name="action" value="add" class="button-text">Add Admin Account</button>
-                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit Account</button>
-                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete Account</button>
+                    <button id="plus-button" type="submit" name="action" value="add" class="button-text">Add Admin
+                        Account</button>
+                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit
+                        Account</button>
+                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete
+                        Account</button>
                 </div>
             </form>
         </div>
@@ -54,7 +59,7 @@
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
-           <div class="table-controls">
+            <div class="table-controls">
                 <form method="POST" action="{{ url_for('admin.admin_search_username') }}">
                     <input type="text" name="searchUsername" placeholder="Enter Username" required>
                     <button id="search-id-btn" type="submit">Search by Username</button>
@@ -65,7 +70,9 @@
                 </a>
                 <button id="export-btn">Export Table</button>
                 <button id="export-btn">Export Archived Table</button>
-                <button id="clear-btn">Clear All</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_admin') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_admin">Clear All</button>
+                </form>
 
             </div>
 
@@ -80,24 +87,25 @@
                 <tbody>
                     {% if admins %}
                     <!-- #Kapag merong admins -->
-                        {% for admin in admins %}
-                        <!-- #Niloloop niya yung admins -->
-                        <tr class = "admin-row">
-                            <td>{{ admin.username }}</td>
-                            <td>{{ admin.password }}</td>
-                            <td>{{ admin.type_admin }}</td>
-                        </tr>
-                        {% endfor %}
+                    {% for admin in admins %}
+                    <!-- #Niloloop niya yung admins -->
+                    <tr class="admin-row">
+                        <td>{{ admin.username }}</td>
+                        <td>{{ admin.password }}</td>
+                        <td>{{ admin.type_admin }}</td>
+                    </tr>
+                    {% endfor %}
                     {% else %}
-                        <tr>
-                            <td colspan="3">No admin accounts found</td>
-                        </tr>
+                    <tr>
+                        <td colspan="3">No admin accounts found</td>
+                    </tr>
                     {% endif %}
                 </tbody>
-        </table>
-    </div>
+            </table>
+        </div>
 
-<script src="{{ url_for('static', filename='JAVASCRIPT/AdminAccManagement.js') }}"></script>
+        <script src="{{ url_for('static', filename='JAVASCRIPT/AdminAccManagement.js') }}"></script>
 
 </body>
+
 </html>

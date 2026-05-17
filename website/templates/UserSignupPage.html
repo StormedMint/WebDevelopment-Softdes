@@ -34,7 +34,9 @@
 
                 <div class="input-group">
                     <label for="LRN">ID:</label>
-                    <input type="text" id="LRN" name="id" class="input-field" required>
+                    <input type="text" id="LRN" name="id" class="input-field" pattern="[0-9-]*" 
+                    inputmode="numeric"oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required>
+                    <!--Only accepts numbers and dash-->
                 </div>
 
                 <div class="input-group">

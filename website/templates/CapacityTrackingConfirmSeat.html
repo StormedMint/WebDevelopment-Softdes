@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en" enctype="multipart/form-data">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- External CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/CapacityTrackingConfirmSeat.css') }}">
@@ -55,7 +55,21 @@
 
                         <!-- Dynamic Capacity -->
                         <p class="capacity-text">
-                            <span class="current-count">01</span>/<span class="max-count">100</span>
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Reading Area" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Reading Area" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
                         </p>
 
                     </div>
@@ -63,31 +77,111 @@
                     <div class="room-card low-capacity">
                         <div class="room-icon">🌐</div>
                         <h3>Internet Section</h3>
-                        <p class="capacity-text">0/5</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Internet Section" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Internet Section" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">💻</div>
                         <h3>Digital Hub</h3>
-                        <p class="capacity-text">0/10</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Digital Hub" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Digital Hub" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">🗣</div>
                         <h3>Discussion Room</h3>
-                        <p class="capacity-text">0/20</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Discussion RoomSecond" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Discussion RoomSecond" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">📚</div>
-                        <h3>Special Collection</h3>
-                        <p class="capacity-text">0/15</p>
+                        <h3>Special Collection& GAD Corner</h3>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "GAD Corner" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "GAD Corner" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">📖</div>
-                        <h3>Booktan</h3>
-                        <p class="capacity-text">0/10</p>
+                        <h3>Booklatan</h3>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Booklatan" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Booklatan" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                 </div>
@@ -96,7 +190,7 @@
 
 
             <!-- ===================== CENTER FLOOR ===================== -->
-            <div class="center-floor first floor">
+            <div class="center-floor first-floor">
 
                 <div class="floor-title">
                     <h2>1st Floor</h2>
@@ -107,13 +201,45 @@
                     <div class="room-card low-capacity">
                         <div class="room-icon">🛋</div>
                         <h3>Lounge Area</h3>
-                        <p class="capacity-text">0/60</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Lounge Area" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Lounge Area" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">👨‍🏫</div>
                         <h3>Faculty Room</h3>
-                        <p class="capacity-text">0/12</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Faculty Room" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Faculty Room" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                 </div>
@@ -133,37 +259,133 @@
                     <div class="room-card low-capacity">
                         <div class="room-icon">👤</div>
                         <h3>Graduate Reading Area</h3>
-                        <p class="capacity-text">0/45</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Graduate Reading Area" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Graduate Reading Area" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">👤</div>
                         <h3>Undergraduate Reading Area</h3>
-                        <p class="capacity-text">0/20</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Undergraduate Reading Area" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Undergraduate Reading Area" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">🎥</div>
                         <h3>AVR</h3>
-                        <p class="capacity-text">0/75</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "AVR" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "AVR" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">🎓</div>
                         <h3>Graduate School Section</h3>
-                        <p class="capacity-text">0/4</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Grad School" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Grad School" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">🗣</div>
                         <h3>Discussion Room</h3>
-                        <p class="capacity-text">0/16</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Discussion RoomThird" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Discussion RoomThird" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                     <div class="room-card low-capacity">
                         <div class="room-icon">🎬</div>
                         <h3>Multimedia Room</h3>
-                        <p class="capacity-text">0/4</p>
+                        <p class="capacity-text">
+                            <span class="current-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Multimedia Room" %}
+                                {{ room.current }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                            /
+                            <span class="max-count">
+                                {% for room in rooms %}
+                                {% if room.area == "Multimedia Room" %}
+                                {{ room.capacity }}
+                                {% endif %}
+                                {% endfor %}
+                            </span>
+                        </p>
                     </div>
 
                 </div>
@@ -172,8 +394,14 @@
 
         </div>
 
-        <!-- ===================== CONFIRM BUTTON ===================== -->
-
+        <!-- ===================== CONFIRM BUTTON/CANCEL BUTTON ===================== -->
+        <div class="cancel-button">
+            <button>
+                <a href="{{ url_for('views.CapacityTrackingUserLogin') }}">
+                    Cancel
+                </a>
+            </button>
+        </div>
         <div class="confirm-button">
             <button>Confirm</button>
         </div>
@@ -181,8 +409,8 @@
     </form>
 
     <!-- =========================================================
-    LEGEND PANEL
-    ========================================================= -->
+LEGEND PANEL
+========================================================= -->
     <div class="legend-panel">
 
         <div class="legend-item">
@@ -208,4 +436,5 @@
     </div>
 
 </body>
+
 </html>

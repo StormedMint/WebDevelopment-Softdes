@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/ReservedRoomsTracker.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="nav-btn">
@@ -19,12 +21,12 @@
         <button class="glass-btn">Export Lost Archived Table</button>
     </div>
 
-     <!-- HEADER -->
+    <!-- HEADER -->
     <div class="glass-header">
         <h1>Reserved Rooms Tracker</h1>
     </div>
 
-        <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT -->
     <div class="main-container">
 
         <!-- LEFT: FORM -->
@@ -40,21 +42,26 @@
                 <div class="select-arrow1 select-wrapper">
                     <label>Room</label>
                     <select class="filter-dropdown" name="filter-status" name="room">
-                            
-                            <option value="digital-hub">Digital Hub</option>
-                            <option value="discussion-room2nd">Discussion Room</option>
-                            <option value="special-gad">Special Collection & GAD Corner</option>
-                            <option value="booklatan">Booklatan</option>
-                            <option value="avr">AVR</option>
-                            <option value="graduate-school-sec">Graduate School Section</option>
-                            <option value="discussion-room3rd">3rd Floor Discussion Room</option>
-                            <option value="multimedia-room">Multimedia Room</option>
+
+                        <option value="digital-hub">Digital Hub</option>
+                        <option value="discussion-room2nd">Discussion Room</option>
+                        <option value="special-gad">Special Collection & GAD Corner</option>
+                        <option value="booklatan">Booklatan</option>
+                        <option value="avr">AVR</option>
+                        <option value="graduate-school-sec">Graduate School Section</option>
+                        <option value="discussion-room3rd">3rd Floor Discussion Room</option>
+                        <option value="multimedia-room">Multimedia Room</option>
                     </select>
                 </div>
 
                 <div class="input-group">
-                    <label>Date and Time</label>
-                    <input type="datetime-local" name="datetime">
+                    <label>Date</label>
+                    <input type="date" name="date">
+                </div>
+
+                <div class="input-group">
+                    <label>Time</label>
+                    <input type="time" name="time" id="timeSelect">
                 </div>
 
                 <div class="input-group">
@@ -73,29 +80,31 @@
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
-           <div class="table-controls">
+            <div class="table-controls">
                 <input type="text" placeholder="Enter Representative">
                 <button id="search-id-btn">Search Representative</button>
                 <input type="date">
                 <button id="filter-status-btn">Search Date</button>
-                    <div class="select-arrow2 select-wrapper">
-                        <select class="filter-dropdown" name="filter-status">
-                            <option value="all-rooms">All Rooms</option>
-                            <option value="digital-hub">Digital Hub</option>
-                            <option value="discussion-room2nd">Discussion Room</option>
-                            <option value="special-gad">Special Collection & GAD Corner</option>
-                            <option value="booklatan">Booklatan</option>
-                            <option value="avr">AVR</option>
-                            <option value="graduate-school-sec">Graduate School Section</option>
-                            <option value="discussion-room3rd">3rd Floor Discussion Room</option>
-                            <option value="multimedia-room">Multimedia Room</option>
-                        </select>
-                    </div>
+                <div class="select-arrow2 select-wrapper">
+                    <select class="filter-dropdown" name="filter-status">
+                        <option value="all-rooms">All Rooms</option>
+                        <option value="digital-hub">Digital Hub</option>
+                        <option value="discussion-room2nd">Discussion Room</option>
+                        <option value="special-gad">Special Collection & GAD Corner</option>
+                        <option value="booklatan">Booklatan</option>
+                        <option value="avr">AVR</option>
+                        <option value="graduate-school-sec">Graduate School Section</option>
+                        <option value="discussion-room3rd">3rd Floor Discussion Room</option>
+                        <option value="multimedia-room">Multimedia Room</option>
+                    </select>
+                </div>
                 <button id="filter-status-btn">Filter By Room</button>
                 <a href="{{ url_for('admin.ReservedRoomsTracker') }}">
                     <button type="button">Refresh</button>
                 </a>
-                <button id="clear-btn">Clear All</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_rooms') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_rooms">Clear All</button>
+                </form>
 
             </div>
 
@@ -103,19 +112,16 @@
                 <thead>
                     <tr>
                         <th>Room</th>
-                        <th>Date & Time</th>
+                        <th>Date </th>
+                        <th>Time</th>
                         <th>Representative's Name</th>
                         <th>Reason For Reserving</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for r in reservations %}
-                    <tr class="res-row"
-                        data-id="{{ r.id }}"
-                        data-room="{{ r.room }}"
-                        data-datetime="{{ r.datetime }}"
-                        data-rep="{{ r.representative }}"
-                        data-reason="{{ r.reason }}">
+                    <tr class="res-row" data-id="{{ r.id }}" data-room="{{ r.room }}" data-datetime="{{ r.datetime }}"
+                        data-rep="{{ r.representative }}" data-reason="{{ r.reason }}">
 
                         <td>{{ r.room }}</td>
                         <td>{{ r.datetime }}</td>
@@ -124,10 +130,11 @@
                     </tr>
                     {% endfor %}
                 </tbody>
-        </table>
-    </div>
-    
+            </table>
+        </div>
+
 <script src="{{ url_for('static', filename='JAVASCRIPT/ReservedRoomsTracker.js') }}"></script>
 
 </body>
+
 </html>

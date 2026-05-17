@@ -37,6 +37,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background: url("../IMG/second-floor-library.jpg") no-repeat center center fixed;
     background-size: cover;
+    overflow: hidden;
    
 }
 
@@ -260,11 +261,11 @@ body {
 /* STATUS BAR */
 .status-bar {
     position: fixed;
-    bottom: 10px;
+    bottom: 40px;
     left: 15px;
 
     color: white;
-    font-size: 20px;
+    font-size: 30px;
 
     background: rgba(0, 0, 0, 0.3);
     padding: 6px 12px;
@@ -318,6 +319,7 @@ body {
         margin:0;
         font-size: medium;
         padding: 10px;
+        overflow-y: scroll;
         overflow-x: hidden;
     }
 
@@ -355,7 +357,8 @@ body {
     .glass-panel-reser,
     .glass-panel-LF {
 
-        height: 100px;
+        height: 150px;
+        max-height: 60px;
         width: 90%;
 
         padding: 15px;
