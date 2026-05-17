@@ -33,72 +33,86 @@
         <div class="glass-form">
             <h3>Add Reservation</h3>
 
-            <form>
+            <form method="POST" action="{{ url_for('admin.handle_reservation') }}">
                 <div class="input-group">
                     <label>Representative Name</label>
-                    <input type="text" name="representative">
+                    <input type="text" name="representative" required>
                 </div>
 
                 <div class="select-arrow1 select-wrapper">
                     <label>Room</label>
-                    <select class="filter-dropdown" name="filter-status" name="room">
-
-                        <option value="digital-hub">Digital Hub</option>
-                        <option value="discussion-room2nd">Discussion Room</option>
-                        <option value="special-gad">Special Collection & GAD Corner</option>
-                        <option value="booklatan">Booklatan</option>
-                        <option value="avr">AVR</option>
-                        <option value="graduate-school-sec">Graduate School Section</option>
-                        <option value="discussion-room3rd">3rd Floor Discussion Room</option>
-                        <option value="multimedia-room">Multimedia Room</option>
+                    <select class="filter-dropdown" name="room" required>
+                            <option value="all-rooms">All Rooms</option>
+                            <option value="Booklatan">Booklatan</option>
+                            <option value="Digital Hub">Digital Hub</option>
+                            <option value="Discussion Room 1">Discussion Room 1</option>
+                            <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
+                            <option value="Graduate School Section">Graduate School Section</option>
+                            <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
+                            <option value="Discussion Room 3">Discussion Room 3</option>
+                            <option value="Multimedia Room">Multimedia Room</option>
                     </select>
                 </div>
-
+                <br>
                 <div class="input-group">
                     <label>Date</label>
-                    <input type="date" name="date">
+                    <input type="date" name="date" required>
+                    
                 </div>
-
-                <div class="input-group">
+                    
+                <div class="input-group" id="custom-time">
                     <label>Time</label>
-                    <input type="time" name="time" id="timeSelect">
+                    <input type="text" name="time" id="timeInput" readonly placeholder="Select Time" required>
+                    <div class="time-dropdown" id="timeDropdown"></div>
                 </div>
 
                 <div class="input-group">
                     <label>Reason for Reservation</label>
-                    <input type="text" name="reason">
+                    <input type="text" name="reason" required>
                 </div>
 
                 <div class="button-group">
-                    <button id="plus-button" type="button" class="button-text">Add Reservation</button>
-                    <button id="edit-button" type="button" class="button-text">Refresh</button>
-                    <button id="delete-button" type="button" class="button-text">Delete Reservation</button>
+                    <button id="plus-button" name="action" value="add" type="submit" class="button-text">Add Reservation</button>
+                    <button id="delete-button" name="action" value="delete" type="submit" class="button-text">Delete Reservation</button>
                 </div>
             </form>
+
+                <a href="{{ url_for('admin.ReservedRoomsTracker') }}" class="refresh-button">
+                    <button type="button" class="button-text">Refresh</button>
+                </a>
         </div>
 
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
             <div class="table-controls">
-                <input type="text" placeholder="Enter Representative">
-                <button id="search-id-btn">Search Representative</button>
-                <input type="date">
-                <button id="filter-status-btn">Search Date</button>
-                <div class="select-arrow2 select-wrapper">
-                    <select class="filter-dropdown" name="filter-status">
-                        <option value="all-rooms">All Rooms</option>
-                        <option value="digital-hub">Digital Hub</option>
-                        <option value="discussion-room2nd">Discussion Room</option>
-                        <option value="special-gad">Special Collection & GAD Corner</option>
-                        <option value="booklatan">Booklatan</option>
-                        <option value="avr">AVR</option>
-                        <option value="graduate-school-sec">Graduate School Section</option>
-                        <option value="discussion-room3rd">3rd Floor Discussion Room</option>
-                        <option value="multimedia-room">Multimedia Room</option>
-                    </select>
-                </div>
-                <button id="filter-status-btn">Filter By Room</button>
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_rep') }}">
+                    <input type="text" name="search_rep" placeholder="Enter Representative" required>
+                    <button id="search-id-btn" type="submit">Search Representative</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_date') }}">
+                    <input type="date" name="search_date" required>
+                    <button id="filter-status-btn" type="submit">Search Date</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_room') }}">
+                    <div class="select-arrow2 select-wrapper">
+                        <select class="filter-dropdown" name="filter-status" required>
+                            <option value="all-rooms">All Rooms</option>
+                            <option value="Booklatan">Booklatan</option>
+                            <option value="Digital Hub">Digital Hub</option>
+                            <option value="Discussion Room 1">Discussion Room 1</option>
+                            <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
+                            <option value="Graduate School Section">Graduate School Section</option>
+                            <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
+                            <option value="Discussion Room 3">Discussion Room 3</option>
+                            <option value="Multimedia Room">Multimedia Room</option>
+                        </select>
+                    </div>
+                    <button id="filter-status-btn" type="submit">Filter By Room</button>
+                </form>
                 <a href="{{ url_for('admin.ReservedRoomsTracker') }}">
                     <button type="button">Refresh</button>
                 </a>
@@ -124,7 +138,8 @@
                         data-rep="{{ r.representative }}" data-reason="{{ r.reason }}">
 
                         <td>{{ r.room }}</td>
-                        <td>{{ r.datetime }}</td>
+                        <td>{{ r.date }}</td>
+                        <td>{{ r.time }}</td>
                         <td>{{ r.rep_name }}</td>
                         <td>{{ r.reason }}</td>
                     </tr>

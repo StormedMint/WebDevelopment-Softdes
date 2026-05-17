@@ -4,6 +4,8 @@ body {
     background-size: cover;
     margin: 0;
     height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 /* TOP BAR */
@@ -85,7 +87,7 @@ body {
     width: 500px;
     padding: 25px;
     min-height:640px;
-    height: 750px;
+    height: 700px;
     border-radius: 16px;
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(30px);
@@ -94,12 +96,12 @@ body {
 
 /* RIGHT PANEL (SCROLLABLE TABLE AREA) */
 .glass-placeholder {
-    width: 100%;
+    width: 90%;
     min-width: 1300px;
     max-width: 1600px;
 
     min-height: 640px;
-    height: 750px;
+    height: 700px;
 
     overflow: hidden; /* important: stops whole panel from scrolling */
 
@@ -143,11 +145,21 @@ h3 {
 
 /* FORM BUTTONS */
 .button-group {
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 50px;
+    
+}
+
+.refresh-button {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    
 }
 
 .button-text {
@@ -155,6 +167,7 @@ h3 {
     font-weight: 200;
 }
 
+.refresh-button button,
 .button-group button {
     padding: 10px;
     border: none;
@@ -190,6 +203,18 @@ h3 {
     margin-bottom: 15px;
     flex-wrap: wrap; /* wraps if screen is small */
     font-size: medium;
+}
+
+.table-controls form,
+.table-controls a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.table-controls a{
+    text-decoration: none;
+    color: inherit;
 }
 
 /* INPUTS */
@@ -277,6 +302,7 @@ h3 {
 
     transition: 0.3s;
 }
+
 
 /* HOVER COLORS */
 #search-id-btn:hover {
@@ -472,4 +498,29 @@ h3 {
     #clear-btn:hover {
         transform: none;
     }
+}
+
+#custom-time {
+    position: relative;
+}
+
+.time-dropdown {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+    z-index: 100;
+}
+
+.time-dropdown div {
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.time-dropdown div:hover {
+    background: #eee;
 }

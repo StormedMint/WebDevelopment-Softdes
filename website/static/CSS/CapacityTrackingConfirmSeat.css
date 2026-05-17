@@ -287,8 +287,6 @@ ROOM TITLE and Hover
 }
 .room-card:hover{
     transform:translateY(-3px) scale(1.03);
-
-    background:rgba(255,255,255,0.24);
 }       
 
 /* =========================================================
@@ -316,7 +314,7 @@ CAPACITY COLORS
 
 .moderate-capacity {
 
-    background: rgba(255, 170, 0, 0.45);
+    background: rgba(255, 251, 0, 0.45);
 }
 
 .full-capacity {
@@ -342,7 +340,7 @@ cancel BUTTON
     display: inline-block; /* Changes from grid to fit the button width perfectly */
 }
 
-.cancel-button button {
+.cancel-button button{
     width: 210px;
     height: 100px;
     border: none;
@@ -356,7 +354,7 @@ cancel BUTTON
     transition: 0.3s ease;
 }
 
-.cancel-button a {
+.cancel-button:hover {
     color: inherit;
     text-decoration: none;
 }
@@ -401,6 +399,22 @@ Confirm BUTTON
     transform: translateY(-3px) scale(1.03);
 
     background: rgba(255, 230, 2, 0.815);
+}
+
+/* =========================================================
+Selected and disable rooms
+========================================================= */
+
+.selected-room {
+    background: rgba(47, 111, 255, 0.65) !important;
+    border: 3px solid #2f6fff;
+    box-shadow: 0 0 25px rgba(47, 111, 255, 0.8);
+}
+
+.disabled-room {
+    opacity: 0.55;
+    cursor: not-allowed;
+    filter: grayscale(40%);
 }
 
 /* =========================================================
@@ -473,7 +487,7 @@ LEGEND COLOR DOTS
 }
 
 .moderate {
-    background: orange;
+    background: yellow;
 }
 
 .full {

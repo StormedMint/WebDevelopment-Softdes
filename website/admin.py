@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from .db import get_db_connection
 import re
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
+from datetime import datetime
 
 admin = Blueprint('admin',__name__)
 
@@ -522,69 +523,175 @@ def ReservedRoomsTracker():
 
     return render_template("ReservedRoomsTracker.html", reservations=reservations) 
 
-@admin.route('/add_reservation', methods=['POST'])
-def add_reservation():
+@admin.route('/handle_reservation', methods=['POST'])
+def handle_reservation():
+
+    action = request.form.get('action')
 
     room = request.form.get('room')
-    datetime_val = request.form.get('datetime')
+    date = request.form.get('date')
+    time = request.form.get('time')
     rep = request.form.get('representative')
     reason = request.form.get('reason')
 
     db = get_db_connection()
     cursor = db.cursor(dictionary=True)
 
-    # CHECK if nag coconflict room and time sa existing.
-    cursor.execute("""
-        SELECT * FROM room_reservation
-        WHERE room = %s AND datetime = %s
-    """, (room, datetime_val))
+    # ADD RESERVATION
 
-    if cursor.fetchone():
+    if action == "add":
+
+        # CONVERT DATE FORMAT
+        formatted_date = datetime.strptime(date, "%Y-%m-%d").strftime("%m/%d/%Y")
+
+        # CONFLICT CHECK (same room + date + time)
+        cursor.execute("""
+            SELECT * FROM room_reservation
+            WHERE room = %s AND date = %s AND time = %s
+        """, (room, formatted_date, time))
+
+        existing = cursor.fetchone()
+
+        if existing:
+            cursor.close()
+            db.close()
+            flash("Room is already booked at this date and time!")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
+
+        # INSERT
+        cursor.execute("""
+            INSERT INTO room_reservation (room, date, time, rep_name, reason)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (room, formatted_date, time, rep, reason))
+
+        db.commit()
         cursor.close()
         db.close()
-        flash("Room already booked at this time!")
+
+        return redirect(url_for('admin.ReservedRoomsTracker'))
+    
+    # DELETE + ARCHIVE
+
+    elif action == "delete":
+
+        # find matching record (match lahat ng records)
+        cursor.execute("""
+            SELECT * FROM room_reservation
+            WHERE room=%s AND date=%s AND time=%s AND rep_name=%s
+            LIMIT 1
+        """, (room, date, time, rep))
+
+        row = cursor.fetchone()
+
+        if row:
+
+            # archive first
+            cursor.execute("""
+                INSERT INTO deleted_room_reservation
+                (room, date, time, rep_name, reason)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (
+                row["room"],
+                row["date"],
+                row["time"],
+                row["rep_name"],
+                row["reason"]
+            ))
+
+            # delete original
+            cursor.execute("""
+                DELETE FROM room_reservation
+                WHERE room=%s AND date=%s AND time=%s AND rep_name=%s
+            """, (room, date, time, rep))
+
+            db.commit()
+
+        cursor.close()
+        db.close()
+
         return redirect(url_for('admin.ReservedRoomsTracker'))
 
-    cursor.execute("""
-        INSERT INTO room_reservation (room, datetime, representative, reason)
-        VALUES (%s, %s, %s, %s)
-    """, (room, datetime_val, rep, reason))
-
-    db.commit()
     cursor.close()
     db.close()
-
     return redirect(url_for('admin.ReservedRoomsTracker'))
 
-@admin.route('/delete_reservation', methods=['POST'])
-def delete_reservation():
+@admin.route('/filter_reservation_rep', methods=['POST'])
+def filter_reservation_rep():
 
-    res_id = request.form.get('id')
+    rep = request.form.get('search_rep', '').strip()
 
     db = get_db_connection()
     cursor = db.cursor(dictionary=True)
 
-    # get record
-    cursor.execute("SELECT * FROM room_reservation WHERE id=%s", (res_id,))
-    row = cursor.fetchone()
-
-    if not row:
-        return redirect(url_for('admin.ReservedRoomsTracker'))
-
-    # archive
     cursor.execute("""
-        INSERT INTO deleted_room_reservation (room, datetime, representative, reason)
-        VALUES (%s,%s,%s,%s)
-    """, (row["room"], row["datetime"], row["representative"], row["reason"]))
+        SELECT * FROM room_reservation
+        WHERE rep_name LIKE %s
+    """, (f"%{rep}%",))
 
-    # delete
-    cursor.execute("DELETE FROM room_reservation WHERE id=%s", (res_id,))
+    reservations = cursor.fetchall()
 
-    db.commit()
     cursor.close()
     db.close()
 
-    return redirect(url_for('admin.ReservedRoomsTracker'))
+    return render_template(
+        "ReservedRoomsTracker.html",
+        reservations=reservations
+    )
+
+@admin.route('/filter_reservation_date', methods=['POST'])
+def filter_reservation_date():
+
+    date = request.form.get('search_date')
+
+    if not date:
+        return redirect(url_for('admin.ReservedRoomsTracker'))
+
+    # convert YYYY-MM-DD → MM/DD/YYYY
+    formatted_date = datetime.strptime(date, "%Y-%m-%d").strftime("%m/%d/%Y")
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT * FROM room_reservation
+        WHERE date = %s
+    """, (formatted_date,))
+
+    reservations = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return render_template(
+        "ReservedRoomsTracker.html",
+        reservations=reservations
+    )
+
+@admin.route('/filter_reservation_room', methods=['POST'])
+def filter_reservation_room():
+
+    room = request.form.get('filter-status')
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    if room == "all-rooms":
+        cursor.execute("SELECT * FROM room_reservation")
+    else:
+        cursor.execute("""
+            SELECT * FROM room_reservation
+            WHERE room = %s
+        """, (room,))
+
+    reservations = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return render_template(
+        "ReservedRoomsTracker.html",
+        reservations=reservations
+    )
 
 @admin.route('/LostAndFound')
 def LostAndFound():
@@ -943,3 +1050,69 @@ def clear_all_lost():
         db.close()
 
     return redirect(url_for('admin.LostAndFound'))
+
+#for capacity tracking admin side add/deduct
+
+@admin.route("/update-capacity", methods=["POST"])
+def update_capacity():
+    area = request.form.get("area")
+    action = request.form.get("action")
+    amount = request.form.get("amount")
+
+    if not area or not action or not amount:
+        return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+    if not amount.isdigit():
+        return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+    amount = int(amount)
+
+    if amount <= 0:
+        return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+
+    cursor.execute(
+        "SELECT current, capacity FROM vacancy_table WHERE area = %s",
+        (area,)
+    )
+
+    room = cursor.fetchone()
+
+    if room:
+        current = room["current"]
+        capacity = room["capacity"]
+
+        if action == "add":
+            new_current = current + amount
+
+            if new_current > capacity:
+                cursor.close()
+                conn.close()
+                return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+        elif action == "deduct":
+            new_current = current - amount
+
+            if new_current < 0:
+                cursor.close()
+                conn.close()
+                return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+        else:
+            cursor.close()
+            conn.close()
+            return redirect(url_for("admin.CapacityTrackingAdminSide"))
+
+        cursor.execute(
+            "UPDATE vacancy_table SET current = %s WHERE area = %s",
+            (new_current, area)
+        )
+
+        conn.commit()
+
+    cursor.close()
+    conn.close()
+
+    return redirect(url_for("admin.CapacityTrackingAdminSide"))
