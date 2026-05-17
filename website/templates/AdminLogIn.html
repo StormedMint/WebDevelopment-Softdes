@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/AdminLogin.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="go-back-container">
+        <a href="{{ url_for('auth.UserLoginPage') }}">
+                    <button> Go Back To User Login Page </button>
+        </a>
+    </div>
+
+    <!-- LOGOS -->
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='IMG/PSUlogo.png') }}" class="logo">
+        <img src="{{ url_for('static', filename='IMG/LibraryLogo.png') }}" class="logo">
+        <img src="{{ url_for('static', filename='IMG/BagongPilipinasLogo.png') }}" class="logo">
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div class="login-panel">
+
+        <h1 class="title">Admin Login</h1>
+        <form class="login-form" method="POST" action="{{ url_for ('auth.AdminLogIn') }}">
+
+            <div class="input-group">
+                <label>Username:</label>
+                <input type="text" name = username class="input-field" placeholder="Enter username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password:</label>
+                <input type="password" name = password id="password" class="input-field" placeholder="Enter password" required>
+                
+                <button type="button" class="toggle-btn" onclick="togglePassword()">Show Password</button>
+                <script src="{{ url_for('static', filename='JAVASCRIPT/AdminLogin.js') }}"></script>
+            </div>
+
+            <button type="submit" class="confirm-btn verify-btn">Confirm</button>
+
+        </form>
+    </div>
+
+    
+
+</body>
+</html>

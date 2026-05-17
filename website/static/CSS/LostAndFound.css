@@ -1,0 +1,412 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+
+    background: url("../IMG/second-floor-library2.jpg") no-repeat center center fixed;
+    background-size: cover;
+
+    color: white;
+    overflow-x: hidden;
+}
+
+/* DARK OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: -1;
+}
+
+/* GENERAL GLASS BUTTON */
+.glass-btn,
+button {
+    border: none;
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.glass-btn:hover,
+button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* TOP BAR */
+.top-bar {
+    width: 100%;
+    padding: 18px 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.top-bar .glass-btn {
+    padding: 10px 18px;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.export-buttons button {
+    padding: 10px 18px;
+}
+
+/* HEADER */
+.glass-header {
+    width: min(720px, 90%);
+    margin: 0 auto 18px auto;
+    padding: 22px 30px;
+
+    text-align: center;
+
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.glass-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* MAIN LAYOUT */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto;
+}
+
+/* LEFT FORM PANEL */
+.glass-form {
+    
+    min-width: 350px;
+    width: 500px;
+    padding: 25px;
+    min-height:640px;
+    height: 800px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(30px);
+    color: white;
+}
+
+
+.glass-form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    margin-bottom: 14px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input-group input,
+.table-controls input,
+.filter-dropdown {
+    width: 100%;
+    padding: 11px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-group input:focus,
+.table-controls input:focus,
+.filter-dropdown:focus {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.28);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+/* RADIO STATUS */
+.radio-container {
+    margin: 14px 0 18px 0;
+}
+
+.radio-container p {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.radio-container label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+/* FORM BUTTONS */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.button-group button {
+    width: 100%;
+    padding: 13px;
+    font-size: 18px;
+}
+
+#plus-button:hover {
+    background: rgba(118, 255, 94, 0.35);
+}
+
+#edit-button:hover {
+    background: rgba(255, 231, 126, 0.35);
+}
+
+#delete-button:hover {
+    background: rgba(255, 96, 96, 0.35);
+}
+
+/* RIGHT PANEL (SCROLLABLE TABLE AREA) */
+.glass-placeholder {
+    width: 100%;
+    min-width: 1300px;
+    max-width: 1700px;
+
+    min-height: 640px;
+    height: 800px;
+
+    overflow: hidden; /* important: stops whole panel from scrolling */
+
+    padding: 20px;
+
+    border-radius: 16px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(30px);
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* TABLE CONTROLS */
+.table-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.control-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.control-form input {
+    width: 170px;
+}
+
+.filter-dropdown {
+    width: 170px;
+    cursor: pointer;
+}
+
+.filter-dropdown option {
+    color: #222;
+}
+
+.table-controls button {
+    padding: 11px 14px;
+    white-space: nowrap;
+}
+
+.control-link {
+    text-decoration: none;
+}
+
+/* TABLE WRAPPER */
+.table-wrapper {
+    width: 100%;
+    max-height: 500px;
+    overflow: auto;
+
+    border-radius: 14px;
+}
+
+/* TABLE */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+/* Keep table head fixed */
+.data-table thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(30px);
+}
+
+/* Only table body scrolls */
+.data-table tbody {
+    display: block;
+
+    max-height: 650px; /* adjust this height */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Make body rows align with header */
+.data-table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.13);
+}
+
+.empty-message {
+    text-align: center;
+    padding: 25px;
+    font-weight: 600;
+}
+
+/* SCROLLBAR */
+.table-wrapper::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 10px;
+}
+
+/* TABLE BUTTON HOVERS */
+#filter-status-btn:hover {
+    background: rgba(120, 200, 255, 0.35);
+}
+
+#refresh-btn:hover {
+    background: rgba(236, 255, 127, 0.35);
+}
+
+#clear-btn:hover {
+    background: rgba(255, 100, 100, 0.35);
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1100px) {
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .glass-form {
+        width: 100%;
+    }
+
+    .glass-table-panel {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .export-buttons {
+        flex-direction: column;
+    }
+
+    .top-bar .glass-btn,
+    .export-buttons button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .glass-header h1 {
+        font-size: 26px;
+    }
+
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-form input,
+    .filter-dropdown,
+    .table-controls button {
+        width: 100%;
+    }
+
+    button:hover,
+    .glass-btn:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,526 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url("../IMG/second-floor-library3.jpg") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/* TOP BAR */
+.nav-btn {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    right: 20px;
+    font-size: larger;
+    margin:0;
+}
+
+.export-buttons-topleft{
+    margin: 15px;
+    border-radius: 10px;
+    
+    gap: 10px;
+    display:flex;
+    justify-content: flex-end;
+}
+
+.export-buttons-topleft button{
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: larger;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+/* BUTTON STYLE */
+.glass-btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(30px);
+
+    color: white;
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.glass-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* HEADER */
+.glass-header {
+    width: 80%;
+    max-width: 900px;
+    margin: 70px auto 20px auto;
+    padding: 15px;
+
+    border-radius: 18px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+
+    text-align: center;
+    color: white;
+}
+
+/* MAIN LAYOUT */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin: 0 auto;
+}
+
+/* FORM PANEL */
+.glass-form {
+    
+    min-width: 350px;
+    width: 500px;
+    padding: 25px;
+    min-height:640px;
+    height: 700px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(30px);
+    color: white;
+}
+
+/* RIGHT PANEL (SCROLLABLE TABLE AREA) */
+.glass-placeholder {
+    width: 90%;
+    min-width: 1300px;
+    max-width: 1600px;
+
+    min-height: 640px;
+    height: 700px;
+
+    overflow: hidden; /* important: stops whole panel from scrolling */
+
+    padding: 20px;
+
+    border-radius: 16px;
+    background: rgba(255,255,255,0.10);
+    backdrop-filter: blur(30px);
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* TITLE */
+h3 {
+    text-align: center;
+    margin-top: 1px;
+}
+
+/* INPUTS */
+.input-group {
+    margin-bottom: 5px;
+    width: 95%;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    background: rgba(255,255,255,0.2);
+    font-size: large;
+    color: white;
+}
+
+/* FORM BUTTONS */
+.button-group {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+.refresh-button {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+    
+}
+
+.button-text {
+    font-size: x-large;
+    font-weight: 200;
+}
+
+.refresh-button button,
+.button-group button {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#plus-button:hover {
+    background: rgba(118, 255, 94, 0.3);
+    transform: scale(1.1);
+}
+
+#edit-button:hover {
+    background: rgba(255, 231, 126, 0.3);
+    transform: scale(1.1);
+}
+
+#delete-button:hover {
+    background: rgba(255, 96, 96, 0.3);
+    transform: scale(1.1);
+}
+
+/* SEARCH SECTION */
+.table-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* wraps if screen is small */
+    font-size: medium;
+}
+
+.table-controls form,
+.table-controls a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.table-controls a{
+    text-decoration: none;
+    color: inherit;
+}
+
+/* INPUTS */
+.table-controls input {
+    width: 175px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: medium;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    
+}
+
+/* Container to help position a custom arrow */
+.select-wrapper {
+  position: relative;
+  width: 200px;
+}
+
+.filter-dropdown {
+  appearance: none; 
+  -webkit-appearance: none;
+  width: 200px;
+  padding: 10px 40px 10px 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(30px);
+  color: white;
+}
+
+.filter-dropdown option {
+  color: #333;             
+}
+/* Hover & Focus states */
+.filter-dropdown:hover {
+  border-color: #aaa;
+}
+
+.filter-dropdown:focus {
+  outline: none;
+  border-color: #49494a;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.686);
+}
+
+/* Custom Arrow using a Pseudo-element */
+.select-arrow1::after {
+  content: '▼';
+  font-size: 10px;
+  color: #ffffff;
+  position: absolute;
+  right: 15px;
+  top: 72.5%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Keeps the click working on the select */
+}
+
+.select-arrow2::after {
+  content: '▼';
+  font-size: 10px;
+  color: #ffffff;
+  position: absolute;
+  right: 15px;
+  top: 52.5%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Keeps the click working on the select */
+}
+
+/* BUTTONS */
+.table-controls button {
+    padding: 8px 14px;
+    font-size: medium;
+    border: none;
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+
+/* HOVER COLORS */
+#search-id-btn:hover {
+    background: rgba(120, 200, 255, 0.3);
+    transform: scale(1.1);
+}
+#filter-status-btn:hover {
+    background: rgba(120, 200, 255, 0.3);
+    transform: scale(1.1);
+}
+#search-name-btn:hover {
+    background: rgba(120, 200, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#refresh-btn:hover {
+    background: rgba(236, 255, 127, 0.3);
+    transform: scale(1.1);
+}
+
+#archive-btn:hover {
+    background: rgba(200, 160, 255, 0.3);
+    transform: scale(1.1);
+}
+
+#export-btn:hover {
+    background: rgba(120, 255, 180, 0.3);
+    transform: scale(1.1);
+}
+
+#clear-btn:hover {
+    background: rgba(255, 100, 100, 0.3);
+    transform: scale(1.1);
+}
+
+/* TABLE */
+/* TABLE */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+/* Keep table head fixed */
+.data-table thead {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(30px);
+}
+
+/* Only table body scrolls */
+.data-table tbody {
+    display: block;
+
+    max-height: 650px; /* adjust this height */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Make body rows align with header */
+.data-table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    text-align: left;
+}
+
+.data-table tbody tr:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* SCROLLBAR */
+.glass-placeholder::-webkit-scrollbar {
+    width: 6px;
+}
+
+.glass-placeholder::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.068);
+    border-radius: 10px;
+}
+
+/* =========================
+   MOBILE RESPONSIVE DESIGN
+========================= */
+@media screen and (max-width: 768px) {
+
+    body {
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    /* TOP BAR */
+    .nav-btn {
+        position: relative;
+
+        top: 0;
+        left: 0;
+        right: 0;
+
+        padding: 10px;
+
+        flex-direction: row;
+        gap: 10px;
+
+        font-size: medium;
+    }
+
+    .glass-btn {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    /* HEADER */
+    .glass-header {
+        width: 92%;
+        margin-top: 10px;
+        padding: 12px;
+    }
+
+    .glass-header h1 {
+        font-size: 24px;
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+        flex-direction: column;
+        gap: 15px;
+
+        width: 95%;
+    }
+
+    /* FORM PANEL */
+    .glass-form {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* TABLE PANEL */
+    .glass-placeholder {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+
+        box-sizing: border-box;
+
+        overflow-x: auto;
+    }
+
+    /* TABLE */
+    .data-table {
+        min-width: 700px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    /* SEARCH CONTROLS */
+    .table-controls input {
+    width:100%;
+    max-width: 100px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: medium;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    
+    }
+
+    /* DISABLE HOVER SCALE ON MOBILE */
+    #plus-button:hover,
+    #edit-button:hover,
+    #delete-button:hover,
+    #search-id-btn:hover,
+    #search-name-btn:hover,
+    #refresh-btn:hover,
+    #archive-btn:hover,
+    #export-btn:hover,
+    #clear-btn:hover {
+        transform: none;
+    }
+}
+
+#custom-time {
+    position: relative;
+}
+
+.time-dropdown {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    width: 100%;
+    z-index: 100;
+}
+
+.time-dropdown div {
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+}
+
+.time-dropdown div:hover {
+    background: #eee;
+}

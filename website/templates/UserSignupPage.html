@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/UserSignupPage.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <title>Library Sign Up</title>
+</head>
+
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+
+            <!-- Logos -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='IMG/PSUlogo.png') }}" class="logo">
+                <img src="{{ url_for('static', filename='IMG/LibraryLogo.png') }}" class="logo">
+                <img src="{{ url_for('static', filename='IMG/BagongPilipinasLogo.png') }}" class="logo">
+            </div>
+
+            <h1 class="title">Welcome to the Sign Up Page</h1>
+
+            <h3 class="subtitle">Create Account</h3>
+
+            <!-- SIGNUP FORM -->
+            <form class="signup-form" method="POST" action="{{ url_for ('auth.UserSignUpPage') }}">
+
+                <div class="input-group">
+                    <label for="LRN">ID:</label>
+                    <input type="text" id="LRN" name="id" class="input-field" pattern="[0-9-]*" 
+                    inputmode="numeric"oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required>
+                    <!--Only accepts numbers and dash-->
+                </div>
+
+                <div class="input-group">
+                    <label for="fname">First Name:</label>
+                    <input type="text" id="fname" name="fname" class="input-field" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="lname">Last Name:</label>
+                    <input type="text" id="lname" name="lname" class="input-field" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="course_section">Course and Section:</label>
+                    <input type="text" id="course_section" name="course_section" class="input-field" required>
+                </div>
+
+                <input type="hidden" name="picture" id="picture">
+
+                <!-- BUTTONS -->
+                        <div class="form-buttons">
+
+                            <a href="{{ url_for('auth.UserLoginPage') }}" class="btn cancel-btn">
+                                Cancel
+                            </a>
+
+                            <input type="submit" value="Register" class="btn submit-btn">
+
+                    </div>
+
+            </form>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+
+            <div class="camera-card">
+
+                <h2 class="camera-title">Capture Photo</h2>
+
+                <div id="camera-container">
+
+                    <video id="video" autoplay></video>
+
+                    <canvas id="canvas" style="display:none;"></canvas>
+
+                    <div class="controls">
+                        <button id="capture-btn" class="btn capture-btn">
+                            Capture Photo
+                        </button>
+
+                        <button id="retake-btn" class="btn retake-btn" style="display:none";>
+                            Retake
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+            </div>
+
+         
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='JAVASCRIPT/UserSignupPage.js') }}"></script>
+
+</body>
+</html>
+w

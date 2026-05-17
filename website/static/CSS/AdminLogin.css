@@ -1,0 +1,188 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: url("../IMG/first-floor-library.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    margin:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* DARK OVERLAY */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: -1;
+}
+
+/*Go back Button */
+.go-back-container{
+    padding: 15px;
+    position: fixed;
+    top: 75%;
+    margin-top: 10px;
+    margin-left: 5px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+    transition: ease 0.3s;
+}
+
+.go-back-container button{
+        position: relative;
+        
+        background: transparent;
+        border: none;
+
+        color: white;
+        font-size: 30px;
+        font-weight: lighter;
+
+        cursor: pointer;
+        width: 100%;
+}
+
+.go-back-container:hover{
+    background: rgba(255, 0, 0, 0.509);
+    transform: scale(1.1);
+}
+
+/* LOGOS */
+.logo-container {
+    margin: 20px;
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    right: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 150px;
+}
+
+/* LOGIN PANEL */
+.login-panel {
+    justify-self: center;
+    max-height: fit-content;
+
+    width: 600px;
+    padding: 35px;
+
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+
+    text-align: center;
+    color: white;
+}
+
+/* TITLES */
+.title {
+    font-size: 50px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* FORM */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* INPUT GROUP */
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 20px;
+}
+
+.input-field {
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    outline: none;
+}
+
+/* PASSWORD TOGGLE */
+.toggle-btn {
+    margin-top: 20px;
+    padding: 6px 10px;
+    font-size: large;
+
+    border: none;
+    border-radius: 6px;
+
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.toggle-btn:hover {
+    background: rgba(255,255,255,0.35);
+}
+
+/* BUTTON */
+.confirm-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: x-large;
+
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.verify-btn {
+    background: linear-gradient(135deg, #28a745, #1e7e34);
+}
+
+.verify-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Mobile-only styles */
+@media (max-width: 768px) {
+  .logo-container
+  .login-panel {
+    width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    border-radius: 0; /* Often looks better flush against the screen */
+  }
+}

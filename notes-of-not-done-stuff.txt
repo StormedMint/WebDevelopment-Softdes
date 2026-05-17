@@ -1,0 +1,8 @@
+Not Done priority rank from top:
+User Sign Up Page
+Log In Capacity Tracker
+Capacity Tracker: Choosing a Seat
+Capacity Tracking High Admin/Low Admin Side
+Log Table of Capacity Tracking
+Librarian Dashboard (Low Admin na parang admin dashboard pero wala ung user acc management)
+

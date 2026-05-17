@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/LibrarianDashboard.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIBRARIAN Dashboard</title>
+
+    <div class="log-out-container">
+        <a href="{{ url_for('auth.AdminLogIn') }}">
+                    <button>Log Out</button>
+        </a>
+    </div>
+
+    <div class="glass-header">
+            <h1 > WELCOME TO LIBRARIAN DASHBOARD</h1>
+    </div>
+</head>
+<body>
+    
+        <div class="nav-buttons">
+
+            <div >
+                <a href="{{ url_for('admin.CapacityTrackingAdminSide') }}" class="glass-panel-cap">
+                    <button >Capacity Tracking</button>
+                </a>
+            </div>
+
+
+            <div> 
+                <a href="{{ url_for('admin.ReservedRoomsTracker') }}" class="glass-panel-reser">
+                    <button>Reserved Rooms</button>
+                </a>
+            </div>
+
+            <div> 
+                <a href="{{ url_for('admin.LostAndFound') }}" class="glass-panel-LF">
+                    <button>Lost & Found</button>
+                </a>
+            </div>
+
+        </div>
+
+    <div class="status-bar"> 
+     
+        Logged in as: Librarian/Low Admin
+     
+    </div>
+</body>
+</html>

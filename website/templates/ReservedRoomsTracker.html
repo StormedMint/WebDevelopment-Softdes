@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost & Found Management</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/ReservedRoomsTracker.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="nav-btn">
+        <a href="{{ url_for('admin.dashboard') }}" class="glass-btn">Return Dashboard</a>
+    </div>
+
+    <div class="export-buttons-topleft">
+        <a href="{{ url_for('admin.export_table', table_name='room_reservation') }}">
+            <button class="glass-btn" type="button">Export Table</button>
+        </a>
+        <a href="{{ url_for('admin.export_table', table_name='deleted_room_reservation') }}">
+            <button class="glass-btn" type="button">Export Archived Table</button>
+        </a>
+    </div>
+
+    <!-- HEADER -->
+    <div class="glass-header">
+        <h1>Reserved Rooms Tracker</h1>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+
+        <!-- LEFT: FORM -->
+        <div class="glass-form">
+            <h3>Add Reservation</h3>
+
+            <form method="POST" action="{{ url_for('admin.handle_reservation') }}">
+                <div class="input-group">
+                    <label>Representative Name</label>
+                    <input type="text" name="representative" required>
+                </div>
+
+                <div class="select-arrow1 select-wrapper">
+                    <label>Room</label>
+                    <select class="filter-dropdown" name="room" required>
+                        <option value="all-rooms">All Rooms</option>
+                        <option value="Booklatan">Booklatan</option>
+                        <option value="Digital Hub">Digital Hub</option>
+                        <option value="Discussion Room 1">Discussion Room 1</option>
+                        <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
+                        <option value="Graduate School Section">Graduate School Section</option>
+                        <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
+                        <option value="Discussion Room 3">Discussion Room 3</option>
+                        <option value="Multimedia Room">Multimedia Room</option>
+                    </select>
+                </div>
+                <br>
+                <div class="input-group">
+                    <label>Date</label>
+                    <input type="date" name="date" required>
+
+                </div>
+
+                <div class="input-group" id="custom-time">
+                    <label>Time</label>
+                    <input type="text" name="time" id="timeInput" readonly placeholder="Select Time" required>
+                    <div class="time-dropdown" id="timeDropdown"></div>
+                </div>
+
+                <div class="input-group">
+                    <label>Reason for Reservation</label>
+                    <input type="text" name="reason" required>
+                </div>
+
+                <div class="button-group">
+                    <button id="plus-button" name="action" value="add" type="submit" class="button-text">Add
+                        Reservation</button>
+                    <button id="delete-button" name="action" value="delete" type="submit" class="button-text">Delete
+                        Reservation</button>
+                </div>
+            </form>
+
+            <a href="{{ url_for('admin.ReservedRoomsTracker') }}" class="refresh-button">
+                <button type="button" class="button-text">Refresh</button>
+            </a>
+        </div>
+
+        <!-- RIGHT: TABLE PLACEHOLDER -->
+        <div class="glass-placeholder">
+
+            <div class="table-controls">
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_rep') }}">
+                    <input type="text" name="search_rep" placeholder="Enter Representative" required>
+                    <button id="search-id-btn" type="submit">Search Representative</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_date') }}">
+                    <input type="date" name="search_date" required>
+                    <button id="filter-status-btn" type="submit">Search Date</button>
+                </form>
+
+                <form method="POST" action="{{ url_for('admin.filter_reservation_room') }}">
+                    <div class="select-arrow2 select-wrapper">
+                        <select class="filter-dropdown" name="filter-status" required>
+                            <option value="all-rooms">All Rooms</option>
+                            <option value="Booklatan">Booklatan</option>
+                            <option value="Digital Hub">Digital Hub</option>
+                            <option value="Discussion Room 1">Discussion Room 1</option>
+                            <option value="Special Collection/GAD Corner">Special Collection/GAD Corner</option>
+                            <option value="Graduate School Section">Graduate School Section</option>
+                            <option value="Audio Visual Room(AVR)">Audio Visual Room(AVR)</option>
+                            <option value="Discussion Room 3">Discussion Room 3</option>
+                            <option value="Multimedia Room">Multimedia Room</option>
+                        </select>
+                    </div>
+                    <button id="filter-status-btn" type="submit">Filter By Room</button>
+                </form>
+                <a href="{{ url_for('admin.ReservedRoomsTracker') }}">
+                    <button type="button">Refresh</button>
+                </a>
+                <form method="POST" action="{{ url_for('admin.clear_all_rooms') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_rooms">Clear All</button>
+                </form>
+
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Date </th>
+                        <th>Time</th>
+                        <th>Representative's Name</th>
+                        <th>Reason For Reserving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in reservations %}
+                    <tr class="res-row" data-id="{{ r.id }}" data-room="{{ r.room }}" data-datetime="{{ r.datetime }}"
+                        data-rep="{{ r.representative }}" data-reason="{{ r.reason }}">
+
+                        <td>{{ r.room }}</td>
+                        <td>{{ r.date }}</td>
+                        <td>{{ r.time }}</td>
+                        <td>{{ r.rep_name }}</td>
+                        <td>{{ r.reason }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <script src="{{ url_for('static', filename='JAVASCRIPT/ReservedRoomsTracker.js') }}"></script>
+
+</body>
+
+</html>

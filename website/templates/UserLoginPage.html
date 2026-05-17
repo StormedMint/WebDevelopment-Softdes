@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/UserLoginPage.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Library Login</title>
+</head>
+<body>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Left Panel (Login Section) -->
+        <div class="left-panel">
+
+            <!-- Logos -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='IMG/PSUlogo.png') }}" class="logo">
+                <img src="{{ url_for('static', filename='IMG/LibraryLogo.png') }}" class="logo">
+                <img src="{{ url_for('static', filename='IMG/BagongPilipinasLogo.png') }}" class="logo">
+            </div>
+            <br><br>
+            <h1 class="title title-wrapper">Welcome to the library</h1>
+
+            <h3 class="subtitle">Log In</h3>
+
+            
+            <!-- Login Form -->
+            {% if not verified %}
+            <form class="login-form" method="POST" action="{{ url_for ('auth.UserLoginPage') }}">
+                <input type="text" name="user-id" class="input-field" placeholder="Enter ID or Username" required><br><br>
+
+                <button type="submit" class="btn verify-btn">Verify Information</button>
+            </form>
+
+            {% else %}
+             <form class="login-form verified-form" action="{{ url_for('views.CapacityTrackingConfirmSeat') }}">
+                    <input type="text" name="user_id" value="{{ user.id }}" readonly class="input-field">
+
+                    <button type="submit" class="btn verify-btn">Select Your Room Here</button>
+             </form>
+            {% endif %}
+
+            <p class="no-account">No Account?</p>
+
+            <a href="{{ url_for('auth.UserSignUpPage') }}">
+                <button class="btn signup-btn">Sign Up</button>
+            </a>
+
+            <p class="no-account">For Admin/Librarian Accounts</p>
+
+            <a href="{{ url_for('auth.AdminLogIn') }}">
+                <button class="btn signup-btn">Login Here</button>
+            </a>
+
+            <br><br>
+
+            
+        </div>
+
+        <!-- Right Panel (User Info Section) -->
+        <div class="right-panel">
+
+            <div class="user-picture">
+                {% if user and user.picture %}
+                    <img src="data:image/jpeg;base64,{{ user.picture }}" class = "profile-pic">
+                {% endif %}
+            </div>
+
+            <div class="user-card">
+                <h2>User Information</h2>
+
+                <p>ID/LRN: {{ user.id if user else '' }}</p>
+                <p>Name: {{ user.full_name if user else (user.fname ~ ' ' ~ user.lname if user else '') }}</p>
+                <p>Course: {{ user.course_section if user else '' }}</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
