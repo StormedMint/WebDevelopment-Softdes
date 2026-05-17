@@ -19,8 +19,7 @@
 
     <body data-account-type="{{ account_type }}"></body>
     </div>
-    {% endif %}
-    {% endwith %}
+
     <!-- =========================================================
     MAIN HEADER
     ========================================================= -->
@@ -438,6 +437,14 @@ LEGEND PANEL
 
         <!--FOR CAPACITY TRACKING COLORS and SELECTION PROCESS-->
         <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingConfirmSeat.js') }}"></script>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <script>
+            alert("{{ messages[0] }}");
+        </script>
+        {% endif %}
+        {% endwith %}
 
 </body>
 

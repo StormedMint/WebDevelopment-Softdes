@@ -51,7 +51,7 @@ def CapacityTrackingAdminSide():
     db.close()
 
     return render_template(
-        "CapacityTrackingConfirmSeat.html",
+        "CapacityTrackingAdminSide.html",
         rooms=rooms,
         account_type=session.get("account_type")  # IMPORTANT
     )
