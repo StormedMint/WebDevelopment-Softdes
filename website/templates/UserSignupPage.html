@@ -36,23 +36,26 @@
                 <div class="input-group">
                     <label for="LRN">ID:</label>
                     <input type="text" id="LRN" name="id" class="input-field" pattern="[0-9-]*" inputmode="numeric"
-                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required>
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" required maxlength="11">
                     <!--Only accepts numbers and dash-->
                 </div>
 
                 <div class="input-group">
                     <label for="fname">First Name:</label>
-                    <input type="text" id="fname" name="fname" class="input-field" required>
+                    <input type="text" id="fname" name="fname" class="input-field" required maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label for="lname">Last Name:</label>
-                    <input type="text" id="lname" name="lname" class="input-field" required>
+                    <input type="text" id="lname" name="lname" class="input-field" required maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label for="course_section">Course and Section:</label>
-                    <input type="text" id="course_section" name="course_section" class="input-field" required>
+                    <input type="text" id="course_section" name="course_section" class="input-field" required
+                        maxlength="11">
                 </div>
 
                 <input type="hidden" name="picture" id="picture">

@@ -44,27 +44,29 @@
 
                 <div class="input-group">
                     <label>Lost Item:</label>
-                    <input type="text" name="item_name" required maxlength="11">
+                    <input type="text" name="item_name" required maxlength="30">
                 </div>
 
                 <div class="input-group">
                     <label>Description:</label>
-                    <input type="text" name="description" required>
+                    <input type="text" name="description" required maxlength="255">
                 </div>
 
                 <div class="input-group">
                     <label>Place:</label>
-                    <input type="text" name="place" required>
+                    <input type="text" name="place" required maxlength="30">
                 </div>
 
                 <div class="input-group">
                     <label>Finder's Name:</label>
-                    <input type="text" name="finder_name" required>
+                    <input type="text" name="finder_name" required maxlength="30"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label>Finder's Phone Number:</label>
-                    <input type="text" name="phone" required>
+                    <input type="text" name="phone" required maxlength="11"
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')">
                 </div>
 
                 <div class="radio-container">
@@ -102,7 +104,7 @@
             <div class="table-controls">
 
                 <form class="control-form" method="POST" action="{{ url_for('admin.search_lost_item') }}">
-                    <input type="text" name="search_item" placeholder="Enter Item" required>
+                    <input type="text" name="search_item" placeholder="Enter Item" required maxlength="30">
                     <button type="submit">Search by Item</button>
                 </form>
 

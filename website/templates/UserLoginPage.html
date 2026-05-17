@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/UserLoginPage.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <title>Library Login</title>
 </head>
+
 <body>
 
     <!-- Main Container -->
@@ -25,21 +27,23 @@
 
             <h3 class="subtitle">Log In</h3>
 
-            
+
             <!-- Login Form -->
             {% if not verified %}
             <form class="login-form" method="POST" action="{{ url_for ('auth.UserLoginPage') }}">
-                <input type="text" name="user-id" class="input-field" placeholder="Enter ID or Username" required><br><br>
+                <input type="text" name="user-id" class="input-field" placeholder="Enter ID or Username"
+                    pattern="[0-9-]*" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9-]/g, '')"
+                    required maxlength="11"><br><br>
 
                 <button type="submit" class="btn verify-btn">Verify Information</button>
             </form>
 
             {% else %}
-             <form class="login-form verified-form" action="{{ url_for('views.CapacityTrackingConfirmSeat') }}">
-                    <input type="text" name="user_id" value="{{ user.id }}" readonly class="input-field">
+            <form class="login-form verified-form" action="{{ url_for('views.CapacityTrackingConfirmSeat') }}">
+                <input type="text" name="user_id" value="{{ user.id }}" readonly class="input-field">
 
-                    <button type="submit" class="btn verify-btn">Select Your Room Here</button>
-             </form>
+                <button type="submit" class="btn verify-btn">Select Your Room Here</button>
+            </form>
             {% endif %}
 
             <p class="no-account">No Account?</p>
@@ -56,7 +60,7 @@
 
             <br><br>
 
-            
+
         </div>
 
         <!-- Right Panel (User Info Section) -->
@@ -64,7 +68,7 @@
 
             <div class="user-picture">
                 {% if user and user.picture %}
-                    <img src="data:image/jpeg;base64,{{ user.picture }}" class = "profile-pic">
+                <img src="data:image/jpeg;base64,{{ user.picture }}" class="profile-pic">
                 {% endif %}
             </div>
 
@@ -80,4 +84,5 @@
     </div>
 
 </body>
+
 </html>

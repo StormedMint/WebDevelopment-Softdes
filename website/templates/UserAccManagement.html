@@ -32,22 +32,25 @@
             <form method="POST" action="{{ url_for('admin.handle_user_actions') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text" name="id" required readonly>
+                    <input type="text" name="id" required readonly maxlength="11"
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text" name="fname" required readonly>
+                    <input type="text" name="fname" required readonly maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text" name="lname" required readonly>
+                    <input type="text" name="lname" required readonly maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text" name="course_section" required readonly>
+                    <input type="text" name="course_section" required readonly maxlength="11">
                 </div>
 
                 <div class="input-group">
@@ -69,12 +72,14 @@
 
             <div class="table-controls">
                 <form method="POST" action="{{ url_for('admin.search_user') }}">
-                    <input type="text" name="search_id" placeholder="Enter ID">
+                    <input type="text" name="search_id" placeholder="Enter ID" pattern="[0-9-]*" inputmode="numeric"
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" maxlength="11">
                     <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
                 </form>
 
                 <form method="POST" action="{{ url_for('admin.search_user') }}">
-                    <input type="text" name="search_name" placeholder="Enter First or Last Name">
+                    <input type="text" name="search_name" placeholder="Enter First or Last Name" maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                     <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
                 </form>
 

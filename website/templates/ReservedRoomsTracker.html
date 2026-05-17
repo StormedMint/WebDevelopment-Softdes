@@ -40,7 +40,8 @@
             <form method="POST" action="{{ url_for('admin.handle_reservation') }}">
                 <div class="input-group">
                     <label>Representative Name</label>
-                    <input type="text" name="representative" required>
+                    <input type="text" name="representative" required maxlength="30"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                 </div>
 
                 <div class="select-arrow1 select-wrapper">
@@ -60,19 +61,20 @@
                 <br>
                 <div class="input-group">
                     <label>Date</label>
-                    <input type="date" name="date" required>
+                    <input type="date" name="date" required maxlength="20">
 
                 </div>
 
                 <div class="input-group" id="custom-time">
                     <label>Time</label>
-                    <input type="text" name="time" id="timeInput" readonly placeholder="Select Time" required>
+                    <input type="text" name="time" id="timeInput" readonly placeholder="Select Time" required
+                        maxlength="11">
                     <div class="time-dropdown" id="timeDropdown"></div>
                 </div>
 
                 <div class="input-group">
                     <label>Reason for Reservation</label>
-                    <input type="text" name="reason" required>
+                    <input type="text" name="reason" required maxlength="255">
                 </div>
 
                 <div class="button-group">
@@ -94,7 +96,8 @@
             <div class="table-controls">
 
                 <form method="POST" action="{{ url_for('admin.filter_reservation_rep') }}">
-                    <input type="text" name="search_rep" placeholder="Enter Representative" required>
+                    <input type="text" name="search_rep" placeholder="Enter Representative" required maxlength="30"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                     <button id="search-id-btn" type="submit">Search Representative</button>
                 </form>
 

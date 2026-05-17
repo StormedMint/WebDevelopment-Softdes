@@ -31,22 +31,22 @@
             <form method="POST" action="{{ url_for('admin.restore_user') }}">
                 <div class="input-group">
                     <label>ID:</label>
-                    <input type="text" name="id" required readonly>
+                    <input type="text" name="id" required readonly maxlength="11">
                 </div>
 
                 <div class="input-group">
                     <label>First Name:</label>
-                    <input type="text" name="fname" required readonly>
+                    <input type="text" name="fname" required readonly maxlength="20">
                 </div>
 
                 <div class="input-group">
                     <label>Last Name:</label>
-                    <input type="text" name="lname" required readonly>
+                    <input type="text" name="lname" required readonly maxlength="20">
                 </div>
 
                 <div class="input-group">
                     <label>Course & Section:</label>
-                    <input type="text" name="course_section" required readonly>
+                    <input type="text" name="course_section" required readonly maxlength="11">
                 </div>
 
                 <div class="input-group">
@@ -66,12 +66,14 @@
             <div class="table-controls">
 
                 <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                    <input type="text" placeholder="Enter ID" name="search_id">
+                    <input type="text" placeholder="Enter ID" name="search_id" maxlength="11"
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')">
                     <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
                 </form>
 
                 <form method="POST" action="{{ url_for('admin.deleted_search_user') }}">
-                    <input type="text" placeholder="Enter First or Last Name" name="search_name">
+                    <input type="text" placeholder="Enter First or Last Name" name="search_name" maxlength="20"
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
                     <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
                 </form>
 

@@ -33,13 +33,14 @@
 
             <div class="input-group">
                 <label>Username:</label>
-                <input type="text" name="username" class="input-field" placeholder="Enter username" required>
+                <input type="text" name="username" class="input-field" placeholder="Enter username" required
+                    maxlength="11">
             </div>
 
             <div class="input-group">
                 <label>Password:</label>
                 <input type="password" name="password" id="password" class="input-field" placeholder="Enter password"
-                    required>
+                    required maxlength="11">
 
                 <button type="button" class="toggle-btn" onclick="togglePassword()">Show Password</button>
                 <script src="{{ url_for('static', filename='JAVASCRIPT/AdminLogin.js') }}"></script>
