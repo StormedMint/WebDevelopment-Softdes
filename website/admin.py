@@ -752,3 +752,194 @@ def search_item_status():
     db.close()
 
     return render_template("LostAndFound.html", items=items)
+
+@admin.route('/search_lost_date', methods=['POST'])
+def search_lost_date():
+
+    search_date = request.form.get('date')
+
+    if not search_date:
+        return redirect(url_for('admin.LostAndFound'))
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT *
+        FROM lost_and_found
+        WHERE DATE(date_time) = %s
+    """, (search_date,))
+
+    items = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    # If nothing found -> refresh page
+    if not items:
+        return redirect(url_for('admin.LostAndFound'))
+
+    return render_template("LostAndFound.html", items=items)
+
+#for clear all sa user accounts
+@admin.route('/clear_all_user', methods=['POST'])
+def clear_all_user():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("SELECT * FROM user_accounts")
+        users = cursor.fetchall()
+
+        #lipat sa archive table
+        for user in users:
+            cursor.execute("""
+                INSERT INTO deleted_user_accounts
+                (id, fname, lname, account_type, course_section, picture)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (
+                user["id"],
+                user["fname"],
+                user["lname"],
+                user["account_type"],
+                user["course_section"],
+                user["picture"]
+            ))
+
+        #delete all
+        cursor.execute("DELETE FROM user_accounts")
+
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing users:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.UserAccManagement'))
+
+#for clear all sa admin accounts
+@admin.route('/clear_all_admin', methods=['POST'])
+def clear_all_admin():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("""SELECT * FROM admin_accounts WHERE type_admin != %s""", ('High Admin',))
+        users = cursor.fetchall()
+
+        #lipat sa archive table
+        for user in users:
+            cursor.execute("""
+                INSERT INTO deleted_admin_accounts
+                (username, password, type_admin)
+                VALUES (%s, %s, %s)
+            """, (
+                user["username"],
+                user["password"],
+                user["type_admin"],
+            ))
+
+        #delete all data
+        cursor.execute("""DELETE FROM admin_accounts WHERE type_admin != %s""", ('High Admin',))
+
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing users:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.AdminAccManagement'))
+
+#for clear all sa deleted user accounts
+@admin.route('/clear_all_deleted_user', methods=['POST'])
+def clear_all_deleted_user():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("DELETE FROM deleted_user_accounts")
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing users:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.DeleteUserManagement'))
+
+#for clear all sa log table
+@admin.route('/clear_all_log_table', methods=['POST'])
+def clear_all_log_table():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("DELETE FROM log_table")
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing log table:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.LogTableManagement'))
+
+#for clear all sa log table
+@admin.route('/clear_all_rooms', methods=['POST'])
+def clear_all_rooms():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("DELETE FROM rooms_reservation")
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing reserved rooms:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.ReservedRoomsTracker'))
+
+#for clear all sa log table
+@admin.route('/clear_all_lost', methods=['POST'])
+def clear_all_lost():
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    try:
+        cursor.execute("DELETE FROM lost_and_found")
+        db.commit()
+
+    except Exception as e:
+        db.rollback()
+        print("Error clearing lost items:", e)
+
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for('admin.LostAndFound'))

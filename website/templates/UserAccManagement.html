@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='CSS/UserAccManagement.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <div class="nav-btn">
@@ -15,12 +17,12 @@
         <a href="{{ url_for('admin.AdminAccManagement') }}" class="glass-btn">Admin Accounts</a>
     </div>
 
-     <!-- HEADER -->
+    <!-- HEADER -->
     <div class="glass-header">
         <h1>USER ACCOUNT MANAGEMENT</h1>
     </div>
 
-        <!-- MAIN CONTET -->
+    <!-- MAIN CONTET -->
     <div class="main-container">
 
         <!-- LEFT: FORM -->
@@ -54,8 +56,10 @@
                 </div>
 
                 <div class="button-group">
-                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit User</button>
-                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete User</button>
+                    <button id="edit-button" type="submit" name="action" value="edit" class="button-text">Edit
+                        User</button>
+                    <button id="delete-button" type="submit" name="action" value="delete" class="button-text">Delete
+                        User</button>
                 </div>
             </form>
         </div>
@@ -63,7 +67,7 @@
         <!-- RIGHT: TABLE PLACEHOLDER -->
         <div class="glass-placeholder">
 
-           <div class="table-controls">
+            <div class="table-controls">
                 <form method="POST" action="{{ url_for('admin.search_user') }}">
                     <input type="text" name="search_id" placeholder="Enter ID">
                     <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
@@ -78,10 +82,12 @@
                     <button type="button" id="refresh-btn">Refresh</button>
                 </a>
                 <a href="{{ url_for('admin.DeletedUserManagement') }}">
-                <button id="archive-btn">View Archived Table</button>
+                    <button id="archive-btn">View Archived Table</button>
                 </a>
                 <button id="export-btn">Export Table</button>
-                <button id="clear-btn">Clear All</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_user') }}">
+                    <button id="clear-btn" type="submit" name="action" value="clear_all_user">Clear All</button>
+                </form>
 
             </div>
 
@@ -98,25 +104,26 @@
                 </thead>
                 <tbody class="user-row">
                     {% if users %}
-                        {% for user in users %}
-                        <tr>
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.fname }}</td>
-                            <td>{{ user.lname }}</td>
-                            <td>{{ user.account_type }}</td>
-                            <td>{{ user.course_section }}</td>
-                        </tr>
-                        {% endfor %}
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.fname }}</td>
+                        <td>{{ user.lname }}</td>
+                        <td>{{ user.account_type }}</td>
+                        <td>{{ user.course_section }}</td>
+                    </tr>
+                    {% endfor %}
                     {% else %}
-                        <tr>
-                            <td colspan="5">No users found</td>
-                        </tr>
+                    <tr>
+                        <td colspan="5">No users found</td>
+                    </tr>
                     {% endif %}
                 </tbody>
-        </table>
-    </div>
-    
-<script src="{{ url_for('static', filename='JAVASCRIPT/UserAccManagement.js') }}"></script>
-    
+            </table>
+        </div>
+
+        <script src="{{ url_for('static', filename='JAVASCRIPT/UserAccManagement.js') }}"></script>
+
 </body>
+
 </html>

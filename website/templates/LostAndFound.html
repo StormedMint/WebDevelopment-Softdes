@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,16 +113,17 @@
                     <button type="submit" id="filter-status-btn">Filter Status</button>
                 </form>
 
-                <form class="control-form" method="POST">
-                    <input type="date" name="date_time">
+                <form class="control-form" method="POST" action="{{ url_for('admin.search_lost_date') }}">
+                    <input type="date" name="date">
                     <button type="submit">Search Date</button>
                 </form>
 
                 <a href="{{ url_for('admin.LostAndFound') }}" class="control-link">
                     <button type="button" id="refresh-btn">Refresh</button>
                 </a>
-
-                <button type="button" id="clear-btn">Clear</button>
+                <form method="POST" action="{{ url_for('admin.clear_all_lost') }}">
+                    <button type="submit" id="clear-btn" value="clear" name="action">Clear</button>
+                </form>
 
             </div>
 
@@ -132,8 +134,7 @@
                         <tr>
                             <th>Item Name</th>
                             <th>Description</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Date & Time</th>
                             <th>Place</th>
                             <th>Finder's Name</th>
                             <th>Finder's Phone No.</th>
@@ -143,22 +144,21 @@
 
                     <tbody>
                         {% if items %}
-                            {% for item in items %}
-                                <tr class="item-row">
-                                    <td>{{ item.item_name }}</td>
-                                    <td>{{ item.description }}</td>
-                                    <td>{{ item.date }}</td>
-                                    <td>{{ item.time }}</td>
-                                    <td>{{ item.place }}</td>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.contact_number }}</td>
-                                    <td>{{ item.Status }}</td>
-                                </tr>
-                            {% endfor %}
+                        {% for item in items %}
+                        <tr class="item-row">
+                            <td>{{ item.item_name }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.date_time }}</td>
+                            <td>{{ item.place }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.contact_number }}</td>
+                            <td>{{ item.Status }}</td>
+                        </tr>
+                        {% endfor %}
                         {% else %}
-                            <tr>
-                                <td colspan="7" class="empty-message">No items found</td>
-                            </tr>
+                        <tr>
+                            <td colspan="7" class="empty-message">No items found</td>
+                        </tr>
                         {% endif %}
                     </tbody>
                 </table>
@@ -171,4 +171,5 @@
     <script src="{{ url_for('static', filename='JAVASCRIPT/LostAndFound.js') }}"></script>
 
 </body>
+
 </html>

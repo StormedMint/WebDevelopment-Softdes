@@ -334,7 +334,7 @@ cancel BUTTON
 .cancel-button {
     position: fixed;
     bottom: 30px;          /* Positions it at the bottom of the screen */
-    left: 45%;             /* Moves the left edge to the exact center of the screen */
+    left: 40%;             /* Moves the left edge to the exact center of the screen */
     transform: translateX(-50%); /* Shifts the button left by half its own width */
     margin-bottom: 170px;
     z-index: 999;
@@ -374,7 +374,7 @@ Confirm BUTTON
 .confirm-button {
     position: fixed;
     bottom: 30px;          /* Positions it at the bottom of the screen */
-    left: 55%;             /* Moves the left edge to the exact center of the screen */
+    left: 60%;             /* Moves the left edge to the exact center of the screen */
     transform: translateX(-50%); /* Shifts the button left by half its own width */
     margin-bottom: 170px;
     z-index: 999;

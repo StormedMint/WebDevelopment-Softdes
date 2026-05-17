@@ -62,7 +62,7 @@ body {
 /* GLASS PANEL for MANAGE ACCOUNTS */
     .glass-panel-acc {
         
-        height: 400px;
+        height: 280px;
         padding: 20px;
         margin: 0px;
         position: relative; /* IMPORTANT */
@@ -127,7 +127,7 @@ body {
 /* GLASS PANEL for CAPACITY TRACKER */
     .glass-panel-cap {
        
-        height: 400px;
+        height: 280px;
         width: auto;
         padding: 20px;
         margin: 0px;
@@ -193,7 +193,7 @@ body {
 /* GLASS PANEL for ROOM RESERVATION */
     .glass-panel-reser {
         
-        height: 400px;
+        height: 280px;
         width: auto;
         padding: 20px;
         margin: 0px;
@@ -259,7 +259,7 @@ body {
 /* GLASS PANEL for LOST AND FOUND */
     .glass-panel-LF {
         
-        height: 400px;
+        height: 280px;
         padding: 20px;
         margin: 0px;
         position: relative; /* IMPORTANT */
