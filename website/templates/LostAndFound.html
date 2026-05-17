@@ -113,8 +113,8 @@
                     <button type="submit" id="filter-status-btn">Filter Status</button>
                 </form>
 
-                <form class="control-form" method="POST">
-                    <input type="date" name="date_time">
+                <form class="control-form" method="POST" action="{{ url_for('admin.search_lost_date') }}">
+                    <input type="date" name="date">
                     <button type="submit">Search Date</button>
                 </form>
 
@@ -134,8 +134,7 @@
                         <tr>
                             <th>Item Name</th>
                             <th>Description</th>
-                            <th>Date</th>
-                            <th>Time</th>
+                            <th>Date & Time</th>
                             <th>Place</th>
                             <th>Finder's Name</th>
                             <th>Finder's Phone No.</th>
@@ -149,8 +148,7 @@
                         <tr class="item-row">
                             <td>{{ item.item_name }}</td>
                             <td>{{ item.description }}</td>
-                            <td>{{ item.date }}</td>
-                            <td>{{ item.time }}</td>
+                            <td>{{ item.date_time }}</td>
                             <td>{{ item.place }}</td>
                             <td>{{ item.name }}</td>
                             <td>{{ item.contact_number }}</td>

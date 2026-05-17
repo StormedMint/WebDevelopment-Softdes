@@ -753,6 +753,34 @@ def search_item_status():
 
     return render_template("LostAndFound.html", items=items)
 
+@admin.route('/search_lost_date', methods=['POST'])
+def search_lost_date():
+
+    search_date = request.form.get('date')
+
+    if not search_date:
+        return redirect(url_for('admin.LostAndFound'))
+
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT *
+        FROM lost_and_found
+        WHERE DATE(date_time) = %s
+    """, (search_date,))
+
+    items = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    # If nothing found -> refresh page
+    if not items:
+        return redirect(url_for('admin.LostAndFound'))
+
+    return render_template("LostAndFound.html", items=items)
+
 #for clear all sa user accounts
 @admin.route('/clear_all_user', methods=['POST'])
 def clear_all_user():
