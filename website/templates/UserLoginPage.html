@@ -83,6 +83,16 @@
 
     </div>
 
+    {% with messages = get_flashed_messages(category_filter=["login_error"]) %}
+        {% if messages %}
+            <script>
+                window.onload = function () {
+                    alert("{{ messages[0] }}");
+                };
+            </script>
+        {% endif %}
+    {% endwith %}
+
 </body>
 
 </html>

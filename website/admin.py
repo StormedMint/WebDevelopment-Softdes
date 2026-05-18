@@ -226,7 +226,7 @@ def handle_user_actions():
         cursor.execute("DELETE FROM user_accounts WHERE id=%s", (user_id,))
 
         db.commit()
-        flash("User archived and deleted!")
+        flash("User archived and deleted!", "Deleted_acc")
 
     cursor.close()
     db.close()

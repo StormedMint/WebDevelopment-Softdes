@@ -124,6 +124,9 @@ def UserLoginPage():
             connection.commit()
             cursor.close()
             connection.close()
+        
+        else:
+            flash("Invalid ID! Please try again.", "login_error")
 
     # THIS MUST ALWAYS RUN
     return render_template(
