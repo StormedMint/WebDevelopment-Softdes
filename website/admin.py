@@ -215,16 +215,17 @@ def admin_search_username():
     cursor.execute("""
         SELECT username, password, type_admin
         FROM admin_accounts
-        WHERE username = %s
-    """, (username,))
+        WHERE username LIKE %s
+    """, (f"%{username}%",))
 
-    admin = cursor.fetchone()
+    admins = cursor.fetchall()
 
     cursor.close()
     db.close()
 
-    # convert single result into list (so Jinja table still works)
-    admins = [admin] if admin else []
+    if not admins:
+        flash("No accounts found!")
+        return redirect(url_for('admin.AdminAccManagement'))
 
     return render_template(
         "AdminAccManagement.html",
@@ -421,8 +422,8 @@ def search_user():
         
         cursor.execute("""
             SELECT * FROM user_accounts
-            WHERE id = %s
-        """, (search_id,))
+            WHERE id LIKE %s
+        """, (f"%{search_id}%",))
 
         users = cursor.fetchall()
 
