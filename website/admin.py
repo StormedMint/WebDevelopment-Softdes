@@ -191,14 +191,24 @@ def handle_user_actions():
     # EDIT function
     if action == "edit":
 
+        valid_id = (
+            (len(user_id) == 11 and re.fullmatch(r"\d{4}-\d{6}", user_id)) or #Checks for prof formatting
+            (len(user_id) == 10 and user_id.isdigit()) #Checks for normal ID formatting
+        )
+
+        if not valid_id:
+            flash("Invalid ID format!")
+            return redirect(url_for('admin.UserAccManagement'))
+
         cursor.execute("""
             UPDATE user_accounts
-            SET fname=%s,
+            SET id = %s,
+                fname=%s,
                 lname=%s,
                 course_section=%s,
                 account_type=%s
             WHERE id=%s
-        """, (fname, lname, course_section, account_type, user_id))
+        """, (user_id, fname, lname, course_section, account_type, user_id))
 
         db.commit()
         flash("User updated successfully!")
@@ -658,6 +668,11 @@ def filter_reservation_rep():
     cursor.close()
     db.close()
 
+    
+    if not reservations:
+        flash("No Reservations Under Name Searched!")
+        return redirect(url_for('admin.ReservedRoomsTracker'))
+
     return render_template(
         "ReservedRoomsTracker.html",
         reservations=reservations
@@ -683,6 +698,10 @@ def filter_reservation_date():
     """, (formatted_date,))
 
     reservations = cursor.fetchall()
+
+    if not reservations:
+        flash("No Reservations Under The Date Searched!")
+        return redirect(url_for('admin.ReservedRoomsTracker'))
 
     cursor.close()
     db.close()

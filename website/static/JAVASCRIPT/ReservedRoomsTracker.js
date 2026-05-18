@@ -113,7 +113,9 @@ document.querySelectorAll("form").forEach(form => {
 
         if (select && select.value === "all-rooms") {
             e.preventDefault();
-            alert("Please select a valid room option.");
+
+            // Refresh / return to full Reserved Rooms Tracker page
+            window.location.href = "/ReservedRoomsTracker";
         }
     });
 });

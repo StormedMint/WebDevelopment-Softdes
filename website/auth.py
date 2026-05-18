@@ -162,9 +162,9 @@ def AdminLogIn():
             db.close()
             return render_template("AdminLogIn.html", admin=None)
 
-        # 4. Check password
-        if admin_data["password"] != password:
-            flash("Incorrect password!")
+        # 4. Check password and username bro bro (checks capitalization)
+        if admin_data["password"] != password or admin_data["username"] != username:
+            flash("Username or password is incorrect!")
             cursor.close()
             db.close()
             return render_template("AdminLogIn.html", admin=None)
