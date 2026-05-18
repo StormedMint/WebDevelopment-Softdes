@@ -107,7 +107,7 @@ def handle_admin_actions():
         existing = cursor.fetchone()
 
         if not existing:
-            flash("User not found!")
+            flash("Select a User Account!")
             return redirect(url_for('admin.AdminAccManagement'))
 
         cursor.execute("DELETE FROM admin_accounts WHERE username = %s", (username,))
@@ -182,8 +182,10 @@ def handle_user_actions():
 
     #Validation to check if theres a selected ID
 
-    if not user_id and fname and lname and course_section and account_type:
-        flash("Select a row first!")
+    if not user_id and not fname and not lname and not course_section and not account_type:
+        flash("Select a User Account First!")
+        cursor.close()
+        db.close()
         return redirect(url_for('admin.UserAccManagement'))
 
     # EDIT function
@@ -226,7 +228,7 @@ def handle_user_actions():
         cursor.execute("DELETE FROM user_accounts WHERE id=%s", (user_id,))
 
         db.commit()
-        flash("User archived and deleted!", "Deleted_acc")
+        flash("User archived and deleted!")
 
     cursor.close()
     db.close()
@@ -256,6 +258,7 @@ def search_user():
         if not valid_id:
             cursor.close()
             db.close()
+            flash("Please Enter a Valid ID.")
             return redirect(url_for('admin.UserAccManagement'))
         
         cursor.execute("""
@@ -269,6 +272,11 @@ def search_user():
     elif action == "search_name":
 
         search_name = request.form.get('search_name', '').strip()
+
+        if not search_name:
+            flash("Please enter a name before trying to search!")
+            return redirect(url_for('admin.UserAccManagement'))
+
 
         # VALIDATION kung may numbers
         if any(char.isdigit() for char in search_name):
@@ -289,6 +297,7 @@ def search_user():
 
     # pag wala nahanap refresh lang page
     if not users:
+        flash("No users found!")
         return redirect(url_for('admin.UserAccManagement'))
 
     return render_template("UserAccManagement.html", users=users)
@@ -325,6 +334,11 @@ def log_search_user():
     if action == "search_id":
         search_id = request.form.get('search_id', '').strip()
 
+        if not search_id:
+            flash("Please enter an ID!")
+            return redirect(url_for('admin.LogTableManagement'))
+
+
         # VALIDATION dapat digit sila or make dash sa pang lima (profs)
         valid_id = (
             search_id.isdigit() or
@@ -334,6 +348,7 @@ def log_search_user():
         if not valid_id:
             cursor.close()
             db.close()
+            flash("Please enter a valid ID")
             return redirect(url_for('admin.LogTableManagement'))
         
         cursor.execute("""
@@ -342,6 +357,10 @@ def log_search_user():
         """, (search_id,))
 
         users = cursor.fetchall()
+
+        if not users:
+            flash("ID not found!")
+            return redirect(url_for('admin.LogTableManagement'))
 
     # NAME search 
     elif action == "search_name":
@@ -362,8 +381,9 @@ def log_search_user():
 
         users = cursor.fetchall()
 
-    cursor.close()
-    db.close()
+        cursor.close()
+        db.close()
+        flash("Invalid Name.")
 
     # pag wala nahanap refresh lang page
     if not users:
@@ -405,6 +425,7 @@ def restore_user():
     if existing_user:
         cursor.close()
         db.close()
+        flash("User Account Already Exist")
         return redirect(url_for('admin.DeletedUserManagement'))
         #flash "User already exists in main table")
 
@@ -418,6 +439,7 @@ def restore_user():
     if not archived_user:
         cursor.close()
         db.close()
+        flash("User not found")
         return redirect(url_for('admin.DeletedUserManagement'))
         # flash "User not found in archive"
 
@@ -444,6 +466,7 @@ def restore_user():
     db.commit()
     cursor.close()
     db.close()
+    flash("Restored Successfully!")
 
     return redirect(url_for('admin.DeletedUserManagement'))
 
@@ -923,7 +946,7 @@ def clear_all_user():
 
     except Exception as e:
         db.rollback()
-        print("Error clearing users:", e)
+        flash("Error clearing users:", e)
 
     finally:
         cursor.close()
@@ -961,7 +984,7 @@ def clear_all_admin():
 
     except Exception as e:
         db.rollback()
-        print("Error clearing users:", e)
+        flash("Error clearing users:", e)
 
     finally:
         cursor.close()
@@ -982,7 +1005,7 @@ def clear_all_deleted_user():
 
     except Exception as e:
         db.rollback()
-        print("Error clearing users:", e)
+        flash("Error clearing users:", e)
 
     finally:
         cursor.close()
@@ -1003,7 +1026,7 @@ def clear_all_log_table():
 
     except Exception as e:
         db.rollback()
-        print("Error clearing log table:", e)
+        flash("Error clearing log table:", e)
 
     finally:
         cursor.close()
@@ -1011,7 +1034,7 @@ def clear_all_log_table():
 
     return redirect(url_for('admin.LogTableManagement'))
 
-#for clear all sa log table
+#for clear all sa room reservation
 @admin.route('/clear_all_rooms', methods=['POST'])
 def clear_all_rooms():
 
@@ -1019,12 +1042,35 @@ def clear_all_rooms():
     cursor = db.cursor(dictionary=True)
 
     try:
-        cursor.execute("DELETE FROM rooms_reservation")
+
+        cursor.execute("SELECT * FROM room_reservation")
+        reservations = cursor.fetchall()
+
+        if not reservations:
+            flash("No reserved rooms to clear!")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
+
+        #lipat sa archive table
+        for reservation in reservations:
+            cursor.execute("""
+                INSERT INTO deleted_room_reservation
+                (room, date, time, rep_name, reason)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (
+                reservation["room"],
+                reservation["date"],
+                reservation["time"],
+                reservation["rep_name"],
+                reservation["reason"]
+            ))
+
+        #delete all
+        cursor.execute("DELETE FROM room_reservation")
         db.commit()
 
     except Exception as e:
         db.rollback()
-        print("Error clearing reserved rooms:", e)
+        flash("Error clearing reserved rooms:", e)
 
     finally:
         cursor.close()
@@ -1032,7 +1078,7 @@ def clear_all_rooms():
 
     return redirect(url_for('admin.ReservedRoomsTracker'))
 
-#for clear all sa log table
+#for clear all sa lost and found table
 @admin.route('/clear_all_lost', methods=['POST'])
 def clear_all_lost():
 
@@ -1040,12 +1086,36 @@ def clear_all_lost():
     cursor = db.cursor(dictionary=True)
 
     try:
+        
+        cursor.execute("SELECT * FROM lost_and_found")
+        items = cursor.fetchall()
+
+        if not items:
+            flash("No items to clear!")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
+
+        #lipat sa archive table
+        for item in items:
+            cursor.execute("""
+                INSERT INTO deleted_lost_and_found
+                (room, date, time, rep_name, reason)
+                VALUES (%s, %s, %s, %s, %s)
+            """, (
+                item["item_name"],
+                item["description"],
+                item["place"],
+                item["name"],
+                item["contact_number"],
+                item["Status"],
+                item["date_time"]
+            ))
+
         cursor.execute("DELETE FROM lost_and_found")
         db.commit()
 
     except Exception as e:
         db.rollback()
-        print("Error clearing lost items:", e)
+        flash("Error clearing lost items:", e)
 
     finally:
         cursor.close()
@@ -1054,7 +1124,6 @@ def clear_all_lost():
     return redirect(url_for('admin.LostAndFound'))
 
 #for capacity tracking admin side add/deduct
-
 @admin.route("/update-capacity", methods=["POST"])
 def update_capacity():
     area = request.form.get("area")
@@ -1143,6 +1212,6 @@ def export_table(table_name):
     # Export
     df.to_excel(file_path, index=False)
 
-    flash(f"Exported successfully to Desktop:\n{file_path}")
+    flash(f"Exported successfully to Desktop: {file_path}")
 
     return redirect(request.referrer or url_for('admin.UserAccManagement'))

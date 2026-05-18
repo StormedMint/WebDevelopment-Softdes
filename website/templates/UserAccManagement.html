@@ -12,6 +12,26 @@
 
 <body>
 
+    <!-- For pop up alerts-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <script>
+                    alert("{{ message }}");
+                </script>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- For export-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{ messages[0]|tojson }}");
+            </script>
+        {% endif %}
+    {% endwith %}
+
     <div class="nav-btn">
         <a href="{{ url_for('admin.AdminDashboard') }}" class="glass-btn">Return Dashboard</a>
         <a href="{{ url_for('admin.AdminAccManagement') }}" class="glass-btn">Admin Accounts</a>
@@ -73,13 +93,13 @@
             <div class="table-controls">
                 <form method="POST" action="{{ url_for('admin.search_user') }}">
                     <input type="text" name="search_id" placeholder="Enter ID" pattern="[0-9-]*" inputmode="numeric"
-                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" maxlength="11">
+                        oninput="this.value = this.value.replace(/[^0-9-]/g, '')" maxlength="11" required>
                     <button id="search-id-btn" type="submit" name="action" value="search_id">Search by ID</button>
                 </form>
 
                 <form method="POST" action="{{ url_for('admin.search_user') }}">
                     <input type="text" name="search_name" placeholder="Enter First or Last Name" maxlength="20"
-                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" required>
                     <button id="search-name-btn" type="submit" name="action" value="search_name">Search by Name</button>
                 </form>
 
@@ -130,17 +150,6 @@
         </div>
 
         <script src="{{ url_for('static', filename='JAVASCRIPT/UserAccManagement.js') }}"></script>
-
-        {% with messages = get_flashed_messages(category_filter=["Deleted_accr"]) %}
-        {% if messages %}
-            <script>
-                window.onload = function () {
-                    alert("{{ messages[0] }}");
-                };
-            </script>
-        {% endif %}
-    {% endwith %}
-
 </body>
 
 </html>
