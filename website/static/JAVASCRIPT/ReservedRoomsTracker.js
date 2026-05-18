@@ -119,3 +119,28 @@ document.querySelectorAll("form").forEach(form => {
         }
     });
 });
+
+// Capitalize first letter of each word
+    const repInput = document.querySelector("input[name='representative']");
+    const repSearch = document.querySelector("input[name='search_rep']");
+
+    function capitalizeWords(input) {
+        input.value = input.value
+            .toLowerCase()
+            .replace(/\b[a-z]/g, char => char.toUpperCase());
+    }
+
+    // for rep name entry
+    if (repInput) {
+        repInput.addEventListener("input", () => {
+            repInput.value = repInput.value.replace(/[^a-zA-Z\s]/g, '');
+            capitalizeWords(repInput);
+        });
+    }
+        // for rep name search entry
+    if (repSearch) {
+        repSearch.addEventListener("input", () => {
+            repSearch.value = repSearch.value.replace(/[^a-zA-Z\s]/g, '');
+            capitalizeWords(repSearch);
+        });
+    }

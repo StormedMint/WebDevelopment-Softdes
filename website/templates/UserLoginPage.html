@@ -78,6 +78,7 @@
                 <p>ID/LRN: {{ user.id if user else '' }}</p>
                 <p>Name: {{ user.full_name if user else (user.fname ~ ' ' ~ user.lname if user else '') }}</p>
                 <p>Course: {{ user.course_section if user else '' }}</p>
+                <p>Account Type: {{ user.account_type if user else '' }}</p>
             </div>
         </div>
 

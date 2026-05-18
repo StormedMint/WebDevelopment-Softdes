@@ -60,8 +60,7 @@
             <form method="POST" action="{{ url_for('admin.handle_reservation') }}">
                 <div class="input-group">
                     <label>Representative Name</label>
-                    <input type="text" name="representative" required maxlength="30"
-                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                    <input type="text" name="representative" required maxlength="30">
                 </div>
 
                 <div class="select-arrow1 select-wrapper">
@@ -116,8 +115,7 @@
             <div class="table-controls">
 
                 <form method="POST" action="{{ url_for('admin.filter_reservation_rep') }}">
-                    <input type="text" name="search_rep" placeholder="Enter Representative" required maxlength="30"
-                        oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+                    <input type="text" name="search_rep" placeholder="Enter Representative" required maxlength="30">
                     <button id="search-id-btn" type="submit">Search Representative</button>
                 </form>
 

@@ -48,76 +48,157 @@ def AdminAccManagement():
         admins=admins
     )
 
+@admin.route('/set_selected_admin', methods=['POST'])
+def set_selected_admin():
+    username = request.form.get('username', '').strip()
+
+    if not username:
+        return {"success": False, "message": "No username received"}
+
+    session["selected_admin_username"] = username
+
+    return {"success": True, "selected_admin_username": username}
+
 @admin.route('/handle_admin_actions', methods=['POST'])
 def handle_admin_actions():
 
     action = request.form.get('action')
-    username = request.form.get('username')
-    password = request.form.get('password')
+    username = request.form.get('username', '').strip()
+    password = request.form.get('password', '').strip()
 
     db = get_db_connection()
     cursor = db.cursor(dictionary=True)
 
-    # ADD function
-    if action == "add":
+    try:
+        # ADD function
+        if action == "add":
 
-        type_admin = "Librarian"
+            type_admin = "Librarian"
 
-        if not all([username, password]):
-            flash("All fields required for adding!")
-            return redirect(url_for('admin.AdminAccManagement'))
+            if not all([username, password]):
+                flash("All fields required for adding!")
+                return redirect(url_for('admin.AdminAccManagement'))
 
-        cursor.execute("SELECT * FROM admin_accounts WHERE username = %s", (username,))
-        if cursor.fetchone():
-            flash("Username already exists!")
-            return redirect(url_for('admin.AdminAccManagement'))
+            cursor.execute("""
+                SELECT username 
+                FROM admin_accounts 
+                WHERE username = %s
+            """, (username,))
 
-        cursor.execute("""
-            INSERT INTO admin_accounts (username, password, type_admin)
-            VALUES (%s, %s, %s)
-        """, (username, password, type_admin))
+            if cursor.fetchone():
+                flash("Username already exists!")
+                return redirect(url_for('admin.AdminAccManagement'))
 
-        db.commit()
-        flash("Admin added!")
+            cursor.execute("""
+                INSERT INTO admin_accounts (username, password, type_admin)
+                VALUES (%s, %s, %s)
+            """, (username, password, type_admin))
 
-    # EDIT function
-    elif action == "edit":
+            db.commit()
+            flash("Admin added successfully!")
 
-        if not username:
-            flash("Username required to edit!")
-            return redirect(url_for('admin.AdminAccManagement'))
+        elif action == "edit":
 
-        cursor.execute("""
-            UPDATE admin_accounts
-            SET password = %s
-            WHERE username = %s
-        """, (password, username))
+            old_username = session.get("selected_admin_username")
 
-        db.commit()
-        flash("Admin updated!")
+            if not old_username:
+                flash("Please select an admin account first!")
+                return redirect(url_for('admin.AdminAccManagement'))
 
-    # DELETE function
-    elif action == "delete":
+            if not all([username, password]):
+                flash("Username and password are required to edit!")
+                return redirect(url_for('admin.AdminAccManagement'))
+            
+            if username != old_username:
+                flash("Please select an admin account first!")
+                return redirect(url_for('admin.AdminAccManagement'))
 
-        if not username:
-            flash("Username required to delete!")
-            return redirect(url_for('admin.AdminAccManagement'))
+            # Check if old username still exists
+            cursor.execute("""
+                SELECT username
+                FROM admin_accounts
+                WHERE username = %s
+            """, (old_username,))
 
-        cursor.execute("SELECT * FROM admin_accounts WHERE username = %s", (username,))
-        existing = cursor.fetchone()
+            existing_old = cursor.fetchone()
 
-        if not existing:
-            flash("Select a User Account!")
-            return redirect(url_for('admin.AdminAccManagement'))
+            if not existing_old:
+                flash("Admin account not found!")
+                return redirect(url_for('admin.AdminAccManagement'))
 
-        cursor.execute("DELETE FROM admin_accounts WHERE username = %s", (username,))
-        db.commit()
+            # If username was changed, check duplicate
+            if username != old_username:
+                cursor.execute("""
+                    SELECT username
+                    FROM admin_accounts
+                    WHERE username = %s
+                """, (username,))
 
-        flash("Admin deleted successfully!")
+                existing_new = cursor.fetchone()
 
-    #Finally
-    cursor.close()
-    db.close()
+                if existing_new:
+                    flash("Username already exists!")
+                    return redirect(url_for('admin.AdminAccManagement'))
+
+            # Update username and password
+            cursor.execute("""
+                UPDATE admin_accounts
+                SET username = %s,
+                    password = %s
+                WHERE username = %s
+            """, (username, password, old_username))
+
+            db.commit()
+
+            # Update session to new username
+            session["selected_admin_username"] = username
+
+            flash("Admin account updated successfully!")
+
+        # DELETE function
+        elif action == "delete":
+
+            selected_username = session.get("selected_admin_username")
+            type_admin = request.form.get('type_admin', '').strip()
+
+            if not selected_username:
+                flash("Please select an admin account first!")
+                return redirect(url_for('admin.AdminAccManagement'))
+            
+            if type_admin == "High Admin":
+                flash("High Admin Cannot Be Deleted!")
+                return redirect(url_for('admin.AdminAccManagement'))
+
+            cursor.execute("""
+                SELECT * 
+                FROM admin_accounts 
+                WHERE username = %s
+            """, (selected_username,))
+
+            existing = cursor.fetchone()
+
+            if not existing:
+                flash("Admin account not found!")
+                return redirect(url_for('admin.AdminAccManagement'))
+
+            cursor.execute("""
+                DELETE FROM admin_accounts 
+                WHERE username = %s
+            """, (selected_username,))
+
+            db.commit()
+
+            session.pop("selected_admin_username", None)
+
+            flash("Admin deleted successfully!")
+
+    except Exception as e:
+        db.rollback()
+        flash(f"Error: {e}")
+
+    finally:
+        cursor.close()
+        db.close()
 
     return redirect(url_for('admin.AdminAccManagement'))
 
@@ -167,81 +248,142 @@ def UserAccManagement():
 
     return render_template("UserAccManagement.html", users=users)
 
+@admin.route('/set_selected_user', methods=['POST'])
+def set_selected_user():
+    user_id = request.form.get('user_id', '').strip()
+
+    if not user_id:
+        return {"success": False, "message": "No user ID received"}
+
+    session["selected_user_id"] = user_id
+
+    return {"success": True, "selected_user_id": user_id}
+
 @admin.route('/handle_user_actions', methods=['POST'])
 def handle_user_actions():
 
     action = request.form.get('action')
-    user_id = request.form.get('id')
-    fname = request.form.get('fname')
-    lname = request.form.get('lname')
-    course_section = request.form.get('course_section')
-    account_type = request.form.get('account_type')
+    new_id = request.form.get('id', '').strip()
+    fname = request.form.get('fname', '').strip()
+    lname = request.form.get('lname', '').strip()
+    course_section = request.form.get('course_section', '').strip()
+    account_type = request.form.get('account_type', '').strip()
 
     db = get_db_connection()
-    cursor = db.cursor()
+    cursor = db.cursor(dictionary=True)
 
-    #Validation to check if theres a selected ID
+    try:
+        if action == "edit":
 
-    if not user_id and not fname and not lname and not course_section and not account_type:
-        flash("Select a User Account First!")
+            old_id = session.get("selected_user_id")
+
+            if not old_id:
+                flash("Please select a user from the table first!")
+                return redirect(url_for('admin.UserAccManagement'))
+
+            if not all([new_id, fname, lname, course_section, account_type]):
+                flash("Please fill in all fields!")
+                return redirect(url_for('admin.UserAccManagement'))
+
+            valid_id = (
+                (len(new_id) == 11 and re.fullmatch(r"\d{4}-\d{6}", new_id)) or
+                (len(new_id) == 10 and new_id.isdigit())
+            )
+
+            if not valid_id:
+                flash("Invalid ID format!")
+                return redirect(url_for('admin.UserAccManagement'))
+
+            # Check if new ID already exists
+            if new_id != old_id:
+                cursor.execute("""
+                    SELECT id 
+                    FROM user_accounts 
+                    WHERE id = %s
+                """, (new_id,))
+
+                existing = cursor.fetchone()
+
+                if existing:
+                    flash("ID already exists!")
+                    return redirect(url_for('admin.UserAccManagement'))
+
+            cursor.execute("""
+                UPDATE user_accounts
+                SET id = %s,
+                    fname = %s,
+                    lname = %s,
+                    course_section = %s,
+                    account_type = %s
+                WHERE id = %s
+            """, (
+                new_id,
+                fname,
+                lname,
+                course_section,
+                account_type,
+                old_id
+            ))
+
+            db.commit()
+
+            if cursor.rowcount == 0:
+                flash("User not found!")
+            else:
+                session["selected_user_id"] = new_id
+                flash("User updated successfully!")
+
+        elif action == "delete":
+
+            old_id = session.get("selected_user_id")
+
+            if not old_id:
+                flash("Please select a user from the table first!")
+                return redirect(url_for('admin.UserAccManagement'))
+
+            cursor.execute("""
+                SELECT * 
+                FROM user_accounts 
+                WHERE id = %s
+            """, (old_id,))
+
+            user = cursor.fetchone()
+
+            if not user:
+                flash("User not found!")
+                return redirect(url_for('admin.UserAccManagement'))
+
+            cursor.execute("""
+                INSERT INTO deleted_user_accounts
+                (id, fname, lname, account_type, course_section, picture)
+                VALUES (%s, %s, %s, %s, %s, %s)
+            """, (
+                user["id"],
+                user["fname"],
+                user["lname"],
+                user["account_type"],
+                user["course_section"],
+                user["picture"]
+            ))
+
+            cursor.execute("""
+                DELETE FROM user_accounts
+                WHERE id = %s
+            """, (old_id,))
+
+            db.commit()
+
+            session.pop("selected_user_id", None)
+
+            flash("User archived and deleted!")
+
+    except Exception as e:
+        db.rollback()
+        flash(f"Error: {e}")
+
+    finally:
         cursor.close()
         db.close()
-        return redirect(url_for('admin.UserAccManagement'))
-
-    # EDIT function
-    if action == "edit":
-
-        valid_id = (
-            (len(user_id) == 11 and re.fullmatch(r"\d{4}-\d{6}", user_id)) or #Checks for prof formatting
-            (len(user_id) == 10 and user_id.isdigit()) #Checks for normal ID formatting
-        )
-
-        if not valid_id:
-            flash("Invalid ID format!")
-            return redirect(url_for('admin.UserAccManagement'))
-
-        cursor.execute("""
-            UPDATE user_accounts
-            SET id = %s,
-                fname=%s,
-                lname=%s,
-                course_section=%s,
-                account_type=%s
-            WHERE id=%s
-        """, (user_id, fname, lname, course_section, account_type, user_id))
-
-        db.commit()
-        flash("User updated successfully!")
-
-    # DELETE function
-    elif action == "delete":
-
-        cursor.execute("SELECT * FROM user_accounts WHERE id=%s", (user_id,))
-        user = cursor.fetchone()
-
-
-        # insert into archive table
-        cursor.execute("""
-            INSERT INTO deleted_user_accounts
-            (id, fname, lname, account_type, course_section, picture)
-            VALUES (%s,%s,%s,%s,%s,%s)
-        """, (
-            user[0],  # id
-            user[1],  # fname
-            user[2],  # lname
-            user[3],  # account_type
-            user[4],  # course_section
-            user[5],  # picture
-        ))
-
-        # delete from main table
-        cursor.execute("DELETE FROM user_accounts WHERE id=%s", (user_id,))
-
-        db.commit()
-        flash("User archived and deleted!")
-
-    cursor.close()
-    db.close()
 
     return redirect(url_for('admin.UserAccManagement'))
 
@@ -423,7 +565,7 @@ def restore_user():
     user_id = request.form.get('id')
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(dictionary=True, buffered=True)
 
     #Duplication check sa main table
     cursor.execute("""
@@ -472,11 +614,11 @@ def restore_user():
         DELETE FROM deleted_user_accounts
         WHERE id = %s
     """, (user_id,))
+    flash("Restored Successfully!")
 
     db.commit()
     cursor.close()
     db.close()
-    flash("Restored Successfully!")
 
     return redirect(url_for('admin.DeletedUserManagement'))
 
@@ -494,6 +636,13 @@ def deleted_search_user():
     if action == "search_id":
         search_id = request.form.get('search_id', '').strip()
 
+        if not search_id:
+            cursor.close()
+            db.close()
+            flash("Enter an ID!")
+            return redirect(url_for('admin.DeletedUserManagement'))
+
+
         # VALIDATION dapat digit sila or make dash sa pang lima (profs)
         valid_id = (
             search_id.isdigit() or
@@ -503,6 +652,7 @@ def deleted_search_user():
         if not valid_id:
             cursor.close()
             db.close()
+            flash("Enter a valid ID format!")
             return redirect(url_for('admin.DeletedUserManagement'))
         
         cursor.execute("""
@@ -516,6 +666,12 @@ def deleted_search_user():
     elif action == "search_name":
 
         search_name = request.form.get('search_name', '').strip()
+
+        if not search_name:
+            cursor.close()
+            db.close()
+            flash("Enter a Name First!")
+            return redirect(url_for('admin.DeletedUserManagement'))
 
         # VALIDATION kung may numbers
         if any(char.isdigit() for char in search_name):
@@ -531,11 +687,12 @@ def deleted_search_user():
 
         archive = cursor.fetchall()
 
-    cursor.close()
-    db.close()
+        cursor.close()
+        db.close()
 
     # pag wala nahanap refresh lang page
     if not archive:
+        flash("User Account not found!")
         return redirect(url_for('admin.DeletedUserManagement'))
 
     return render_template("DeletedUserManagement.html", archive=archive)

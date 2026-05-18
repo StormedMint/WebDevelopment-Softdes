@@ -52,12 +52,12 @@
             <form method="POST" action="{{ url_for('admin.handle_admin_actions') }}">
                 <div class="input-group">
                     <label>Username:</label>
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" required maxlength="11">
                 </div>
 
                 <div class="input-group">
                     <label>Password:</label>
-                    <input type="text" name="password" required>
+                    <input type="text" name="password" required maxlength="11">
                 </div>
 
                 <div class="input-group">

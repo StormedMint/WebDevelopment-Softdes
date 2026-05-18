@@ -26,3 +26,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+// Capitalize first letter of each word
+    const findersName = document.querySelector("input[name='finder_name']");
+
+    function capitalizeWords(input) {
+        input.value = input.value
+            .toLowerCase()
+            .replace(/\b[a-z]/g, char => char.toUpperCase());
+    }
+
+    // for finders name 
+    if (findersName) {
+        findersName.addEventListener("input", () => {
+            findersName.value = findersName.value.replace(/[^a-zA-Z\s]/g, '');
+            capitalizeWords(findersName);
+        });
+    }

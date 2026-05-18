@@ -18,6 +18,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             idInput.value = cells[0].innerText.trim();
+
+            // Para ma-store sa session yung current selected ID
+            fetch("/set_selected_user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: "user_id=" + encodeURIComponent(cells[0].innerText.trim())
+            });
             fnameInput.value = cells[1].innerText.trim();
             lnameInput.value = cells[2].innerText.trim();
             accountTypeInput.value = cells[3].innerText.trim();
@@ -29,6 +38,27 @@ document.addEventListener("DOMContentLoaded", () => {
             lnameInput.removeAttribute("readonly");
             courseSectionInput.removeAttribute("readonly");
 
+    function capitalizeWords(input) {
+        input.value = input.value
+            .toLowerCase()
+            .replace(/\b[a-z]/g, char => char.toUpperCase());
+    }
+
+    fnameInput.addEventListener("input", () => {
+        fnameInput.value = fnameInput.value.replace(/[^a-zA-Z\s]/g, '');
+        capitalizeWords(fnameInput);
+    });
+
+    lnameInput.addEventListener("input", () => {
+        lnameInput.value = lnameInput.value.replace(/[^a-zA-Z\s]/g, '');
+        capitalizeWords(lnameInput);
+    });
+
+    courseSectionInput.addEventListener("input", () => {
+        courseSectionInput.value = courseSectionInput.value
+            .replace(/[^a-zA-Z0-9-\s]/g, '')
+            .toUpperCase();
+    });
         });
 
     });

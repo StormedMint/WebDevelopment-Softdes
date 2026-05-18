@@ -87,6 +87,8 @@ function capitalizeWords(input) {
         .toLowerCase()
         .replace(/\b\w/g, char => char.toUpperCase());
 }
+
+//for capitalizations
 const fnameInput = document.getElementById("fname");
 const lnameInput = document.getElementById("lname");
 const sectionInput = document.getElementById("course_section");
@@ -102,6 +104,6 @@ lnameInput.addEventListener("input", () => {
 });
 sectionInput.addEventListener("input", () => {
     sectionInput.value = sectionInput.value
-        .replace(/[^a-zA-Z0-9-]/g, '') // only letters, numbers, and dash
-        .toUpperCase();                // auto uppercase
+        .replace(/[^a-zA-Z0-9-\s]/g, '')
+        .toUpperCase();                
 });

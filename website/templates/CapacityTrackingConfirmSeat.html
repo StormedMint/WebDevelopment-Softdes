@@ -17,6 +17,13 @@
 
 <body accept=".jpeg">
 
+    <!--topright status bar student/ prof-->
+    <div class="status-bar"> 
+     
+        <p>Logged In As : {{ session.get("account_type") }}</p>
+     
+    </div>
+
     <body data-account-type="{{ account_type }}"></body>
     </div>
 
@@ -457,7 +464,13 @@ LEGEND PANEL
             </script>
         {% endif %}
     {% endwith %}
+
+
+
+
     
 </body>
+
+    
 
 </html>
