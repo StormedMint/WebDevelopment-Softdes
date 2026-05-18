@@ -753,6 +753,10 @@ def handle_lost_found():
         if not all([item_name, description, place, finder_name, phone, status]):
             flash("All fields are required!")
             return redirect(url_for('admin.LostAndFound'))
+        
+        if len(phone) !=11:
+            flash("Please Enter a correct phone number!")
+            return redirect(url_for('admin.LostAndFound'))
 
         cursor.execute("""
             INSERT INTO lost_and_found
