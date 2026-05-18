@@ -80,3 +80,28 @@ retakeBtn.addEventListener('click', () => {
     captureBtn.style.display = 'inline-block';
     retakeBtn.style.display = 'none';
 });
+
+//for auto capital first letter ng fname and lname
+function capitalizeWords(input) {
+    input.value = input.value
+        .toLowerCase()
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+const fnameInput = document.getElementById("fname");
+const lnameInput = document.getElementById("lname");
+const sectionInput = document.getElementById("course_section");
+
+fnameInput.addEventListener("input", () => {
+    fnameInput.value = fnameInput.value.replace(/[^a-zA-Z\s]/g, '');
+    capitalizeWords(fnameInput);
+});
+
+lnameInput.addEventListener("input", () => {
+    lnameInput.value = lnameInput.value.replace(/[^a-zA-Z\s]/g, '');
+    capitalizeWords(lnameInput);
+});
+sectionInput.addEventListener("input", () => {
+    sectionInput.value = sectionInput.value
+        .replace(/[^a-zA-Z0-9-]/g, '') // only letters, numbers, and dash
+        .toUpperCase();                // auto uppercase
+});
