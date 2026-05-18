@@ -117,3 +117,20 @@ def confirm_selected_room():
     conn.close()
 
     return redirect(url_for("views.CapacityTrackingUserLogin"))
+
+@views.route('/get_capacity_data')
+def get_capacity_data():
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    cursor.execute("""
+        SELECT area, current, capacity, floor
+        FROM vacancy_table
+    """)
+
+    rooms = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return {"rooms": rooms}

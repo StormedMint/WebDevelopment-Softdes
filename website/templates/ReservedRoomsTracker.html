@@ -57,7 +57,7 @@
         <div class="glass-form">
             <h3>Add Reservation</h3>
 
-            <form method="POST" action="{{ url_for('admin.handle_reservation') }}">
+            <form id="reservationForm" method="POST" action="{{ url_for('admin.handle_reservation') }}">
                 <div class="input-group">
                     <label>Representative Name</label>
                     <input type="text" name="representative" required maxlength="30">

@@ -144,3 +144,50 @@ document.querySelectorAll("form").forEach(form => {
             capitalizeWords(repSearch);
         });
     }
+
+    const reservationForm = document.getElementById("reservationForm");
+
+if (reservationForm) {
+    reservationForm.addEventListener("submit", function (e) {
+        const clickedButton = document.activeElement;
+
+        // Only validate when Add Reservation button is clicked
+        if (clickedButton && clickedButton.value === "add") {
+            const room = document.querySelector("select[name='room']");
+            const date = document.querySelector("input[name='date']");
+            const time = document.querySelector("input[name='time']");
+            const rep = document.querySelector("input[name='representative']");
+            const reason = document.querySelector("input[name='reason']");
+
+            if (!rep.value.trim()) {
+                e.preventDefault();
+                alert("Please enter representative name.");
+                return;
+            }
+
+            if (!room.value || room.value === "all-rooms") {
+                e.preventDefault();
+                alert("Please select a room.");
+                return;
+            }
+
+            if (!date.value.trim()) {
+                e.preventDefault();
+                alert("Please select a date.");
+                return;
+            }
+
+            if (!time.value.trim()) {
+                e.preventDefault();
+                alert("Please select a time.");
+                return;
+            }
+
+            if (!reason.value.trim()) {
+                e.preventDefault();
+                alert("Please enter reason for reservation.");
+                return;
+            }
+        }
+    });
+}

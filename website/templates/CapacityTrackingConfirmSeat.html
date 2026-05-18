@@ -441,6 +441,9 @@ LEGEND PANEL
             Selected
         </div>
 
+        <script>
+            const capacityDataUrl = "{{ url_for('views.get_capacity_data') }}";
+        </script>
 
         <!--FOR CAPACITY TRACKING COLORS and SELECTION PROCESS-->
         <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingConfirmSeat.js') }}"></script>
@@ -465,12 +468,6 @@ LEGEND PANEL
         {% endif %}
     {% endwith %}
 
-
-
-
-    
 </body>
-
-    
 
 </html>

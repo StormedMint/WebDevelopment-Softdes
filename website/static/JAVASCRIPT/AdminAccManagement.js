@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
+    // Clear old selected admin when page loads
+    fetch("/clear_selected_admin", {
+        method: "POST"
+    });
+
     document.querySelectorAll(".admin-row").forEach(row => {
         row.addEventListener("click", () => {
 

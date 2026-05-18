@@ -48,6 +48,11 @@ def AdminAccManagement():
         admins=admins
     )
 
+@admin.route('/clear_selected_admin', methods=['POST'])
+def clear_selected_admin():
+    session.pop("selected_admin_username", None)
+    return {"success": True}
+
 @admin.route('/set_selected_admin', methods=['POST'])
 def set_selected_admin():
     username = request.form.get('username', '').strip()
@@ -107,10 +112,6 @@ def handle_admin_actions():
 
             if not all([username, password]):
                 flash("Username and password are required to edit!")
-                return redirect(url_for('admin.AdminAccManagement'))
-            
-            if username != old_username:
-                flash("Please select an admin account first!")
                 return redirect(url_for('admin.AdminAccManagement'))
 
             # Check if old username still exists
@@ -248,6 +249,11 @@ def UserAccManagement():
 
     return render_template("UserAccManagement.html", users=users)
 
+@admin.route('/clear_selected_user', methods=['POST'])
+def clear_selected_user():
+    session.pop("selected_user_id", None)
+    return {"success": True}
+
 @admin.route('/set_selected_user', methods=['POST'])
 def set_selected_user():
     user_id = request.form.get('user_id', '').strip()
@@ -337,7 +343,7 @@ def handle_user_actions():
 
             old_id = session.get("selected_user_id")
 
-            if not old_id:
+            if not old_id or new_id != old_id:
                 flash("Please select a user from the table first!")
                 return redirect(url_for('admin.UserAccManagement'))
 
@@ -733,10 +739,20 @@ def handle_reservation():
 
     if action == "add":
 
-        # CONVERT DATE FORMAT
-        formatted_date = datetime.strptime(date, "%Y-%m-%d").strftime("%m/%d/%Y")
+        if not all([room, date, time, rep, reason]):
+            flash("Please finish all the fields.")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
 
-        # CONFLICT CHECK (same room + date + time)
+        if room == "all-rooms":
+            flash("Please select a room.")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
+
+        try:
+            formatted_date = datetime.strptime(date, "%Y-%m-%d").strftime("%m/%d/%Y")
+        except ValueError:
+            flash("Invalid date format.")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
+
         cursor.execute("""
             SELECT * FROM room_reservation
             WHERE room = %s AND date = %s AND time = %s
@@ -750,7 +766,6 @@ def handle_reservation():
             flash("Room is already booked at this date and time!")
             return redirect(url_for('admin.ReservedRoomsTracker'))
 
-        # INSERT
         cursor.execute("""
             INSERT INTO room_reservation (room, date, time, rep_name, reason)
             VALUES (%s, %s, %s, %s, %s)
@@ -760,6 +775,7 @@ def handle_reservation():
         cursor.close()
         db.close()
 
+        flash("Reservation added successfully!")
         return redirect(url_for('admin.ReservedRoomsTracker'))
     
     # DELETE + ARCHIVE
@@ -1019,6 +1035,7 @@ def search_lost_item():
 
     # VALIDATION (no empty, optional: no numbers restriction if you want)
     if not search_item:
+        flash("No item found!")
         return redirect(url_for('admin.LostAndFound'))
 
     db = get_db_connection()
@@ -1089,6 +1106,7 @@ def search_lost_date():
 
     # If nothing found -> refresh page
     if not items:
+        flash("No lost item in this date.")
         return redirect(url_for('admin.LostAndFound'))
 
     return render_template("LostAndFound.html", items=items)
@@ -1278,16 +1296,17 @@ def clear_all_lost():
         for item in items:
             cursor.execute("""
                 INSERT INTO deleted_lost_and_found
-                (room, date, time, rep_name, reason)
-                VALUES (%s, %s, %s, %s, %s)
+                (item_name, description, date_time, place, name,
+                           contact_number, Status)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """, (
                 item["item_name"],
                 item["description"],
+                item["date_time"],
                 item["place"],
                 item["name"],
                 item["contact_number"],
-                item["Status"],
-                item["date_time"]
+                item["Status"]
             ))
 
         cursor.execute("DELETE FROM lost_and_found")

@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+
+    // Clear old selected user when page loads
+    fetch("/clear_selected_user", {
+        method: "POST"
+    });
+
+
     const idInput = document.querySelector("input[name='id']");
     const fnameInput = document.querySelector("input[name='fname']");
     const lnameInput = document.querySelector("input[name='lname']");

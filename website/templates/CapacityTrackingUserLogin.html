@@ -42,7 +42,7 @@
             <div class="room-grid">
 
                 <!-- ROOM CARD -->
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Reading Area">
 
                     <!-- FUTURE DB INTEGRATION -->
                     <!-- Example:
@@ -74,7 +74,7 @@
 
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Internet Section">
                     <div class="room-icon">🌐</div>
                     <h3>Internet Section</h3>
                     <p class="capacity-text">
@@ -96,7 +96,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Digital Hub">
                     <div class="room-icon">💻</div>
                     <h3>Digital Hub</h3>
                     <p class="capacity-text">
@@ -118,7 +118,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Discussion RoomSecond">
                     <div class="room-icon">🗣</div>
                     <h3>Discussion Room</h3>
                     <p class="capacity-text">
@@ -140,7 +140,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="GAD Corner">
                     <div class="room-icon">📚</div>
                     <h3>Special Collection& GAD Corner</h3>
                     <p class="capacity-text">
@@ -162,7 +162,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Booklatan">
                     <div class="room-icon">📖</div>
                     <h3>Booklatan</h3>
                     <p class="capacity-text">
@@ -198,7 +198,7 @@
 
             <div class="center-grid">
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Lounge Area">
                     <div class="room-icon">🛋</div>
                     <h3>Lounge Area</h3>
                     <p class="capacity-text">
@@ -220,7 +220,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Faculty Room">
                     <div class="room-icon">👨‍🏫</div>
                     <h3>Faculty Room</h3>
                     <p class="capacity-text">
@@ -256,7 +256,7 @@
 
             <div class="room-grid">
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Graduate Reading Area">
                     <div class="room-icon">👤</div>
                     <h3>Graduate Reading Area</h3>
                     <p class="capacity-text">
@@ -278,7 +278,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Undergraduate Reading Area">
                     <div class="room-icon">👤</div>
                     <h3>Undergraduate Reading Area</h3>
                     <p class="capacity-text">
@@ -300,7 +300,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity data-area="AVR"">
                     <div class="room-icon">🎥</div>
                     <h3>AVR</h3>
                     <p class="capacity-text">
@@ -322,7 +322,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Grad School">
                     <div class="room-icon">🎓</div>
                     <h3>Graduate School Section</h3>
                     <p class="capacity-text">
@@ -344,7 +344,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Discussion RoomThird">
                     <div class="room-icon">🗣</div>
                     <h3>Discussion Room</h3>
                     <p class="capacity-text">
@@ -366,7 +366,7 @@
                     </p>
                 </div>
 
-                <div class="room-card low-capacity">
+                <div class="room-card low-capacity" data-area="Multimedia Room">
                     <div class="room-icon">🎬</div>
                     <h3>Multimedia Room</h3>
                     <p class="capacity-text">
@@ -460,6 +460,12 @@
             });
         });
     </script>
+
+    <script>
+        const capacityDataUrl = "{{ url_for('views.get_capacity_data') }}";
+    </script>
+
+    <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingUserLogin.js') }}"></script>
 
 </body>
 
