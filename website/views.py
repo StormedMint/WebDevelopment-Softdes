@@ -56,17 +56,18 @@ def CapacityTrackingAdminSide():
         account_type=session.get("account_type")  # IMPORTANT
     )
 
-
 @views.route("/confirm-selected-room", methods=["POST"])
 def confirm_selected_room():
     selected_area = request.form.get("selected_area")
     account_type = session.get("account_type")
 
     if not selected_area:
+        flash("Please select an area!")
         return redirect(url_for("views.CapacityTrackingUserLogin"))
 
     if not account_type:
-        return "Not logged in", 401
+        flash("Not Logged In.")
+        return redirect(url_for("views.CapacityTrackingUserLogin"))
 
     allowed_student = [
         "Reading Area",
@@ -84,6 +85,7 @@ def confirm_selected_room():
     }
 
     if selected_area not in allowed_map.get(account_type, []):
+        flash("You are not allowed to enter this area")
         return redirect(url_for("views.CapacityTrackingConfirmSeat"))
 
     conn = get_db_connection()
@@ -98,7 +100,8 @@ def confirm_selected_room():
     room = cursor.fetchone()
 
     if not room:
-        return "Room not found", 404
+        flash("Room not found")
+        return redirect(url_for("views.CapacityTrackingConfirmSeat"))
 
     if room["current"] >= room["capacity"]:
         return "Room full", 400

@@ -438,14 +438,26 @@ LEGEND PANEL
         <!--FOR CAPACITY TRACKING COLORS and SELECTION PROCESS-->
         <script src="{{ url_for('static', filename='JAVASCRIPT/CapacityTrackingConfirmSeat.js') }}"></script>
 
-        {% with messages = get_flashed_messages() %}
+    <!-- For pop up alerts-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-        <script>
-            alert("{{ messages[0] }}");
-        </script>
+            {% for category, message in messages %}
+                <script>
+                    alert("{{ message }}");
+                </script>
+            {% endfor %}
         {% endif %}
-        {% endwith %}
+    {% endwith %}
 
+    <!-- For export-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{ messages[0]|tojson }}");
+            </script>
+        {% endif %}
+    {% endwith %}
+    
 </body>
 
 </html>

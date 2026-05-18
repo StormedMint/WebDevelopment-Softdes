@@ -17,6 +17,26 @@
 
 <body>
 
+    <!-- For pop up alerts-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <script>
+                    alert("{{ message }}");
+                </script>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- For export-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <script>
+                alert("{{ messages[0]|tojson }}");
+            </script>
+        {% endif %}
+    {% endwith %}
+
     <!-- ===================== TOP NAVIGATION BUTTONS ===================== -->
 
     <div class="top-left-button">
