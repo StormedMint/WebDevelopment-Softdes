@@ -468,16 +468,16 @@ def LogTableManagement():
     cursor = db.cursor(dictionary=True)
 
     cursor.execute("""
-        SELECT id, fname, lname, account_type, course_section, date
+        SELECT *
         FROM log_table
-        ORDER BY date DESC
+        ORDER BY date ASC
     """)
-    logs = cursor.fetchall()
+    users = cursor.fetchall()
 
     cursor.close()
     db.close()
 
-    return render_template("LogTableManagement.html", logs=logs)
+    return render_template("LogTableManagement.html", logs=users)
 
 @admin.route('/log_search_user', methods=['POST'])
 def log_search_user():
@@ -542,10 +542,10 @@ def log_search_user():
 
         cursor.close()
         db.close()
-        flash("Invalid Name.")
 
     # pag wala nahanap refresh lang page
     if not users:
+        flash("Name not found!")
         return redirect(url_for('admin.LogTableManagement'))
 
     return render_template("LogTableManagement.html", logs=users)
@@ -783,6 +783,8 @@ def handle_reservation():
 
     elif action == "delete":
 
+        
+
         # find matching record (match lahat ng records)
         cursor.execute("""
             SELECT * FROM room_reservation
@@ -791,6 +793,10 @@ def handle_reservation():
         """, (room, date, time, rep))
 
         row = cursor.fetchone()
+
+        if all([room, date, time, rep, reason]):
+            flash("Deleted Current Input.")
+            return redirect(url_for('admin.ReservedRoomsTracker'))
 
         if row:
 
@@ -991,8 +997,15 @@ def handle_lost_found():
 
         cursor.execute("""
             SELECT * FROM lost_and_found
-            WHERE item_name=%s
-        """, (item_name,))
+            WHERE item_name = %s
+            AND description = %s
+            AND place = %s
+            AND name = %s
+            AND contact_number = %s
+            AND Status = %s
+            LIMIT 1
+        """, (item_name, description, place, finder_name, phone, status))
+
         item = cursor.fetchone()
 
         if not item:
@@ -1002,23 +1015,38 @@ def handle_lost_found():
         # Move to archive
         cursor.execute("""
             INSERT INTO deleted_lost_and_found
-            (item_name, description, place, name, contact_number, status, date_time)
+            (item_name, description, date_time, place, name, contact_number, Status)
             VALUES (%s,%s,%s,%s,%s,%s,%s)
         """, (
             item["item_name"],
             item["description"],
+            item["date_time"],
+            item["place"],
+            item["name"],
+            item["contact_number"],
+            item["Status"]
+        ))
+
+        # Delete from main
+        cursor.execute("""
+            DELETE FROM lost_and_found
+            WHERE item_name = %s
+            AND description = %s
+            AND place = %s
+            AND name = %s
+            AND contact_number = %s
+            AND Status = %s
+            AND date_time = %s
+            LIMIT 1
+        """, (
+            item["item_name"],
+            item["description"],                
             item["place"],
             item["name"],
             item["contact_number"],
             item["Status"],
             item["date_time"]
         ))
-
-        # Delete from main
-        cursor.execute("""
-            DELETE FROM lost_and_found
-            WHERE item_name=%s
-        """, (item_name,))
 
         db.commit()
         flash("Item archived and deleted!")
